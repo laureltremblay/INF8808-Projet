@@ -1,0 +1,68 @@
+/* Fixer la hauteur de la page */
+html, body, .content {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* En-tête fixe (les boutons) */
+.header-container {
+    display: flex;
+    width: 100%;
+    height: 50px;  /* Ajuste la hauteur des boutons */
+}
+
+/* Boutons pleine largeur */
+.header-button {
+    flex-grow: 1;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.header-button:hover {
+    background-color: #bbb;
+}
+
+.header-button.active {
+    background-color: #aaa;
+}
+
+/* Zone du graphique qui prend tout l'espace restant */
+.viz-container {
+    flex-grow: 1;  /* Prend tout l'espace disponible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Le graph occupe 100% de la zone restante */
+.graph {
+    width: 100%;
+    height: 100%;
+}
+
+.viz-container {
+    display: flex;
+    flex-grow: 1;
+}
+
+.graph-container {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-left: 1px solid #ccc;
+}
+
