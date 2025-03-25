@@ -11,6 +11,8 @@ app.title = 'NHL Shot Data'
 
 data_df = pd.read_csv('assets/shots_2023_2024.csv')
 data_df = abs_xCord(data_df)
+# # only keep shots with distance > 30
+# data_df = data_df[data_df['shotDistance'] < 30]
 
 # Register all callbacks
 register_main_page_callbacks(app, data_df)
