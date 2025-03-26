@@ -2,15 +2,16 @@ import plotly.express as px
 import base64
 import os
 
+# Encode the local image as base64
+image_path = 'assets/rink.jpg'
+image_url = None
+if image_path and os.path.exists(image_path):
+    with open(image_path, "rb") as f:
+        encoded_image = base64.b64encode(f.read()).decode()
+        image_url = f"data:image/jpg;base64,{encoded_image}"
+
+
 def get_scatter_figure(data_df):
-    # Encode the local image as base64
-    image_path = 'assets/rink.jpg'
-    image_url = None
-    if image_path and os.path.exists(image_path):
-        with open(image_path, "rb") as f:
-            encoded_image = base64.b64encode(f.read()).decode()
-            image_url = f"data:image/jpg;base64,{encoded_image}"
-    
     # Create the scatter plot
     fig = px.scatter(data_df, x='xCord', y='yCord', color='teamCode')
     
