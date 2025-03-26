@@ -38,7 +38,7 @@ def get_heatmap_figure(data_df):
         yaxis=dict(showgrid=False),  # Disable y-axis gridlines
     )
 
-        # Add background image if available
+    # TODO: FIX background image so that if fits better
     if image_url:
         fig.update_layout(
             images=[

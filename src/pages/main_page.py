@@ -1,4 +1,5 @@
 from dash import html, dcc
+from components.filter import get_filter_container
 from graphs.scatter import get_scatter_figure
 
 def get_main_page_content(data_df) -> html.Div:
@@ -18,25 +19,7 @@ def get_main_page_content(data_df) -> html.Div:
                         displayModeBar=False
                     ))
                 ]),
-                html.Div(id='filter-container', children=[
-                    html.H3("Filters", className="filter-title"),
-                    html.Div(className='filter', children=[
-                        html.Label("Player"),
-                        dcc.Dropdown(id='player-filter', multi=True, placeholder='Select player')
-                    ]),
-                    html.Div(className='filter', children=[
-                        html.Label("Team"),
-                        dcc.Dropdown(id='team-filter', multi=True, placeholder='Select team')
-                    ]),
-                    html.Div(className='filter', children=[
-                        html.Label("Shot Type"),
-                        dcc.Dropdown(id='shot-type-filter', multi=True, placeholder='Select shot type')
-                    ]),
-                    html.Div(className='filter', children=[
-                        html.Label("Season"),
-                        dcc.Dropdown(id='season-filter', multi=True, placeholder='Select season')
-                    ]),
-                ])
+                get_filter_container()
             ])
         ]),
     ])

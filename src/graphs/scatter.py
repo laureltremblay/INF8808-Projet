@@ -27,7 +27,7 @@ def get_scatter_figure(data_df):
     # Update trace to make points smaller and more visible
     fig.update_traces(marker=dict(size=5))
     
-    # Add background image if available
+    # TODO: FIX background image so that if fits better
     if image_url:
         fig.update_layout(
             images=[
