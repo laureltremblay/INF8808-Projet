@@ -9,22 +9,21 @@ def register_main_page_callbacks(app, data_df):
         Output('heatmap-button', 'className'),
         Output('scatter-button', 'className'),
         Input('scatter-button', 'n_clicks'),
+        Input('scatter-button', 'className'),
         Input('heatmap-button', 'n_clicks'),
-        Input('main-choice-dropdown', 'value')  # Merge dropdown input
+        Input('main-choice-dropdown', 'value'),
     )
-    def update_figure(scatter_clicks, heatmap_clicks, selected_teams):
-        print("Triggered:", ctx.triggered_id)
-
-        # Determine which button was clicked
-        if ctx.triggered_id == 'heatmap-button':
-            return get_heatmap_figure(data_df), 'header-button heatmap-button active', 'header-button scatter-button'
-        
-        # If the scatter plot is selected, filter the data
+    def update_figure(scatter_clicks, scatter_class, heatmap_clicks, selected_teams):
         filtered_df = data_df
         if selected_teams:
             filtered_df = data_df[data_df['teamCode'].isin([selected_teams] if isinstance(selected_teams, str) else selected_teams)]
         
-        return get_scatter_figure(filtered_df), 'header-button heatmap-button', 'header-button scatter-button active'
+        if ctx.triggered_id == 'heatmap-button':
+            return get_heatmap_figure(filtered_df), 'header-button heatmap-button active', 'header-button scatter-button'
+        elif ctx.triggered_id == 'scatter-button' or scatter_class == 'header-button scatter-button active':
+            return get_scatter_figure(filtered_df), 'header-button heatmap-button', 'header-button scatter-button active'
+        else: 
+            return get_heatmap_figure(filtered_df), 'header-button heatmap-button active', 'header-button scatter-button'
 
     @app.callback(
         Output('main-choice-dropdown', 'placeholder'),
