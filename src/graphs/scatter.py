@@ -2,6 +2,7 @@ import plotly.express as px
 import base64
 import os
 
+
 # Encode the local image as base64
 image_path = 'assets/rink.jpg'
 image_url = None
@@ -11,13 +12,17 @@ if image_path and os.path.exists(image_path):
         image_url = f"data:image/jpg;base64,{encoded_image}"
 
 
-def get_scatter_figure(data_df):
-    # Create the scatter plot
-    fig = px.scatter(data_df, x='xCord', y='yCord', color='teamCode')
+def get_scatter_figure(data_df, color_var: str = 'teamCode'):
+    fig = px.scatter(data_df, x='xCordAdjusted', y='yCordAdjusted', color=color_var)
     
     # Customize the plot layout
     fig.update_layout(
-        showlegend=False,
+        # showlegend=False,
+        legend=dict(
+            itemclick=False,  # Prevent hiding a trace when clicking the legend
+            itemdoubleclick=False  # Prevent isolating a trace on double-click
+            
+        ),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',  # Transparent background
         xaxis=dict(showgrid=False),  # Disable x-axis gridlines

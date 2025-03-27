@@ -4,13 +4,13 @@ import plotly.express as px
 import pandas as pd
 from callbacks.main_page_callbacks import register_main_page_callbacks
 from pages.main_page import get_main_page_content
-from preprocess import abs_xCord
+from preprocess import  basic_filtering
 
 app = dash.Dash(__name__)
 app.title = 'NHL Shot Data'
 
 data_df = pd.read_csv('assets/shots_2023_2024.csv')
-data_df = abs_xCord(data_df)
+data_df = basic_filtering(data_df)
 
 # Register all callbacks
 register_main_page_callbacks(app, data_df)

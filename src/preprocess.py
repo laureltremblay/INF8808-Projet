@@ -7,9 +7,3 @@ def basic_filtering(df):
     df = df[df['event'] == 'GOAL']
     return df
 
-def abs_xCord(df):
-    """
-    Take the absolute value of the xCord column.
-    """
-    df['xCord'] = df['xCord'].apply(lambda x: abs(x))
-    return df
