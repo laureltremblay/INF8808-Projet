@@ -3,6 +3,7 @@ from dash import Input, Output, ctx, dcc, html
 import plotly.express as px
 import pandas as pd
 from callbacks.main_page_callbacks import register_main_page_callbacks
+from pages.advanced_stats_page import get_advanced_content
 from pages.main_page import get_main_page_content
 from preprocess import  basic_filtering
 
@@ -10,7 +11,8 @@ app = dash.Dash(__name__)
 app.title = 'NHL Shot Data'
 
 data_df = pd.read_csv('assets/shots_2023_2024.csv')
-data_df = basic_filtering(data_df)
+non_filtered_data_df = data_df.copy(deep=True)
+data_df = basic_filtering(data_df) # This only keeps the goals!
 
 # Register all callbacks
 register_main_page_callbacks(app, data_df)
@@ -40,15 +42,8 @@ app.layout = html.Div(className='content', children=[
 )
 def update_page(*_):
     if ctx.triggered_id == 'advanced-button':
-        return "header-button", "header-button active", get_advanced_content()  
+        return "header-button", "header-button active", get_advanced_content(non_filtered_data_df)  
     return "header-button active", "header-button", get_main_page_content(data_df) 
-
-# TODO: Move to its own file with own implementation
-def get_advanced_content():
-    return html.Div([
-        html.H2("Advanced Statistics Page"),
-        html.P("Here you can add advanced statistics or charts.")
-    ])
 
 if __name__ == "__main__":
     app.run_server(debug=True, port=8050)
