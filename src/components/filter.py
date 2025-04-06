@@ -105,3 +105,52 @@ def get_filter_container():
             ),
         ])
     ])
+
+def get_filter_pie_charts():
+    return html.Div(id='filter-container', children=[
+        html.Hr(),
+        html.Div(children=[
+            dcc.RadioItems(
+                id='season-choice',
+                options=[
+                    {'label': 'Tous', 'value': 'all'},
+                    {'label': 'Saison régulière', 'value': 'regular_season'},
+                    {'label': 'Séries éliminatoires', 'value': 'playoffs'},
+                ],
+                value='all',
+                labelStyle={'display': 'block'}
+            ),
+        ]),
+        html.Hr(),
+        html.Div(
+            children=[
+                dcc.RadioItems(
+                    id='period-choice',
+                    options=[
+                        {'label': 'Toutes', 'value': 'all'},
+                        {'label': '1ère période', 'value': '1'},
+                        {'label': '2ème période', 'value': '2'},
+                        {'label': '3ème période', 'value': '3'},
+                        {'label': 'Prolongation', 'value': '4'}
+                    ],
+                    value='all',
+                    labelStyle={'display': 'block'}
+                )
+            ]
+        ),
+        html.Hr(),
+        html.Div(
+            children=[
+                dcc.RadioItems(
+                    id='home-away-choice',
+                    options=[
+                        {'label': 'Toutes', 'value': 'all'},
+                        {'label': 'Équipe locale', 'value': 'home'},
+                        {'label': 'Équipe visiteuse', 'value': 'away'},
+                    ],
+                    value='home',
+                    labelStyle={'display': 'block'}
+                )
+            ]
+        ),
+    ])
