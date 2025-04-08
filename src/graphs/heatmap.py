@@ -15,17 +15,26 @@ if image_path and os.path.exists(image_path):
 def get_heatmap_figure(data_df):
     # Create the heatmap plot
     fig = go.Figure(go.Histogram2dContour(
-        x=data_df['xCordAdjusted'], 
-        y=data_df['yCordAdjusted'], 
-        contours=dict(
-            showlabels=True,
-            labelfont=dict(
-                size=12,
-                color='white'
-            )
-        ),
-        opacity=0.5
-    ))
+    x=data_df['xCordAdjusted'], 
+    y=data_df['yCordAdjusted'], 
+    contours=dict(
+        coloring="heatmap",
+        showlabels=True,
+        labelfont=dict(
+            size=14,
+            color='black'
+        )
+    ),
+    colorscale=[
+        [0.0, 'rgba(0,0,0,0)'],  # Transparent for low density
+        [0.3, 'blue'],           # Low-mid values
+        [0.7, 'orange'],
+        [1.0, 'red']
+    ],
+    zmin=10,  # Only show from 10 upward
+    opacity=0.7
+    )
+)
     
     # Customize the plot layout
     fig.update_layout(
