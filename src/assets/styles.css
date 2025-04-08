@@ -1,16 +1,14 @@
 /* Full height for better layout */
 html,
-body,
-.content {
-  height: 100%;
+body {
+  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-  overflow-x: hidden; /* Prevents horizontal scrolling */
-  overflow-y: auto; /* Allows vertical scrolling */
+  overflow: hidden;
   width: 100%;
 }
 
@@ -105,8 +103,8 @@ body,
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
-  max-width: 1400px; /* Limits how wide it can go */
-  margin: 0 auto; /* ← Centers it horizontally */
+  max-width: 1400px;
+  margin: 0 auto;
   width: 100%;
 }
 
@@ -117,7 +115,7 @@ body,
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%; /* ← Remove this if present */
+  width: 100%;
   min-width: 600px;
 }
 

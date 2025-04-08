@@ -21,7 +21,6 @@ def get_scatter_figure(data_df, color_var: str = 'teamCode'):
         legend=dict(
             itemclick=False,  # Prevent hiding a trace when clicking the legend
             itemdoubleclick=False  # Prevent isolating a trace on double-click
-            
         ),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',  # Transparent background
