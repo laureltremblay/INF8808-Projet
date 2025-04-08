@@ -31,7 +31,7 @@ def get_heatmap_figure(data_df):
         [0.7, 'orange'],
         [1.0, 'red']
     ],
-    zmin=10,  # Only show from 10 upward
+    zmin=10,
     opacity=0.7
     )
 )

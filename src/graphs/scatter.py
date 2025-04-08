@@ -17,15 +17,14 @@ def get_scatter_figure(data_df, color_var: str = 'teamCode'):
     
     # Customize the plot layout
     fig.update_layout(
-        # showlegend=False,
         legend=dict(
-            itemclick=False,  # Prevent hiding a trace when clicking the legend
-            itemdoubleclick=False  # Prevent isolating a trace on double-click
+            itemclick=False,
+            itemdoubleclick=False
         ),
         paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',  # Transparent background
-        xaxis=dict(showgrid=False),  # Disable x-axis gridlines
-        yaxis=dict(showgrid=False),  # Disable y-axis gridlines
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=False),
+        yaxis=dict(showgrid=False),
     )
     
     # Update trace to make points smaller and more visible
@@ -34,7 +33,7 @@ def get_scatter_figure(data_df, color_var: str = 'teamCode'):
     fig.update_layout(
     xaxis=dict(
         range=[0, 100],
-        domain=[0, 0.9],  # Back to original size
+        domain=[0, 0.9],
         showgrid=False,
         zeroline=False,
     ),
