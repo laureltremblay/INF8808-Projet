@@ -32,6 +32,23 @@ def get_scatter_plot_pictogram_data(df):
 
     # We combine the two DataFrames to get the goals scored and allowed by each team througout the season
     scatter_plot_data = teams_goal_scored.merge(teams_goal_scored_against, 'left', 'teamCode')
+    
+    # We add the category each team belongs to in terms of goals scored and goals allowed
+    goals_scored_mean = scatter_plot_data['goalsScored'].mean()
+    goals_allowed_mean = scatter_plot_data['goalsScoredAgainst'].mean()
+    
+    scatter_plot_data['Category'] = scatter_plot_data.apply(
+        lambda x:
+            'Good Offensively and Good Defensively' if x['goalsScored'] > goals_scored_mean and 
+                                                       x['goalsScoredAgainst'] <= goals_allowed_mean
+            else 'Good Offensively and Bad Defensively' if x['goalsScored'] > goals_scored_mean and 
+                                                           x['goalsScoredAgainst'] > goals_allowed_mean
+            else 'Bad Offensively and Good Defensively' if x['goalsScored'] <= goals_scored_mean and 
+                                                           x['goalsScoredAgainst'] <= goals_allowed_mean
+            else 'Bad Offensively and Bad Defensively',
+        axis=1
+    )
+    
     scatter_plot_data.sort_values(by = 'teamCode', ascending = True, inplace = True)
     
     return scatter_plot_data
