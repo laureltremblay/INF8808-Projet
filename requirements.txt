@@ -9,3 +9,5 @@ pandas
 plotly
 numpy
 base64
+Image
+Path
