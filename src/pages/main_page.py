@@ -11,13 +11,18 @@ def get_main_page_content(data_df) -> html.Div:
             ]),
             html.Div(className='graph-and-filters', children=[
                 html.Div(className='graph', id='main-graph-div', children=[
-                    dcc.Graph(figure=get_scatter_figure(data_df), id='main-graph', config=dict(
-                        scrollZoom=False,
-                        showTips=False,
-                        showAxisDragHandles=False,
-                        doubleClick=False,
-                        displayModeBar=False
-                    ))
+                    dcc.Graph(
+                        figure=get_scatter_figure(data_df),
+                        id='main-graph',
+                        config=dict(
+                            scrollZoom=False,
+                            showTips=False,
+                            showAxisDragHandles=False,
+                            doubleClick=False,
+                            displayModeBar=False
+                        ),
+                        style={"height": "80vh"}  # or "700px" if you want fixed size
+                    )
                 ]),
                 get_filter_container()
             ])

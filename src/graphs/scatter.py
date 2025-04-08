@@ -31,24 +31,40 @@ def get_scatter_figure(data_df, color_var: str = 'teamCode'):
     
     # Update trace to make points smaller and more visible
     fig.update_traces(marker=dict(size=5))
-    
-    # TODO: FIX background image so that if fits better
-    if image_url:
-        fig.update_layout(
-            images=[
-                dict(
-                    source=image_url,
-                    xref="paper",
-                    yref="paper",
-                    x=0,
-                    y=1,
-                    sizex=1,
-                    sizey=1,
-                    sizing="stretch",
-                    opacity=0.5,
-                    layer="below"
-                )
-            ]
+
+    fig.update_layout(
+    xaxis=dict(
+        range=[0, 100],
+        domain=[0, 0.9],  # Back to original size
+        showgrid=False,
+        zeroline=False,
+        dtick=10  # This will make the intervals smaller (every 10 units)
+    ),
+    yaxis=dict(
+        range=[-40, 40],
+        showgrid=False,
+        zeroline=False,
+        scaleanchor="x"
+    ),
+    images=[
+        dict(
+            source=image_url,
+            xref="x",
+            yref="y",
+            x=0,
+            y=40,
+            sizex=100,
+            sizey=80,
+            sizing="stretch",
+            opacity=0.5,
+            layer="below"
         )
+    ],
+    margin=dict(l=40, r=40, t=20, b=40),
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    legend=dict(itemclick=False, itemdoubleclick=False)
+)
+
     
     return fig
