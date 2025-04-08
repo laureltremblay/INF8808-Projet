@@ -26,8 +26,8 @@ def get_heatmap_figure(data_df):
         )
     ),
     colorscale=[
-        [0.0, 'rgba(0,0,0,0)'],  # Transparent for low density
-        [0.3, 'blue'],           # Low-mid values
+        [0.0, 'rgba(0,0,0,0)'],
+        [0.3, 'blue'],
         [0.7, 'orange'],
         [1.0, 'red']
     ],
@@ -40,16 +40,16 @@ def get_heatmap_figure(data_df):
     fig.update_layout(
         showlegend=False,
         paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',  # Transparent background
-        xaxis=dict(showgrid=False),  # Disable x-axis gridlines
-        yaxis=dict(showgrid=False),  # Disable y-axis gridlines
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=False),
+        yaxis=dict(showgrid=False),
     )
 
     fig.update_layout(
     xaxis=dict(
         title="xCordAdjusted",
         range=[0, 100],
-        domain=[0, 0.9],  # Back to original size
+        domain=[0, 0.9],
         showgrid=False,
         zeroline=False,
     ),
