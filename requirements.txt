@@ -8,3 +8,5 @@ flask-failsafe
 pandas
 plotly
 numpy
+Image
+Path
