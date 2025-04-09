@@ -15,45 +15,69 @@ if image_path and os.path.exists(image_path):
 def get_heatmap_figure(data_df):
     # Create the heatmap plot
     fig = go.Figure(go.Histogram2dContour(
-        x=data_df['xCordAdjusted'], 
-        y=data_df['yCordAdjusted'], 
-        contours=dict(
-            showlabels=True,
-            labelfont=dict(
-                size=12,
-                color='white'
-            )
-        ),
-        opacity=0.5
-    ))
-
+    x=data_df['xCordAdjusted'], 
+    y=data_df['yCordAdjusted'], 
+    contours=dict(
+        coloring="heatmap",
+        showlabels=True,
+        labelfont=dict(
+            size=14,
+            color='black'
+        )
+    ),
+    colorscale=[
+        [0.0, 'rgba(0,0,0,0)'],
+        [0.3, 'blue'],
+        [0.7, 'orange'],
+        [1.0, 'red']
+    ],
+    zmin=10,
+    opacity=0.7
+    )
+)
     
     # Customize the plot layout
     fig.update_layout(
         showlegend=False,
         paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',  # Transparent background
-        xaxis=dict(showgrid=False),  # Disable x-axis gridlines
-        yaxis=dict(showgrid=False),  # Disable y-axis gridlines
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=False),
+        yaxis=dict(showgrid=False),
     )
 
-    # TODO: FIX background image so that if fits better
-    if image_url:
-        fig.update_layout(
-            images=[
-                dict(
-                    source=image_url,
-                    xref="paper",
-                    yref="paper",
-                    x=0,
-                    y=1,
-                    sizex=1,
-                    sizey=1,
-                    sizing="stretch",
-                    opacity=0.5,
-                    layer="below"
-                )
-            ]
+    fig.update_layout(
+    xaxis=dict(
+        title="xCordAdjusted",
+        range=[0, 100],
+        domain=[0, 0.9],
+        showgrid=False,
+        zeroline=False,
+    ),
+    yaxis=dict(
+        title="yCordAdjusted",
+        range=[-40, 40],
+        showgrid=False,
+        zeroline=False,
+        scaleanchor="x"
+    ),
+    images=[
+        dict(
+            source=image_url,
+            xref="x",
+            yref="y",
+            x=0,
+            y=50,
+            sizex=100,
+            sizey=100,
+            sizing="stretch",
+            opacity=0.5,
+            layer="below"
         )
+    ],
+    margin=dict(l=40, r=40, t=20, b=40),
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    legend=dict(itemclick=False, itemdoubleclick=False)
+    )
     
     return fig
