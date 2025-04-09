@@ -21,7 +21,7 @@ def get_main_page_content(data_df) -> html.Div:
                             doubleClick=False,
                             displayModeBar=False
                         ),
-                        style={"height": "80vh"}  # or "700px" if you want fixed size
+                        style={"height": "80vh"}  
                     )
                 ]),
                 get_filter_container()
