@@ -129,3 +129,63 @@ body {
   max-width: 400px;
   font-size: 10px;
 }
+
+/* 
+   3.1) Le conteneur global pour aligner filtre et Pie Charts:
+       .pie-charts-and-filter-container 
+*/
+.pie-charts-and-filter-container {
+    display: flex;              /* Aligne horizontalement le filtre et les 3 Pie Charts */
+    flex-wrap: wrap;            /* Autorise le passage sur une 2e ligne si l'écran est trop étroit */
+    justify-content: space-between;
+    align-items: flex-start;     /* Aligne le haut du filtre et le haut des charts */
+    margin: 20px 0;             /* Marges verticales */
+    gap: 20px;                  /* Espace entre les 2 colonnes */
+}
+
+/*
+   3.2) La colonne du filtre:
+       .pie-filter-div
+*/
+.pie-filter-div {
+    flex: 0 0 250px;   /* Largeur fixe ou min pour le filtre. Ajustez à vos besoins. */
+    max-width: 300px;  
+    background: white; 
+    padding: 20px;     
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/*
+   3.3) La colonne qui contient les 3 Pie Charts:
+       .pie-charts-div
+*/
+.pie-charts-div {
+    flex: 1; /* Prend tout l’espace disponible à droite */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/*
+   3.4) L’intérieur des 3 Pie Charts:
+       .pie-charts-container (et .pie-chart-div)
+*/
+.pie-charts-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;          /* Espace horizontal entre les 3 camemberts */
+    width: 100%;        /* Occupe toute la largeur de la "pie-charts-div" */
+    flex-wrap: wrap;    /* Permet aux camemberts de se réorganiser si la largeur est trop faible */
+}
+
+/* Chaque camembert individuel */
+.pie-chart-div {
+    flex: 1;
+    min-width: 250px;  /* Pour éviter qu’il devienne trop petit */
+    margin: 10px 0;
+}
+
+
