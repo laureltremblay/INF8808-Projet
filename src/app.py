@@ -9,7 +9,7 @@ from pages.main_page import get_main_page_content
 from preprocess import basic_filtering
 
 app = dash.Dash(__name__)
-app.title = "NHL Shot Data"
+app.title = "NHL Shot Data 2023-2024"
 
 data_df = pd.read_csv("assets/shots_2023_2024.csv")
 non_filtered_data_df = data_df.copy(deep=True)

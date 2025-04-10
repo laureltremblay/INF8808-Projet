@@ -22,6 +22,7 @@ def get_scatter_figure(data_df, color_var: str = "teamCode"):
         color_discrete_map=TEAM_COLOR_MAP if color_var == "teamCode" else None,
     )
 
+    # Customize hover template
     fig.update_traces(
         hovertemplate=(
             "Tireur: %{customdata[0]}<br>"
@@ -29,11 +30,12 @@ def get_scatter_figure(data_df, color_var: str = "teamCode"):
             "Coordonnée X: %{customdata[2]} pieds<br>"
             "Coordonnée Y: %{customdata[3]} pieds<br>"
             "Distance du tir: %{customdata[4]} pieds<br>"
-            "Position: %{customdata[5]}<br>"
-            "Lancer: %{customdata[6]}<br>"
-            "Type de tir: %{customdata[7]}<br>"
-            "Temps moyen sur la glace de l'équipe adverse: %{customdata[8]} s<br>"
-            "Gardien: %{customdata[9]}<br>"
+            "Période: %{customdata[5]}<br>"
+            "Position: %{customdata[6]}<br>"
+            "Lancer: %{customdata[7]}<br>"
+            "Type de tir: %{customdata[8]}<br>"
+            "Temps moyen sur la glace de l'équipe adverse: %{customdata[9]}s<br>"
+            "Gardien: %{customdata[10]}<br>"
             "<extra></extra>"
         ),
         customdata=data_df[
@@ -43,6 +45,7 @@ def get_scatter_figure(data_df, color_var: str = "teamCode"):
                 "xCordAdjusted",
                 "yCordAdjusted",
                 "shotDistance",
+                "period",
                 "playerPositionThatDidEvent",
                 "shooterLeftRight",
                 "shotType",
@@ -51,10 +54,24 @@ def get_scatter_figure(data_df, color_var: str = "teamCode"):
             ]
         ].values,
     )
+    legend_title = "Équipes"
 
-    # Customize the plot layout
+    if color_var == "shooterName":
+        legend_title = "Joueurs"
+    elif color_var == "goalieNameForShot":
+        legend_title = "Gardiens"
+    elif color_var == "playerPositionThatDidEvent":
+        legend_title = "Positions"
+    elif color_var == "playerPositionThatDidEvent":
+        legend_title = "Positions"
+
     fig.update_layout(
-        legend=dict(itemclick=False, itemdoubleclick=False),
+        legend=dict(
+            itemclick=False,
+            itemdoubleclick=False,
+            title=legend_title,
+            title_font=dict(size=14),
+        ),
         xaxis=dict(showgrid=False, title="Coordonnée horizontale (en pieds)"),
         yaxis=dict(showgrid=False, title="Coordonnée verticale (en pieds)"),
         paper_bgcolor="rgba(0,0,0,0)",
@@ -89,7 +106,6 @@ def get_scatter_figure(data_df, color_var: str = "teamCode"):
         margin=dict(l=40, r=40, t=20, b=40),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        legend=dict(itemclick=False, itemdoubleclick=False),
     )
 
     return fig
