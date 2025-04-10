@@ -6,12 +6,10 @@ la question cible 9 : Y avait-il des équipes plus efficaces pour empêcher des 
 
 import plotly.express as px
 import plotly.graph_objects as go
-from PIL import Image
-from pathlib import Path
 from preprocess import get_scatter_plot_pictogram_data
 
 
-def get_scatter_plot_pictogram_figure(goal_df):
+def get_scatter_plot_pictogram_figure(goal_df, team_logos):
     """
     Processes the data to build the scatter plot pictogram
 
@@ -58,9 +56,6 @@ def get_scatter_plot_pictogram_figure(goal_df):
     )
 
     # We change each point of the scatter plot to the team's logo
-    images_path = Path(__file__).parent.parent / "assets" / "NHL Logos"
-    image_paths = sorted(images_path.glob("*.png"))
-
     size_dictionnary = {
         "ANA": {"sizex": 13, "sizey": 13},
         "ARI": {"sizex": 13, "sizey": 13},
@@ -96,25 +91,23 @@ def get_scatter_plot_pictogram_figure(goal_df):
         "WSH": {"sizex": 22, "sizey": 22},
     }
 
-    for x, y, img_path in zip(
-        preprocessed_df["goalsScoredAgainst"],
-        preprocessed_df["goalsScored"],
-        image_paths,
-    ):
+    for i, row in preprocessed_df.iterrows():
+        team_name = row["teamCode"]
+        x = row["goalsScoredAgainst"]
+        y = row["goalsScored"]
 
-        team_name = Path(img_path).stem
-
-        fig.add_layout_image(
-            x=x,
-            y=y,
-            source=Image.open(img_path),
-            xref="x",
-            yref="y",
-            sizex=size_dictionnary[team_name]["sizex"],
-            sizey=size_dictionnary[team_name]["sizey"],
-            xanchor="center",
-            yanchor="middle",
-        )
+        if team_name in team_logos:
+            fig.add_layout_image(
+                x=x,
+                y=y,
+                source=team_logos[team_name],
+                xref="x",
+                yref="y",
+                sizex=size_dictionnary[team_name]["sizex"],
+                sizey=size_dictionnary[team_name]["sizey"],
+                xanchor="center",
+                yanchor="middle",
+            )
 
     # We add the average line of goals allowed
     fig.add_shape(
@@ -143,36 +136,36 @@ def get_scatter_plot_pictogram_figure(goal_df):
     fig.add_annotation(
         x=200,
         y=350,
-        text="Bon offensivement<br>Bon défensivement",
+        text=f"<span style='font-weight: Bold><b>Bon offensivement</b><br><b>Bon défensivement</b></span>",
         showarrow=False,
-        font=dict(size=16),
+        font=dict(size=14),
         align="center",
     )
 
     fig.add_annotation(
-        x=290,
+        x=287,
         y=350,
-        text="Bon offensivement<br>Mauvais défensivement",
+        text=f"<span style='font-weight: Bold><b>Bon offensivement</b><br><b>Mauvais défensivement</b></span>",
         showarrow=False,
-        font=dict(size=16),
+        font=dict(size=14),
         align="center",
     )
 
     fig.add_annotation(
-        x=290,
+        x=287,
         y=150,
-        text="Mauvais offensivement<br>Mauvais défensivement",
+        text=f"<span style='font-weight: Bold><b>Mauvais offensivement</b><br><b>Mauvais défensivement</b></span>",
         showarrow=False,
-        font=dict(size=16),
+        font=dict(size=14),
         align="center",
     )
 
     fig.add_annotation(
-        x=200,
+        x=202,
         y=150,
-        text="Mauvais offensivement<br>Bon défensivement",
+        text=f"<span style='font-weight: Bold><b>Mauvais offensivement</b><br><b>Bon défensivement</b></span>",
         showarrow=False,
-        font=dict(size=16),
+        font=dict(size=14),
         align="center",
     )
 

@@ -6,7 +6,7 @@ from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts
 
 
-def get_advanced_content(data_df):
+def get_advanced_content(data_df, team_logos = None):
     return html.Div(
         [
             html.H2("Advanced Statistics Page"),
@@ -55,7 +55,7 @@ def get_advanced_content(data_df):
                 },
                 children=[
                     dcc.Graph(
-                        figure=get_scatter_plot_pictogram_figure(data_df),
+                        figure=get_scatter_plot_pictogram_figure(data_df, team_logos),
                         id="scatter-plot-pictogram-graph",
                         config=dict(
                             scrollZoom=False,
