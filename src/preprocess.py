@@ -39,13 +39,13 @@ def get_scatter_plot_pictogram_data(df):
     
     scatter_plot_data['Category'] = scatter_plot_data.apply(
         lambda x:
-            'Good Offensively and Good Defensively' if x['goalsScored'] > goals_scored_mean and 
+            'Bon offensivement et Bon défensivement' if x['goalsScored'] > goals_scored_mean and 
                                                        x['goalsScoredAgainst'] <= goals_allowed_mean
-            else 'Good Offensively and Bad Defensively' if x['goalsScored'] > goals_scored_mean and 
+            else 'Bon offensivement et Mauvais défensivement' if x['goalsScored'] > goals_scored_mean and 
                                                            x['goalsScoredAgainst'] > goals_allowed_mean
-            else 'Bad Offensively and Good Defensively' if x['goalsScored'] <= goals_scored_mean and 
+            else 'Mauvais offensivement et Bon défensivement' if x['goalsScored'] <= goals_scored_mean and 
                                                            x['goalsScoredAgainst'] <= goals_allowed_mean
-            else 'Bad Offensively and Bad Defensively',
+            else 'Mauvais offensivement et Mauvais défensivement',
         axis=1
     )
     
