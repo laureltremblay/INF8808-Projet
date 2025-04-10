@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 
 # Encode the local image as base64
-image_path = 'assets/rink.jpg'
+image_path = "assets/rink.jpg"
 image_url = None
 if image_path and os.path.exists(image_path):
     with open(image_path, "rb") as f:
@@ -14,70 +14,66 @@ if image_path and os.path.exists(image_path):
 
 def get_heatmap_figure(data_df):
     # Create the heatmap plot
-    fig = go.Figure(go.Histogram2dContour(
-    x=data_df['xCordAdjusted'], 
-    y=data_df['yCordAdjusted'], 
-    contours=dict(
-        coloring="heatmap",
-        showlabels=True,
-        labelfont=dict(
-            size=14,
-            color='black'
+    fig = go.Figure(
+        go.Histogram2dContour(
+            x=data_df["xCordAdjusted"],
+            y=data_df["yCordAdjusted"],
+            contours=dict(
+                coloring="heatmap",
+                showlabels=True,
+                labelfont=dict(size=14, color="black"),
+            ),
+            colorscale=[
+                [0.0, "rgba(0,0,0,0)"],
+                [0.3, "blue"],
+                [0.7, "orange"],
+                [1.0, "red"],
+            ],
+            zmin=10,
+            opacity=0.7,
         )
-    ),
-    colorscale=[
-        [0.0, 'rgba(0,0,0,0)'],
-        [0.3, 'blue'],
-        [0.7, 'orange'],
-        [1.0, 'red']
-    ],
-    zmin=10,
-    opacity=0.7
     )
-)
-    
+
     # Customize the plot layout
     fig.update_layout(
         showlegend=False,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        xaxis=dict(showgrid=False),
-        yaxis=dict(showgrid=False),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
     )
 
     fig.update_layout(
-    xaxis=dict(
-        title="xCordAdjusted",
-        range=[0, 100],
-        domain=[0, 0.9],
-        showgrid=False,
-        zeroline=False,
-    ),
-    yaxis=dict(
-        title="yCordAdjusted",
-        range=[-40, 40],
-        showgrid=False,
-        zeroline=False,
-        scaleanchor="x"
-    ),
-    images=[
-        dict(
-            source=image_url,
-            xref="x",
-            yref="y",
-            x=0,
-            y=50,
-            sizex=100,
-            sizey=100,
-            sizing="stretch",
-            opacity=0.5,
-            layer="below"
-        )
-    ],
-    margin=dict(l=40, r=40, t=20, b=40),
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)',
-    legend=dict(itemclick=False, itemdoubleclick=False)
+        xaxis=dict(
+            title="Coordonnée horizontale (en pieds)",
+            range=[0, 100],
+            domain=[0, 0.9],
+            showgrid=False,
+            zeroline=False,
+        ),
+        yaxis=dict(
+            title="Coordonnée verticale (en pieds)",
+            range=[-40, 40],
+            showgrid=False,
+            zeroline=False,
+            scaleanchor="x",
+        ),
+        images=[
+            dict(
+                source=image_url,
+                xref="x",
+                yref="y",
+                x=0,
+                y=50,
+                sizex=100,
+                sizey=100,
+                sizing="stretch",
+                opacity=0.5,
+                layer="below",
+            )
+        ],
+        margin=dict(l=40, r=40, t=20, b=40),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        legend=dict(itemclick=False, itemdoubleclick=False),
     )
-    
+
     return fig
