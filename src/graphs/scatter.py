@@ -20,40 +20,21 @@ def get_scatter_figure(data_df, color_var: str = "teamCode"):
         y="yCordAdjusted",
         color=color_var,
         color_discrete_map=TEAM_COLOR_MAP if color_var == "teamCode" else None,
+        custom_data=[
+            "shooterName",
+            "teamCode",
+            "xCordAdjusted",
+            "yCordAdjusted",
+            "shotDistance",
+            "period",
+            "playerPositionThatDidEvent",
+            "shooterLeftRight",
+            "shotType",
+            "defendingTeamAverageTimeOnIce",
+            "goalieNameForShot",
+        ],
     )
 
-    # Customize hover template
-    fig.update_traces(
-        hovertemplate=(
-            "Tireur: %{customdata[0]}<br>"
-            "Équipe: %{customdata[1]}<br>"
-            "Coordonnée X: %{customdata[2]} pieds<br>"
-            "Coordonnée Y: %{customdata[3]} pieds<br>"
-            "Distance du tir: %{customdata[4]} pieds<br>"
-            "Période: %{customdata[5]}<br>"
-            "Position: %{customdata[6]}<br>"
-            "Lancer: %{customdata[7]}<br>"
-            "Type de tir: %{customdata[8]}<br>"
-            "Temps moyen sur la glace de l'équipe adverse: %{customdata[9]}s<br>"
-            "Gardien: %{customdata[10]}<br>"
-            "<extra></extra>"
-        ),
-        customdata=data_df[
-            [
-                "shooterName",
-                "teamCode",
-                "xCordAdjusted",
-                "yCordAdjusted",
-                "shotDistance",
-                "period",
-                "playerPositionThatDidEvent",
-                "shooterLeftRight",
-                "shotType",
-                "defendingTeamAverageTimeOnIce",
-                "goalieNameForShot",
-            ]
-        ].values,
-    )
     legend_title = "Équipes"
 
     if color_var == "shooterName":
@@ -106,6 +87,24 @@ def get_scatter_figure(data_df, color_var: str = "teamCode"):
         margin=dict(l=40, r=40, t=20, b=40),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
+    )
+
+    # Customize hover template
+    fig.update_traces(
+        hovertemplate=(
+            "Tireur: %{customdata[0]}<br>"
+            "Équipe: %{customdata[1]}<br>"
+            "Coordonnée X: %{customdata[2]} pieds<br>"
+            "Coordonnée Y: %{customdata[3]} pieds<br>"
+            "Distance du tir: %{customdata[4]:.2f} pieds<br>"
+            "Période: %{customdata[5]}<br>"
+            "Position: %{customdata[6]}<br>"
+            "Lancer: %{customdata[7]}<br>"
+            "Type de tir: %{customdata[8]}<br>"
+            "Temps moyen sur la glace de l'équipe adverse: %{customdata[9]}s<br>"
+            "Gardien: %{customdata[10]}<br>"
+            "<extra></extra>"
+        ),
     )
 
     return fig
