@@ -32,7 +32,7 @@ app.layout = html.Div(
                     className="header-container",
                     children=[
                         html.Button(
-                            "Vue d'ensemble",
+                            "Vue d'ensemble des buts marqués",
                             className="header-button active",
                             id="main-page-button",
                         ),
