@@ -4,23 +4,44 @@
 # x: Les évènements qui précèdent un tir (lastEventCategory).
 # y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
 import plotly.graph_objects as go
+import pandas as pd
 
-def get_stacked_bar_chart_figure(data_df):
+MODES = dict(count='Count', percent='Percent')
+MODE_TO_COLUMN = {MODES['count']: 'ShotCount', MODES['percent']: 'ShotPercent'}
+
+event_category_map = {
+    'GIVE': 'Giveaway',
+    'SHOT': 'Shot on Goal',
+    'HIT': 'Hit',
+    'TAKE': 'Takeaway',
+    'MISS': 'Missed Shot',
+    'FAC': 'Faceoff',
+    'BLOCK': 'Blocked Shot',
+    'DELPEN': 'Delayed Penalty',
+    'STOP': 'Stoppage',
+    'CHL': 'Challenge',
+    'GOAL': 'Goal'
+}
+
+def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
+    df = data_df.copy(deep=True) # Deepcopy to not affect the global dataframe.
+    
     # Prepare the data.
     event_types = ['SHOT', 'MISS', 'GOAL']
-    df_filtered = data_df[data_df['event'].isin(event_types)]
+    df_filtered = df[df['event'].isin(event_types)]
+    df_filtered['lastEventCategory'] = df_filtered['lastEventCategory'].map(event_category_map)
     df_pivot = df_filtered.groupby(['lastEventCategory', 'event']).size().unstack(fill_value=0)
     
     # Calculate the total and success columns.
     df_pivot['Total'] = df_pivot.sum(axis=1)
-    df_pivot['Success'] = (df_pivot['GOAL'] / df_pivot['Total'] * 100).round(1)
+    df_pivot['Success'] = (df_pivot['GOAL'] / df_pivot['Total'] * 100).round(2)
     df_pivot = df_pivot.sort_values('Total', ascending=False)
 
     # Create the bar stacked chart.
     fig = go.Figure()
     colors = {'SHOT': '#636EFA', 'MISS': '#EF553B', 'GOAL': '#00CC96'}
     
-    for event in reversed(event_types):  # Stacking order : SHOT < MISS < GOAL.
+    for event in event_types:
         fig.add_trace(go.Bar(
             x=df_pivot.index,
             y=df_pivot[event],
@@ -28,21 +49,6 @@ def get_stacked_bar_chart_figure(data_df):
             marker_color=colors.get(event, 'gray'),
             hoverinfo='y+name',
             textposition='inside'
-        ))
-
-    # Annotations for each bar.
-    annotations = []
-    for idx, category in enumerate(df_pivot.index):
-        total = df_pivot.loc[category, 'Total']
-        success = df_pivot.loc[category, 'Success']
-        
-        annotations.append(dict(
-            x=category,
-            y=total * 1.05,
-            text=f'{success}%',
-            showarrow=False,
-            font=dict(size=12, color='black'),
-            xanchor='center'
         ))
 
     # Customize the plot layout.
@@ -53,7 +59,6 @@ def get_stacked_bar_chart_figure(data_df):
         yaxis_title='Nombre total de tirs',
         hovermode='x unified',
         plot_bgcolor='white',
-        annotations=annotations,
         legend=dict(
             orientation='h',
             yanchor='bottom',
@@ -77,9 +82,12 @@ def get_stacked_bar_chart_figure(data_df):
 # y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
 import plotly.express as px
 
-def get_bar_chart_figure(data_df):
+def get_bar_chart_figure(data_df: pd.DataFrame):
+    df = data_df.copy(deep=True) # Deepcopy to not affect the global dataframe.
+    
     # Prepare the data.
-    df_agg = data_df.groupby('lastEventCategory', as_index=False)['xGoal'].mean()
+    df['lastEventCategory'] = df['lastEventCategory'].map(event_category_map)
+    df_agg = df.groupby('lastEventCategory', as_index=False)['xGoal'].mean()
     df_agg['xGoal_percent'] = df_agg['xGoal'] * 100
     df_agg = df_agg.sort_values('xGoal_percent', ascending=False)
     
