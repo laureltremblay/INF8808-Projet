@@ -4,6 +4,7 @@ import plotly.express as px
 import pandas as pd
 from callbacks.main_page_callbacks import register_main_page_callbacks
 from callbacks.pie_charts_callbacks import register_pie_charts_callbacks
+from callbacks.stacked_bar_chart_callbacks import register_stacked_bar_chart_callbacks
 from pages.advanced_stats_page import get_advanced_content
 from pages.main_page import get_main_page_content
 from preprocess import basic_filtering
@@ -18,6 +19,7 @@ data_df = basic_filtering(data_df)  # This only keeps the goals!
 
 # Register all callbacks
 register_main_page_callbacks(app, data_df)
+register_stacked_bar_chart_callbacks(app, non_filtered_data_df)
 
 # Register callbacks for advanced stats page
 register_pie_charts_callbacks(app, non_filtered_data_df)

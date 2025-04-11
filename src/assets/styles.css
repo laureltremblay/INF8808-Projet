@@ -208,3 +208,70 @@ body {
   min-width: 250px;
   margin: 10px 0;
 }
+
+/* For stacked_bar_chart.py */
+.stacked-section {
+  margin-bottom: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.stacked-graph {
+  box-shadow: none;
+  padding: 20px;
+}
+
+.stacked-controls-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 20px;
+  background: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+.stacked-mode-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6c757d;
+}
+
+.stacked-radio-items {
+  display: flex;
+  gap: 15px;
+  margin: 0;
+}
+
+.stacked-radio-items .RadioItems__option {
+  padding: 8px 15px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s;
+}
+
+.stacked-radio-items .RadioItems__option:hover {
+  background: #e9ecef;
+}
+
+.stacked-radio-items .RadioItems__option--checked {
+  background: #3989ca;
+  color: white;
+  border-color: #3989ca;
+}
+
+.current-mode-badge {
+  margin-left: auto;
+  padding: 8px 15px;
+  background: #ebf8ff;
+  border-radius: 6px;
+  color: #3989ca;
+  font-weight: 500;
+}
+
+.fa-info-circle {
+  color: #3989ca;
+}

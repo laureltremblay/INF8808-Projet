@@ -6,8 +6,7 @@
 import plotly.graph_objects as go
 import pandas as pd
 
-MODES = dict(count='Count', percent='Percent')
-MODE_TO_COLUMN = {MODES['count']: 'ShotCount', MODES['percent']: 'ShotPercent'}
+MODES = dict(count='Quantité', percent='Pourcentage')
 
 event_category_map = {
     'GIVE': 'Perte de palet',
@@ -48,11 +47,11 @@ event_types_colors = {
 }
 
 def get_stacked_bar_char_template(mode):
-    if mode == 'Count':
+    if mode == 'Quantité':
         hover_template = (
             "<span> %{y} tirs</span><br>"
         )
-    elif mode == 'Percent':
+    elif mode == 'Pourcentage':
         hover_template = (
             "<span> %{y:.2f}% des tirs</span><br>"
         )
@@ -61,7 +60,7 @@ def get_stacked_bar_char_template(mode):
 
     return hover_template
 
-def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['percent']):
+def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
     df = data_df.copy(deep=True)
     
     # Prepare the data.
