@@ -3,6 +3,7 @@ from graphs.stacked_bar_chart import get_stacked_bar_chart_figure, get_bar_chart
 from graphs.scatter_plot_pictogram import get_scatter_plot_pictogram_figure
 from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts
+from components.filter import get_filter_container
 
 def get_advanced_content(data_df):
     """
@@ -27,12 +28,12 @@ def get_advanced_content(data_df):
                         children=[
                             html.Button(
                                 "Par événement",
-                                className="header-button scatter-button active",
+                                className="header-button stack-button active",
                                 id="shots-analysis-button",
                             ),
                             html.Button(
                                 "Par équipe",
-                                className="header-button heatmap-button",
+                                className="header-button team-button",
                                 id="team-analysis-button",
                             ),
                             html.Button(
@@ -53,7 +54,7 @@ def get_advanced_content(data_df):
                                 id="shots-analysis-section",
                                 children=[
                                     html.Div(
-                                        className="graph",
+                                        className="graph-advanced",
                                         children=[
                                             dcc.Graph(
                                                 id="q5-stacked-bar-chart-graph",
@@ -70,7 +71,7 @@ def get_advanced_content(data_df):
                                         ],
                                     ),
                                     html.Div(
-                                        className="graph",
+                                        className="graph-advanced",
                                         children=[
                                             dcc.Graph(
                                                 id="q5-bar-chart-graph",
@@ -108,10 +109,8 @@ def get_advanced_content(data_df):
                                                     "doubleClick": False,
                                                     "displayModeBar": False,
                                                 },
-                                                style={ "width": "65%", 
-                                                        "height": "100%",
-                                                        "margin": "0 auto",
-                                                        "display": "block"
+                                                style={ "width": "100%", 
+                                                        "height": "80vh",
                                                 }
                                             )
                                         ],
@@ -141,7 +140,7 @@ def get_advanced_content(data_df):
                                                             "doubleClick": False,
                                                             "displayModeBar": False,
                                                         },
-                                                        style={"width": "100%", "height": "400px"}
+                                                        #style={"width": "100%", "height": "100%"}
                                                     )
                                                 ],
                                             ),

@@ -124,7 +124,7 @@ from dash import html, dcc
 
 def get_filter_pie_charts():
     return html.Div(
-        id="pie-filter-container",  # Identifiant modifié pour éviter conflit
+        id="filter-container",  # Identifiant modifié pour éviter conflit
         children=[
             html.Div(
                 children=[
@@ -185,10 +185,4 @@ def get_filter_pie_charts():
                 ]
             ),
         ],
-        style={
-            "maxWidth": "350px",  # Limiter la largeur maximale
-            "minWidth": "200px",
-            "overflowX": "hidden",  # Empêche le débordement horizontal
-            "padding": "15px"
-        }
     )

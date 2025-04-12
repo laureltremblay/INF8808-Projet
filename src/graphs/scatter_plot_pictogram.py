@@ -103,6 +103,7 @@ def get_scatter_plot_pictogram_figure(goal_df):
     ):
 
         team_name = Path(img_path).stem
+        team_name = team_name.split()[0]
 
         fig.add_layout_image(
             x=x,
