@@ -5,7 +5,7 @@ from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts
 from components.filter import get_filter_container
 
-def get_advanced_content(data_df):
+def get_advanced_content(data_df, team_logos=None):
     """
     Renvoie le contenu avancé de la page comprenant trois onglets :
       - "Analyse des tirs" : stacked bar chart et bar chart.
@@ -101,7 +101,7 @@ def get_advanced_content(data_df):
                                         children=[
                                             dcc.Graph(
                                                 id="scatter-plot-pictogram-graph",
-                                                figure=get_scatter_plot_pictogram_figure(data_df),
+                                                figure=get_scatter_plot_pictogram_figure(data_df, team_logos),
                                                 config={
                                                     "scrollZoom": False,
                                                     "showTips": False,
