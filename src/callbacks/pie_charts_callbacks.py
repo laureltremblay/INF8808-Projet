@@ -1,22 +1,17 @@
-# pie_charts_callbacks.py
-
 from dash import Input, Output
-from graphs.pie_charts import build_pie_figures
+from graphs.pie_charts import get_pie_chart_figure
 
 def register_pie_charts_callbacks(app, data_df):
     @app.callback(
-        [
-            Output('pie-chart-1', 'figure'),
-            Output('pie-chart-2', 'figure'),
-            Output('pie-chart-3', 'figure'),
-        ],
+        Output('pie-charts-composite', 'figure'),
         [
             Input('season-choice', 'value'),
             Input('period-choice', 'value'),
             Input('home-away-choice', 'value'),
+            Input('team-choice', 'value'),
         ]
     )
-    def update_pie_charts(season_choice, period_choice, home_away_choice):
+    def update_pie_charts(season_choice, period_choice, home_away_choice, team_choice):
         filtered_df = data_df.copy()
 
         if season_choice == 'regular_season':
@@ -32,6 +27,17 @@ def register_pie_charts_callbacks(app, data_df):
         elif home_away_choice == 'away':
             filtered_df = filtered_df[filtered_df['isHomeTeam'] == 0]
 
-        fig1, fig2, fig3 = build_pie_figures(filtered_df)
+        if team_choice:
+            filtered_df = filtered_df[filtered_df['teamCode'] == team_choice]
 
-        return fig1, fig2, fig3
+        # La fonction renvoie une seule figure composite
+        fig = get_pie_chart_figure(filtered_df)
+        return fig
+
+    @app.callback(
+        Output('team-choice', 'options'),
+        Input('team-choice', 'id')  # Déclenchement unique pour remplir le dropdown
+    )
+    def populate_team_dropdown(_):
+        teams = sorted(data_df['teamCode'].unique())
+        return [{'label': team, 'value': team} for team in teams]

@@ -5,7 +5,6 @@ def get_filter_container():
     return html.Div(
         id="filter-container",
         children=[
-            # html.H3('Filtres', className='filter-title'),
             html.Div(
                 className="main-choice",
                 children=[
@@ -121,10 +120,23 @@ def get_filter_container():
     )
 
 
+from dash import html, dcc
+
 def get_filter_pie_charts():
     return html.Div(
-        id="filter-container",
+        id="pie-filter-container",  # Identifiant modifié pour éviter conflit
         children=[
+            html.Div(
+                children=[
+                    html.Label("Filtrer par équipe :"),
+                    dcc.Dropdown(
+                        id="team-choice",
+                        options=[],  # sera rempli dynamiquement
+                        placeholder="Sélectionner une équipe...",
+                        clearable=True
+                    )
+                ]
+            ),
             html.Hr(),
             html.Div(
                 children=[
@@ -167,10 +179,16 @@ def get_filter_pie_charts():
                             {"label": "Équipe locale", "value": "home"},
                             {"label": "Équipe visiteuse", "value": "away"},
                         ],
-                        value="home",
+                        value="all",
                         labelStyle={"display": "block"},
                     )
                 ]
             ),
         ],
+        style={
+            "maxWidth": "350px",  # Limiter la largeur maximale
+            "minWidth": "200px",
+            "overflowX": "hidden",  # Empêche le débordement horizontal
+            "padding": "15px"
+        }
     )
