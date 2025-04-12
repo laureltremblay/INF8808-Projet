@@ -7,6 +7,7 @@ from callbacks.pie_charts_callbacks import register_pie_charts_callbacks
 from pages.advanced_stats_page import get_advanced_content
 from pages.main_page import get_main_page_content
 from preprocess import basic_filtering
+from load_logos import TEAM_LOGOS
 from callbacks.advanced_page_callbacks import register_advanced_page_callbacks
 
 
@@ -36,7 +37,7 @@ app.layout = html.Div(
                     className="header-container",
                     children=[
                         html.Button(
-                            "Vue d'ensemble",
+                            "Vue d'ensemble des buts marqués",
                             className="header-button active",
                             id="main-page-button",
                         ),
@@ -71,7 +72,7 @@ def update_page(*_):
         return (
             "header-button",
             "header-button active",
-            get_advanced_content(non_filtered_data_df),
+            get_advanced_content(non_filtered_data_df, TEAM_LOGOS),
         )
     return "header-button active", "header-button", get_main_page_content(data_df)
 

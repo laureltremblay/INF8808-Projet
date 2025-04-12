@@ -1,10 +1,79 @@
 from dash import Input, Output, ctx
-
-from graphs.heatmap import get_heatmap_figure
-from graphs.scatter import get_scatter_figure
+from graphs.main_page_graphs.heatmap.heatmap import get_heatmap_figure
+from graphs.main_page_graphs.scatter.scatter import get_scatter_figure
 
 
 def register_main_page_callbacks(app, data_df):
+    """
+    Registers the main callbacks for the dashboard.
+    These control the main graph (scatter or heatmap) and the main-choice dropdown behavior.
+    """
+
+    def to_list(val):
+        """Ensures the input is a list, used for filtering with .isin()."""
+        return [val] if isinstance(val, str) else val
+
+    def filter_by_main_choice(df, main_choice, selected_main):
+        """
+        Filters the dataframe based on the main choice (team, player, position, or goalie).
+        Returns both the filtered dataframe and the column used for coloring in the scatter plot.
+        """
+        if not selected_main:
+            return df, "teamCode"
+
+        column_map = {
+            "team": "teamCode",
+            "player": "shooterName",
+            "position": "playerPositionThatDidEvent",
+            "goalie": "goalieNameForShot",
+        }
+
+        col = column_map.get(main_choice)
+        if col:
+            return df[df[col].isin(to_list(selected_main))], col
+
+        return df, "teamCode"
+
+    def filter_by_season(df, season_choice):
+        """Filters the data to only include regular season or playoff games."""
+        if season_choice == "regular_season":
+            return df[df["isPlayoffGame"] == 0]
+        if season_choice == "playoffs":
+            return df[df["isPlayoffGame"] == 1]
+        return df
+
+    def filter_by_shot_type(df, shot_type_choice):
+        """Filters the data by shot type, unless 'all' is selected."""
+        return (
+            df if shot_type_choice == "all" else df[df["shotType"] == shot_type_choice]
+        )
+
+    def filter_by_period(df, period_choice):
+        """Filters the data by game period (1, 2, 3, etc.) unless 'all' is selected."""
+        return df if period_choice == "all" else df[df["period"] == int(period_choice)]
+
+    def filter_by_strength(df, n_play_choice):
+        """
+        Filters the data based on the number of players on the ice (even strength, power play, or short-handed).
+        """
+        shooting_total = (
+            df["shootingTeamForwardsOnIce"] + df["shootingTeamDefencemenOnIce"]
+        )
+        defending_total = (
+            df["defendingTeamForwardsOnIce"] + df["defendingTeamDefencemenOnIce"]
+        )
+
+        if n_play_choice == "even_strength":
+            return df[shooting_total == defending_total]
+        if n_play_choice == "powerplay":
+            return df[shooting_total > defending_total]
+        if n_play_choice == "short_handed":
+            return df[shooting_total < defending_total]
+        return df
+
+    def filter_by_toi(df, toi_choice):
+        """Filters the data where the defending team's average TOI exceeds the selected threshold."""
+        return df[df["defendingTeamAverageTimeOnIce"] >= toi_choice]
 
     @app.callback(
         Output("main-graph", "figure"),
@@ -33,126 +102,40 @@ def register_main_page_callbacks(app, data_df):
         n_play_choice,
         toi_choice,
     ):
-        filtered_df = data_df
-        color_var = "teamCode"
+        """
+        Callback to update the main graph (heatmap or scatter) and button states,
+        based on the currently selected filters and triggered input.
+        """
 
-        # Filter by main choice
-        if selected_main:
-            if main_choice == "team":
-                filtered_df = data_df[
-                    data_df["teamCode"].isin(
-                        [selected_main]
-                        if isinstance(selected_main, str)
-                        else selected_main
-                    )
-                ]
-            elif main_choice == "player":
-                filtered_df = data_df[
-                    data_df["shooterName"].isin(
-                        [selected_main]
-                        if isinstance(selected_main, str)
-                        else selected_main
-                    )
-                ]
-                color_var = "shooterName"
-            elif main_choice == "position":
-                filtered_df = data_df[
-                    data_df["playerPositionThatDidEvent"].isin(
-                        [selected_main]
-                        if isinstance(selected_main, str)
-                        else selected_main
-                    )
-                ]
-                color_var = "playerPositionThatDidEvent"
-            elif main_choice == "goalie":
-                filtered_df = data_df[
-                    data_df["goalieNameForShot"].isin(
-                        [selected_main]
-                        if isinstance(selected_main, str)
-                        else selected_main
-                    )
-                ]
-                color_var = "goalieNameForShot"
+        # Apply all filters step-by-step
+        df, color_var = filter_by_main_choice(data_df, main_choice, selected_main)
+        df = filter_by_season(df, season_choice)
+        df = filter_by_shot_type(df, shot_type_choice)
+        df = filter_by_period(df, period_choice)
+        df = filter_by_strength(df, n_play_choice)
+        df = filter_by_toi(df, toi_choice)
 
-        # Filter by season choice
-        if season_choice == "regular_season":
-            filtered_df = filtered_df[filtered_df["isPlayoffGame"] == 0]
-        elif season_choice == "playoffs":
-            filtered_df = filtered_df[filtered_df["isPlayoffGame"] == 1]
-
-        # Filter by shot type choice
-        filtered_df = (
-            filtered_df[filtered_df["shotType"] == shot_type_choice]
-            if shot_type_choice != "all"
-            else filtered_df
-        )
-
-        # Filter by period choice
-        filtered_df = (
-            filtered_df[filtered_df["period"] == int(period_choice)]
-            if period_choice != "all"
-            else filtered_df
-        )
-
-        # Filter by number of players choice
-        # using (shootingTeamForwardsOnIce + shootingTeamDefencemenOnIce) and (defendingTeamForwardsOnIce + defendingTeamDefencemenOnIce)
-        if n_play_choice == "even_strength":
-            filtered_df = filtered_df[
-                (
-                    filtered_df["shootingTeamForwardsOnIce"]
-                    + filtered_df["shootingTeamDefencemenOnIce"]
-                )
-                == (
-                    filtered_df["defendingTeamForwardsOnIce"]
-                    + filtered_df["defendingTeamDefencemenOnIce"]
-                )
-            ]
-        elif n_play_choice == "powerplay":
-            filtered_df = filtered_df[
-                (
-                    filtered_df["shootingTeamForwardsOnIce"]
-                    + filtered_df["shootingTeamDefencemenOnIce"]
-                )
-                > (
-                    filtered_df["defendingTeamForwardsOnIce"]
-                    + filtered_df["defendingTeamDefencemenOnIce"]
-                )
-            ]
-        elif n_play_choice == "short_handed":
-            filtered_df = filtered_df[
-                (
-                    filtered_df["shootingTeamForwardsOnIce"]
-                    + filtered_df["shootingTeamDefencemenOnIce"]
-                )
-                < (
-                    filtered_df["defendingTeamForwardsOnIce"]
-                    + filtered_df["defendingTeamDefencemenOnIce"]
-                )
-            ]
-
-        # Filter by defending team avg time on ice
-        filtered_df = filtered_df[
-            filtered_df["defendingTeamAverageTimeOnIce"] >= toi_choice
-        ]
-
-        if ctx.triggered_id == "heatmap-button":
+        # Determine which button triggered the callback
+        triggered = ctx.triggered_id
+        if triggered == "heatmap-button":
             return (
-                get_heatmap_figure(filtered_df),
+                get_heatmap_figure(df),
                 "header-button heatmap-button active",
                 "header-button scatter-button",
             )
         elif (
-            ctx.triggered_id == "scatter-button"
+            triggered == "scatter-button"
             or scatter_class == "header-button scatter-button active"
         ):
             return (
-                get_scatter_figure(filtered_df, color_var),
+                get_scatter_figure(df, color_var),
                 "header-button heatmap-button",
                 "header-button scatter-button active",
             )
         else:
+            # Default to heatmap
             return (
-                get_heatmap_figure(filtered_df),
+                get_heatmap_figure(df),
                 "header-button heatmap-button active",
                 "header-button scatter-button",
             )
@@ -164,37 +147,42 @@ def register_main_page_callbacks(app, data_df):
         Input("main-choice", "value"),
     )
     def toggle_main_choice_dropdown(selected_value):
-        if selected_value == "team":
-            options = [
-                {"label": team, "value": team}
-                for team in sorted(data_df["teamCode"].unique())
-            ]
-            return "Choisir une équipe", options, False
+        """
+        Updates the dropdown options dynamically based on the selected main choice (team/player/etc.).
+        Disables the dropdown if the choice is invalid or empty.
+        """
 
-        elif selected_value == "player":
-            options = [
-                {"label": player, "value": player}
-                for player in sorted(
-                    data_df["shooterName"].unique(), key=lambda name: name.split()[-1]
-                )
-            ]
-            return "Choisir un joueur", options, False
+        def get_sorted_options(col, sort_by_last_name=False):
+            """Returns sorted dropdown options from a column."""
+            values = data_df[col].unique()
+            if sort_by_last_name:
+                values = sorted(values, key=lambda name: name.split()[-1])
+            else:
+                values = sorted(values)
+            return [{"label": val, "value": val} for val in values]
 
-        elif selected_value == "position":
-            options = [
-                {"label": pos, "value": pos}
-                for pos in sorted(data_df["playerPositionThatDidEvent"].unique())
-            ]
-            return "Choisir une position", options, False
+        # Config for placeholder text and column names
+        placeholders = {
+            "team": "Choose a team",
+            "player": "Choose a player",
+            "position": "Choose a position",
+            "goalie": "Choose a goalie",
+        }
 
-        elif selected_value == "goalie":
-            options = [
-                {"label": goalie, "value": goalie}
-                for goalie in sorted(
-                    data_df["goalieNameForShot"].unique(),
-                    key=lambda name: name.split()[-1],
-                )
-            ]
-            return "Choisir un gardien", options, False
+        columns = {
+            "team": "teamCode",
+            "player": "shooterName",
+            "position": "playerPositionThatDidEvent",
+            "goalie": "goalieNameForShot",
+        }
+
+        if selected_value in columns:
+            col = columns[selected_value]
+            sort_last = selected_value in ["player", "goalie"]
+            return (
+                placeholders[selected_value],
+                get_sorted_options(col, sort_last),
+                False,
+            )
 
         return "---", [], True
