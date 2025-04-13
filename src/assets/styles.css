@@ -241,6 +241,7 @@ body {
 
 .stacked-radio-items {
   display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   gap: 15px;
   margin: 0;
 }
@@ -274,4 +275,23 @@ body {
 
 .fa-info-circle {
   color: #3989ca;
+}
+
+.stacked-section .mode-value {
+  font-family: 'Segoe UI';
+  font-weight: 600;
+}
+
+.stacked-section .info-text {
+  font-family: 'Segoe UI';
+  color: #666;
+}
+
+.stacked-section .fa-info-circle {
+  font-size: 16px;
+}
+
+.stacked-radio-items .RadioItems__option {
+  font-family: 'Segoe UI';
+  font-weight: 500;
 }

@@ -47,18 +47,16 @@ event_types_colors = {
 }
 
 def get_stacked_bar_char_template(mode):
+    base_template = (
+        "<span style='font-family:Segoe UI; color:#333'>"
+        "<b>%{fullData.name}</b><br>"  # Utilisation du nom français
+    )
+    
     if mode == 'Quantité':
-        hover_template = (
-            "<span> %{y} tirs</span><br>"
-        )
+        return base_template + "Tirs: %{y}</span><extra></extra>"
     elif mode == 'Pourcentage':
-        hover_template = (
-            "<span> %{y:.2f}% des tirs</span><br>"
-        )
-    else:
-        hover_template = "Invalid mode"
-
-    return hover_template
+        return base_template + "Part: %{y:.2f}%</span><extra></extra>"
+    return "Invalid mode"
 
 def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
     df = data_df.copy(deep=True)
@@ -105,22 +103,69 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
     }
     
     fig.update_layout(
-        barmode='stack',
-        title='Répartition des types de tirs selon l\'événement précédent',
-        xaxis_title='Événement précédent',
-        yaxis=yaxis_config,
-        hovermode='x unified',
-        plot_bgcolor='rgba(245, 245, 245, 0.9)',
-        paper_bgcolor='white',
-        legend=dict(
-            orientation='h',
-            yanchor='bottom',
-            y=1.02,
-            xanchor='right',
-            x=1
+    barmode='stack',
+    title=dict(
+        text='Répartition des types de tirs selon l\'événement précédent',
+        font=dict(
+            family='Segoe UI',
+            size=20,
+            color='#333'
         ),
-        margin=dict(b=100, t=40),
-        font=dict(family="Roboto", size=12)
+        x=0.5
+    ),
+    xaxis_title=dict(
+        text='Événement précédent',
+        font=dict(
+            family='Segoe UI',
+            size=14,
+            color='#333'
+        )
+    ),
+    yaxis=dict(
+        title=dict(
+            text=yaxis_config['title'],
+            font=dict(
+                family='Segoe UI',
+                size=14,
+                color='#333'
+            )
+        ),
+        range=yaxis_config['range'],
+        tickfont=dict(
+            family='Segoe UI',
+            size=12,
+            color='#666'
+        ),
+        gridcolor='#eee'
+    ),
+    hovermode='x unified',
+    plot_bgcolor='white',
+    paper_bgcolor='white',
+    legend=dict(
+        title_text='',
+        orientation='h',
+        yanchor='bottom',
+        y=1.02,
+        xanchor='right',
+        x=1,
+        font=dict(
+            family='Segoe UI',
+            size=12,
+            color='#333'
+        )
+    ),
+    margin=dict(b=100, t=60),
+    font=dict(family="Segoe UI", size=12)
+    )
+
+    fig.update_xaxes(
+        tickangle=-45,
+        showgrid=False,
+        tickfont=dict(
+            family='Segoe UI',
+            size=12,
+            color='#666'
+        )
     )
     
     fig.update_xaxes(tickangle=-45, showgrid=False)
