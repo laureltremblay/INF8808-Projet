@@ -72,10 +72,15 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
     df_filtered = df_filtered[df_filtered['lastEventCategory'].notna()]
     df_filtered['event'] = df_filtered['event'].map(event_types_map)
     df_pivot = df_filtered.groupby(['lastEventCategory', 'event']).size().unstack(fill_value=0)
-    
-    # Calculate the total and success columns.
+
     df_pivot['Total'] = df_pivot.sum(axis=1)
-    df_pivot = df_pivot.sort_values('Total', ascending=False)
+    if mode == MODES['percent']:
+        # Ordering by the percentage of goals.
+        df_pivot['% But'] = (df_pivot['But'] / df_pivot['Total'] * 100)
+        df_pivot = df_pivot.sort_values('% But', ascending=False)
+    else:
+        # Ordering by the total number of shots.
+        df_pivot = df_pivot.sort_values('Total', ascending=False)
     
     event_types = ['Tir cadré', 'Tir raté', 'But']
     df_pivot_percent = df_pivot[event_types].div(df_pivot['Total'], axis=0) * 100
