@@ -67,6 +67,9 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
     event_types = ['SHOT', 'MISS', 'GOAL']
     df_filtered = df[df['event'].isin(event_types)]
     df_filtered['lastEventCategory'] = df_filtered['lastEventCategory'].map(event_category_map)
+    # remove 'STOP': 'Arrêt de jeu' and 'CHL': 'Révision vidéo' from the lastEventCategory column because they are not relevant for the analysis.
+    df_filtered = df_filtered[~df_filtered['lastEventCategory'].isin(['Arrêt de jeu', 'Révision vidéo'])]
+    df_filtered = df_filtered[df_filtered['lastEventCategory'].notna()]
     df_filtered['event'] = df_filtered['event'].map(event_types_map)
     df_pivot = df_filtered.groupby(['lastEventCategory', 'event']).size().unstack(fill_value=0)
     
