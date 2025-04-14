@@ -69,14 +69,6 @@ def get_pie_chart_figure(data_df):
         pull=[0.03] * len(home_team_counts)
     ), row=1, col=3)
 
-    # Personnalisation de la mise en page
-    # fig.update_layout(
-    #     autosize=True,
-    #     margin=dict(l=10, r=10, t=20, b=20),
-    #     paper_bgcolor='rgba(0,0,0,0)',
-    #     plot_bgcolor='rgba(0,0,0,0)',
-    #     transition=dict(duration=500)
-    # )
     fig.update_layout(
     title_text="Répartition des Buts",
     title_x=0.5,

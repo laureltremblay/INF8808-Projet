@@ -55,10 +55,11 @@ def get_advanced_content(data_df, team_logos=None):
                                 className="stack-graph-section fade-in",
                                 id="shots-analysis-section",
                                 children=[
-                                    html.Div(get_stacked_bar_chart_layout(data_df), className="graph-advanced"),
+                                    html.Div(get_stacked_bar_chart_layout(data_df)),
                                     html.Div(
                                         children=[
                                             dcc.Graph(
+                                                className="graph stacked-graph",
                                                 id="q5-bar-chart-graph",
                                                 figure=get_bar_chart_figure(data_df),
                                                 config={
