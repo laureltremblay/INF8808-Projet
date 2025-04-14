@@ -40,7 +40,7 @@ def update_scatter_hover_template(fig):
             "Position: %{customdata[6]}<br>"
             "Lancer: %{customdata[7]}<br>"
             "Type de tir: %{customdata[8]}<br>"
-            "Temps moyen sur la glace de l'équipe adverse: %{customdata[9]}s<br>"
+            "Temps moyen sur la glace de l'équipe adverse: %{customdata[9]:.2f}s<br>"
             "Gardien: %{customdata[10]}<br>"
             "<extra></extra>"
         ),
