@@ -8,6 +8,8 @@ from pages.advanced_stats_page import get_advanced_content
 from pages.main_page import get_main_page_content
 from preprocess import basic_filtering
 from load_logos import TEAM_LOGOS
+from callbacks.advanced_page_callbacks import register_advanced_page_callbacks
+
 
 app = dash.Dash(__name__)
 app.title = "NHL Shot Data 2023-2024"
@@ -21,6 +23,9 @@ register_main_page_callbacks(app, data_df)
 
 # Register callbacks for advanced stats page
 register_pie_charts_callbacks(app, non_filtered_data_df)
+
+# Register callbacks for advanced page
+register_advanced_page_callbacks(app)
 
 app.layout = html.Div(
     className="content",
