@@ -89,6 +89,7 @@ def register_main_page_callbacks(app, data_df):
         Input("period-choice", "value"),
         Input("num-players-choice", "value"),
         Input("defending-toi-slider", "value"),
+        Input("unzoom-button", "n_clicks"),
     )
     def update_figure_and_main_choices(
         scatter_clicks,
@@ -101,6 +102,7 @@ def register_main_page_callbacks(app, data_df):
         period_choice,
         n_play_choice,
         toi_choice,
+        unzoom_clicks,
     ):
         """
         Callback to update the main graph (heatmap or scatter) and button states,
@@ -131,6 +133,12 @@ def register_main_page_callbacks(app, data_df):
                 get_scatter_figure(df, color_var),
                 "header-button heatmap-button",
                 "header-button scatter-button active",
+            )
+        else:
+            return (
+                get_heatmap_figure(df),
+                "header-button heatmap-button active",
+                "header-button scatter-button",
             )
 
     @app.callback(

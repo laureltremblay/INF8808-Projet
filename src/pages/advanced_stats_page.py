@@ -47,7 +47,7 @@ def get_advanced_content(data_df, team_logos=None):
                     ),
                     # Contenu des graphiques et filtres
                     html.Div(
-                        className="graph-and-filters",
+                        className="graph-and-filters graph-section fade-in", 
                         id="advanced-page-content",
                         children=[
                             # Onglet : Par événement (par défaut)
@@ -55,11 +55,11 @@ def get_advanced_content(data_df, team_logos=None):
                                 className="stack-graph-section fade-in",
                                 id="shots-analysis-section",
                                 children=[
-                                    html.Div(get_stacked_bar_chart_layout(data_df), className="graph-advanced"),
+                                    html.Div(get_stacked_bar_chart_layout(data_df)),
                                     html.Div(
-                                        className="graph-advanced",
                                         children=[
                                             dcc.Graph(
+                                                className="graph stacked-graph",
                                                 id="q5-bar-chart-graph",
                                                 figure=get_bar_chart_figure(data_df),
                                                 config={

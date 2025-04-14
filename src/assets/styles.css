@@ -1,463 +1,465 @@
-/* -------------------------------------------------------------------
-   FORCE SCROLLING & RESET
--------------------------------------------------------------------- */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5;
-  box-sizing: border-box;
-  overflow-y: auto; /* Affichage du scroll si nécessaire */
-}
+/* ======================================================
+   1) RESET & GLOBAL
+   ====================================================== */
 
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-/* -------------------------------------------------------------------
-   MAIN PAGE
--------------------------------------------------------------------- */
-.main-page {
-  background-image: url('/assets/images/main_background.jpg'); 
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  min-height: 100vh;
-  padding-bottom: 40px;
-  position: relative;
-}
-
-/* -------------------------------------------------------------------
-   HEADER (NAV BAR)
--------------------------------------------------------------------- */
-.header-container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 60px;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.header-button {
-  flex-grow: 1;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  border: none;
-  background-color: transparent;
-  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
-  cursor: pointer;
-  padding: 10px 15px;
-  color: #333;
-}
-
-.header-button:hover {
-  background-color: #f0f0f0;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.08);
-  transform: scale(1.04);
-}
-
-.header-button.active {
-  background-color: #333;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* -------------------------------------------------------------------
-   CONTENT AREA
--------------------------------------------------------------------- */
-.graph-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 30px 20px;
-}
-
-/* -------------------------------------------------------
-   GRAPH AND FILTERS (Main Page & Advanced Page)
-------------------------------------------------------- */
-.graph-and-filters {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;  
-  justify-content: center;  /* Centre horizontalement */
-  align-items: center;      /* Centre verticalement */
-  gap: 40px;
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* -------------------------------------------------------------------
-   CARDS (GRAPHS, FILTRES, ETC.)
--------------------------------------------------------------------- */
-.graph, 
-.stack-graph-section, 
-.pie-charts-div, 
-#filter-container, 
-#pie-filter-container {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
-  padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin: 0 auto;
-}
-
-.graph:hover,
-.stack-graph-section:hover,
-.pie-charts-div:hover,
-#filter-container:hover,
-#pie-filter-container:hover {
-  transform: scale(1.01);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-/* -------------------------------------------------------------------
-   GRAPHS
--------------------------------------------------------------------- */
-.graph {
-  width: 100%;
-  height: auto;
-  margin: 0 auto;
-}
-
-.graph-advanced {
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* -------------------------------------------------------------------
-   FILTRES (pour la page principale)
--------------------------------------------------------------------- */
-#filter-container {
-  flex: 1;
-  max-width: 400px;
-  min-width: 280px;
-  font-size: 15px;
-}
-
-#filter-container > div {
-  margin-bottom: 20px;
-}
-
-#filter-container hr {
-  margin: 20px 0;
-}
-
-#filter-container .main-choice,
-#filter-container .filter {
-  margin-bottom: 20px;
-}
-
-#filter-container label,
-#filter-container p {
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 6px;
-}
-
-/* -------------------------------------------------------------------
-   STACKED/BAR SECTION (pour "Analyse des tirs")
--------------------------------------------------------------------- */
-.stack-graph-section {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  max-width: 1200px;
-  width: 100%;
-  margin: 30px auto;
-  padding: 20px;
-  background: #fff;
-}
-
-.stack-graph-section .graph {
-  background: none;
-  box-shadow: none;
-  padding: 0;
-}
-
-/* -------------------------------------------------------------------
-   SECTION TITLE
--------------------------------------------------------------------- */
-.section-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin: 20px 0 10px 0;
-  color: #222;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 6px;
-}
-
-/* -------------------------------------------------------------------
-   ANIMATIONS
--------------------------------------------------------------------- */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+   html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    box-sizing: border-box;
+    overflow-y: auto; /* Affiche la barre de scroll si nécessaire */
   }
-}
+  
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+  
+  
+  /* ======================================================
+     2) MAIN PAGE BACKGROUND
+     ====================================================== */
+  
+  .main-page {
+    background-image: url('/assets/images/main_background.jpg'); 
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 40px;
+    position: relative;
+  }
+  
+  
+  /* ======================================================
+     3) HEADER (NAV BAR)
+     ====================================================== */
+  
+  .header-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    position: sticky;  /* Reste collé en haut lors du scroll */
+    top: 0;
+    z-index: 10;
+  }
+  
+  /* ======================================================
+     4) HEADER BUTTONS (Nouvelle version)
+     ====================================================== */
+  
+  .header-button {
+    flex-grow: 1;
+    margin-left: 2%;
+    margin-right: 2%;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    background-color: transparent;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+    padding: 10px 15px;
+    color: #333;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  
+  .header-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.08);
+    transform: scale(1.05);
+  }
+  
+  .header-button.active {
+    background-color: #333;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+  }
+  
+  
+  /* ======================================================
+     5) LAYOUT: GRAPH CONTAINER & GRAPH + FILTERS
+     ====================================================== */
+  
+  /* Conteneur global des graphiques sur une page */
+  .graph-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 30px 20px;
+  }
+  
+  /* Conteneur qui regroupe un graphique et ses filtres (ou plusieurs graphes) */
+  .graph-and-filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;  /* Centre horizontalement */
+    align-items: center;      /* Centre verticalement */
+    gap: 40px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  
+  /* ======================================================
+     6) "CARDS": .graph / .pie-charts-div / #filter-container / #pie-filter-container
+     ====================================================== */
+  
+  /* Les "cards" semi-transparentes avec flou en arrière-plan */
+  .graph,
+  .pie-charts-div,
+  #filter-container,
+  #pie-filter-container {
+    background: rgba(255, 255, 255, 0.7); /* semi-transparent */
+    backdrop-filter: blur(6px);           /* flou derrière */
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto;
+  }
+  
+  /* Au survol, petit zoom + ombre plus forte */
+  .graph:hover,
+  .pie-charts-div:hover,
+  #filter-container:hover,
+  #pie-filter-container:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  
+  /* ======================================================
+     7) GRAPHS
+     ====================================================== */
+  
+  .graph {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    /* Fond transparent pris en charge par Plotly si figure => paper_bgcolor='rgba(0,0,0,0)' */
+  }
+  
 
-/* -------------------------------------------------------------------
-   GRAPH CONTROLS (TABS/BUTTONS)
--------------------------------------------------------------------- */
-.graph-controls {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 20px;
-}
-.graph-button {
-  flex: 1;
-  padding: 12px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  text-align: center;
-  min-width: 150px;
-  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.graph-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-.scatter-button {
-  background-color: #b5cfe7;
-  color: #333;
-}
-.scatter-button.active {
-  background-color: #3989ca;
-  color: #fff;
-}
-.heatmap-button {
-  background-color: #e9bf9a;
-  color: #333;
-}
-.heatmap-button.active {
-  background-color: #dd8839;
-  color: #fff;
-}
+  .unzoom {
+    background-color: #a7babc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.2s ease;
 
-.stack-button {
-  background-color: #4CAF50;
-  color: #fff;
-}
-.stack-button.active {
-  background-color: #2E7D32;
-  color: #fff;
-}
-
-.team-button {
-  background-color: #009688;
-  color: #fff;
-}
-.team-button.active {
-  background-color: #00695C;
-  color: #fff;
-}
-
-.piecharts-button {
-  background-color: #FFC107;
-  color: #fff;
-}
-.piecharts-button.active {
-  background-color: #FFA000;
-  color: #fff;
-}
-
-
-
-/* -------------------------------------------------------------------
-   PIE CHARTS SECTION (pour "Par répartition")
--------------------------------------------------------------------- */
-.pie-charts-and-filter-container {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  max-width: 1400px;
-  width: 100%;
-  margin: 40px auto;
-  justify-content: center;
-  align-items: center;
-}
-
-.pie-charts-div {
-  flex: 2;
-  max-width: 80%;  /* permet d'agrandir le graphe */
-  width: 100%;
-  padding: 30px;
-  margin: 0 auto;
-}
-
-/* Pour agrandir davantage les pie charts, on augmente leur min-height */
-.pie-chart-div {
-  flex: 1 1 300px;
-  max-width: 32%;
-  min-height: 480px;  /* augmenté de 360px à 480px */
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.10);
-  transition: transform 0.4s, opacity 0.4s, box-shadow 0.4s;
-  animation: fadeInPie 0.8s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-@keyframes fadeInPie {
-  from {
+  }
+  
+  .unzoom:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+  }
+  
+  .unzoom i {
+    font-size: 16px;
+  }
+  
+  
+  /* ======================================================
+     8) FILTERS
+     ====================================================== */
+  
+  /* Filtres (page principale) */
+  #filter-container {
+    flex: 1;
+    max-width: 400px;
+    min-width: 280px;
+    font-size: 15px;
+  }
+  
+  #filter-container > div {
+    margin-bottom: 20px;
+  }
+  
+  #filter-container hr {
+    margin: 20px 0;
+  }
+  
+  #filter-container .main-choice,
+  #filter-container .filter {
+    margin-bottom: 20px;
+  }
+  
+  #filter-container label,
+  #filter-container p {
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 6px;
+  }
+  
+  
+  /* ======================================================
+     (NOUVEAU) STACKED-SECTIONS: Graphique + Contrôles
+     ====================================================== */
+  
+  /* Conteneur principal vertical pour la zone "Analyse des tirs" */
+  .stack-graph-section {
+    display: flex;
+    flex-direction: column; /* empile les cartes en vertical */
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 40px;
+    /* pas de background/hover ici pour éviter la carte double */
+    background: none;
+    box-shadow: none;
+  }
+  
+  /* Sous-conteneur horizontal (graphique + contrôles) */
+  .stacked-section {
+    display: flex;
+    flex-direction: row; /* place le graph et le filtre côte à côte */
+    align-items: flex-start; /* aligne en haut si les hauteurs diffèrent */
+    gap: 20px; /* écarte un peu les 2 blocs */
+    margin-bottom: 30px;
+  }
+  
+  .stacked-graph {
+    flex: 3; /* le graphique prend plus d'espace */
+  }
+  
+  /* Le conteneur des contrôles (radio, labels, etc.) */
+  .stacked-controls-container {
+    flex: 1; /* le filtre prend moins d'espace */
+    /* s'il doit aussi être une "carte", on peut le laisser ainsi */
+    /*background: rgba(255, 255, 255, 0.7);*/
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+  
+  
+  /* ======================================================
+     10) SECTION TITLES
+     ====================================================== */
+  
+  .section-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    color: #222;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 6px;
+  }
+  
+  
+  /* ======================================================
+     11) ANIMATIONS (FADE-IN)
+     ====================================================== */
+  
+  .fade-in {
     opacity: 0;
     transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-}
-
-.pie-chart-div:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-/* Le container du filtre pour les pie charts doit avoir le même look "carte" */
-#pie-filter-container {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.10);
-  padding: 20px;
-  margin: 0 auto;
-  flex: 1;
-  max-width: 350px;
-  min-width: 200px;
-}
-
-/* -------------------------------------------------------------------
-   RESPONSIVE ADJUSTMENTS
--------------------------------------------------------------------- */
-@media (max-width: 900px) {
+  
+  
+  /* ======================================================
+     12) GRAPH CONTROLS (TABS/BUTTONS)
+     ====================================================== */
+  
+  
+  .graph-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .graph-button {
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    border: none;
+    width: 200px;
+    border-radius: 12px;
+    flex-wrap: nowrap;
+    cursor: pointer;
+    text-align: center;
+    min-width: 150px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .graph-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Couleurs de base pour chaque type de bouton */
+  .scatter-button {
+    background-color: #b5cfe7;
+    color: #333;
+  }
+  .scatter-button.active {
+    background-color: #3989ca;
+    color: #fff;
+  }
+  
+  .heatmap-button {
+    background-color: #f4d2b5;
+    color: #333;
+  }
+  .heatmap-button.active {
+    background-color: #dd8839;
+    color: #fff;
+  }
+  
+  .stack-button {
+    background-color: #a3eaa5;
+    color: #fff;
+  }
+  .stack-button.active {
+    background-color: #2E7D32;
+    color: #fff;
+  }
+  
+  .team-button {
+    background-color: #98ebe3;
+    color: #fff;
+  }
+  .team-button.active {
+    background-color: #00695C;
+    color: #fff;
+  }
+  
+  .piecharts-button {
+    background-color: #e09ff8;
+    color: #fff;
+  }
+  .piecharts-button.active {
+    background-color: #952fd1;
+    color: #fff;
+  }
+  
+  
+  /* ======================================================
+     13) PIE CHARTS SECTION
+     ====================================================== */
+  
   .pie-charts-and-filter-container {
-    flex-direction: column;
-  }
-  .pie-charts-div,
-  #pie-filter-container {
-    min-width: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    max-width: 1400px;
     width: 100%;
+    margin: 40px auto;
+    justify-content: center;
+    align-items: center;
   }
-  #pie-filter-container {
-    margin-top: 20px;
+  
+  .pie-charts-div {
+    flex: 2;
+    max-width: 80%; /* permet d'agrandir le graphe */
+    width: 100%;
+    padding: 30px;
+    margin: 0 auto;
   }
-}
-
-@media (max-width: 900px) {
-  .graph-and-filters {
+  
+  /* Pour agrandir davantage les pie charts, on augmente leur min-height */
+  .pie-chart-div {
+    flex: 1 1 300px;
+    max-width: 32%;
+    min-height: 480px;  /* de 360px -> 480px */
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+    transition: transform 0.4s, opacity 0.4s, box-shadow 0.4s;
+    animation: fadeInPie 0.8s ease-in-out;
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-}
+  
+  /* Animation d'apparition pour chaque pie chart */
+  @keyframes fadeInPie {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .pie-chart-div:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+  
+  /* Le container du filtre (pie charts) : même look "carte" */
+  #pie-filter-container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+    padding: 20px;
+    margin: 0 auto;
+    flex: 1;
+    max-width: 350px;
+    min-width: 200px;
+  }
 
 
-/* For stacked_bar_chart.py */
-.stacked-section {
-  margin-bottom: 30px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-}
-
-.stacked-graph {
-  box-shadow: none;
-  padding: 20px;
-}
-
-.stacked-controls-container {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 15px 20px;
-  background: #f8f9fa;
-  border-top: 1px solid #eee;
-}
-
-.stacked-mode-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #6c757d;
-}
-
-.stacked-radio-items {
-  display: flex;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  gap: 15px;
-  margin: 0;
-}
-
-.stacked-radio-items .RadioItems__option {
-  padding: 8px 15px;
-  border-radius: 6px;
-  background: #fff;
-  border: 1px solid #dee2e6;
-  transition: all 0.2s;
-}
-
-.stacked-radio-items .RadioItems__option:hover {
-  background: #e9ecef;
-}
-
-.stacked-radio-items .RadioItems__option--checked {
-  background: #3989ca;
-  color: white;
-  border-color: #3989ca;
-}
-
-.current-mode-badge {
-  margin-left: auto;
-  padding: 8px 15px;
-  background: #ebf8ff;
-  border-radius: 6px;
-  color: #3989ca;
-  font-weight: 500;
-}
-
-.fa-info-circle {
-  color: #3989ca;
-}
-
-.stacked-section .mode-value {
-  font-family: 'Segoe UI';
-  font-weight: 600;
-}
-
-.stacked-section .info-text {
-  font-family: 'Segoe UI';
-  color: #666;
-}
-
-.stacked-section .fa-info-circle {
-  font-size: 16px;
-}
-
-.stacked-radio-items .RadioItems__option {
-  font-family: 'Segoe UI';
-  font-weight: 500;
-}
+  
+  
+  /* ======================================================
+     14) RESPONSIVE ADJUSTMENTS (MEDIA QUERIES)
+     ====================================================== */
+  
+  /* -> Pour la section Pie Charts */
+  @media (max-width: 900px) {
+    .pie-charts-and-filter-container {
+      flex-direction: column;
+    }
+    .pie-charts-div,
+    #pie-filter-container {
+      min-width: auto;
+      width: 100%;
+    }
+    #pie-filter-container {
+      margin-top: 20px;
+    }
+  }
+  
+  /* -> Pour les éléments "graph + filters" sur petit écran */
+  @media (max-width: 900px) {
+    .graph-and-filters {
+      flex-direction: column;
+    }
+  }
+  
