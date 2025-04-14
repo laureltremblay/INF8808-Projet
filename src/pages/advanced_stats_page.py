@@ -45,7 +45,7 @@ def get_advanced_content(data_df, team_logos=None):
                     ),
                     # Contenu des graphiques et filtres
                     html.Div(
-                        className="graph-and-filters",
+                        className="graph-and-filters graph-section fade-in", 
                         id="advanced-page-content",
                         children=[
                             # Onglet : Par événement (par défaut)
@@ -54,7 +54,6 @@ def get_advanced_content(data_df, team_logos=None):
                                 id="shots-analysis-section",
                                 children=[
                                     html.Div(
-                                        className="graph-advanced",
                                         children=[
                                             dcc.Graph(
                                                 id="q5-stacked-bar-chart-graph",
@@ -71,7 +70,6 @@ def get_advanced_content(data_df, team_logos=None):
                                         ],
                                     ),
                                     html.Div(
-                                        className="graph-advanced",
                                         children=[
                                             dcc.Graph(
                                                 id="q5-bar-chart-graph",

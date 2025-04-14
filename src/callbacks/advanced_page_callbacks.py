@@ -21,9 +21,9 @@ def register_advanced_page_callbacks(app):
 
         # ✔ Remplace "scatter-button" par "stack-button" 
         #   et "heatmap-button" par "team-button"
-        base_shots = "header-button stack-button"   
-        base_team = "header-button team-button"
-        base_pie = "header-button piecharts-button"
+        base_shots = "graph-button stack-button"   
+        base_team = "graph-button team-button"
+        base_pie = "graph-button piecharts-button"
 
         # Par défaut, on affiche "Par événement"
         if not triggered_id:

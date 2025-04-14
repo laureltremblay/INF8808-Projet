@@ -139,21 +139,6 @@ def get_filter_pie_charts():
             html.Div(
                 children=[
                     dcc.RadioItems(
-                        id="season-choice",
-                        options=[
-                            {"label": "Tous", "value": "all"},
-                            {"label": "Saison régulière", "value": "regular_season"},
-                            {"label": "Séries éliminatoires", "value": "playoffs"},
-                        ],
-                        value="all",
-                        labelStyle={"display": "block"},
-                    ),
-                ]
-            ),
-            html.Hr(),
-            html.Div(
-                children=[
-                    dcc.RadioItems(
                         id="period-choice",
                         options=[
                             {"label": "Toutes", "value": "all"},
@@ -165,6 +150,21 @@ def get_filter_pie_charts():
                         value="all",
                         labelStyle={"display": "block"},
                     )
+                ]
+            ),
+            html.Hr(),
+            html.Div(
+                children=[
+                    dcc.RadioItems(
+                        id="season-choice",
+                        options=[
+                            {"label": "Tous", "value": "all"},
+                            {"label": "Saison régulière", "value": "regular_season"},
+                            {"label": "Séries éliminatoires", "value": "playoffs"},
+                        ],
+                        value="all",
+                        labelStyle={"display": "block"},
+                    ),
                 ]
             ),
             html.Hr(),

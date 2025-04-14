@@ -52,7 +52,6 @@ def get_stacked_bar_chart_figure(data_df):
         xaxis_title='Événement précédent',
         yaxis_title='Nombre total de tirs',
         hovermode='x unified',
-        plot_bgcolor='white',
         annotations=annotations,
         legend=dict(
             orientation='h',
@@ -61,7 +60,9 @@ def get_stacked_bar_chart_figure(data_df):
             xanchor='right',
             x=1
         ),
-        margin=dict(b=100)  # Marge pour les annotations.
+        margin=dict(b=100),  # Marge pour les annotations.
+        paper_bgcolor='rgba(0,0,0,0)',  # Fond de la "feuille" du graphe
+        plot_bgcolor='rgba(0,0,0,0)', 
     )
     
     fig.update_xaxes(tickangle=-45)
@@ -104,11 +105,12 @@ def get_bar_chart_figure(data_df):
             ticksuffix='%',
             gridcolor='lightgrey'
         ),
-        plot_bgcolor='white',
         hovermode='x unified',
         uniformtext_minsize=8,
         uniformtext_mode='hide',
-        xaxis=dict(tickangle=-45)
+        xaxis=dict(tickangle=-45),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)', 
     )
     
     # Add black outline to each bar for better visibility.
