@@ -15,12 +15,12 @@ def get_main_page_content(data_df) -> html.Div:
                         children=[
                             html.Button(
                                 "Nuage de points",
-                                className="graph-control-button scatter active",
+                                className="header-button scatter-button active",
                                 id="scatter-button",
                             ),
                             html.Button(
                                 "Heatmap",
-                                className="graph-control-button heatmap",
+                                className="header-button heatmap-button",
                                 id="heatmap-button",
                             ),
                         ],

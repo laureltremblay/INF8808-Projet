@@ -132,13 +132,6 @@ def register_main_page_callbacks(app, data_df):
                 "header-button heatmap-button",
                 "header-button scatter-button active",
             )
-        else:
-            # Default to heatmap
-            return (
-                get_heatmap_figure(df),
-                "header-button heatmap-button active",
-                "header-button scatter-button",
-            )
 
     @app.callback(
         Output("main-choice-dropdown", "placeholder"),
