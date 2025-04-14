@@ -1,4 +1,4 @@
-from dash import Input, Output, ctx
+from dash import Input, Output, State, ctx
 
 def register_advanced_page_callbacks(app):
     @app.callback(
@@ -19,8 +19,8 @@ def register_advanced_page_callbacks(app):
     def switch_advanced_tabs(shots_click, team_click, pie_click):
         triggered_id = ctx.triggered_id
 
-        # ✔ Remplace "scatter-button" par "stack-button" 
-        #   et "heatmap-button" par "team-button"
+        # Remplace "scatter-button" par "stack-button" 
+        # et "heatmap-button" par "team-button"
         base_shots = "header-button stack-button"   
         base_team = "header-button team-button"
         base_pie = "header-button piecharts-button"
@@ -73,3 +73,50 @@ def register_advanced_page_callbacks(app):
             base_team,
             base_pie,
         )
+
+
+    @app.callback(
+        Output("scatter-plot-pictogram-graph", "figure"),
+        Input("scatter-plot-pictogram-graph", "hoverData"),
+        State("scatter-plot-pictogram-graph", "figure"),
+        prevent_initial_call=True
+    )
+    def update_image_opacity_on_hover(hoverData, fig):
+        if not fig or "layout" not in fig or "images" not in fig["layout"]:
+            return fig
+
+        # No hover: reset all images to default opacity
+        if not hoverData:
+            for img in fig["layout"]["images"]:
+                # Flicker fix: avoid reloading the image
+                src = img["source"]
+                img["source"] = ""
+                img["source"] = src
+                img["opacity"] = 1
+                img["layer"] = "above"
+            return fig
+
+        # Hovered team name from customdata
+        hovered_team = None
+        if "points" in hoverData:
+            point = hoverData["points"][0]
+            if "customdata" in point and len(point["customdata"]) > 0:
+                hovered_team = point["customdata"][0]
+
+        # Update image opacities
+        for img in fig["layout"]["images"]:
+            src = img["source"]
+            img["source"] = ""
+            img["source"] = src
+
+            if "name" in img and img["name"] == hovered_team:
+                img["opacity"] = 1.0
+                img["layer"] = "above"
+            else:
+                img["opacity"] = 0.5
+                img["layer"] = "below"
+
+        return fig
+
+
+

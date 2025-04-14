@@ -7,6 +7,7 @@ la question cible 9 : Y avait-il des équipes plus efficaces pour empêcher des 
 import plotly.express as px
 import plotly.graph_objects as go
 from preprocess import get_scatter_plot_pictogram_data
+from assets.team_color import TEAM_COLOR_MAP
 
 
 def get_scatter_plot_pictogram_figure(goal_df, team_logos):
@@ -27,22 +28,21 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
     fig = px.scatter(
         preprocessed_df,
         x="goalsScoredAgainst",
-        y="goalsScored",
-        hover_data=["teamCode", "Category"],
+        y="goalsScored"
     )
     fig.update_layout(
         width=1050,
         height=800,
-        title="Comparaison des buts marqués et alloués par équipe en 2023-2024",
-        xaxis_title="Goals Allowed",
-        yaxis_title="Goal Scored",
+        title="Comparaison des buts marqués et accordés par équipe en 2023-2024",
+        xaxis_title="Buts accordés",
+        yaxis_title="Buts marqués",
         plot_bgcolor="white",
         xaxis=dict(
             gridcolor="lightgray",
             zerolinecolor="black",
             showline=True,
             linecolor="black",
-            range=[184, 304],  # Change min and max
+            range=[184, 304],
             dtick=10,
         ),
         yaxis=dict(
@@ -50,12 +50,14 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
             zerolinecolor="black",
             showline=True,
             linecolor="black",
-            range=[128, 360],  # Change min and max
+            range=[128, 360],
             dtick=25,
-        ),
+        )
     )
+    
+    fig.update_traces(marker=dict(size=1, opacity=0))
 
-    # We change each point of the scatter plot to the team's logo
+    # We create a dictionnary to define the size of each logo
     size_dictionnary = {
         "ANA": {"sizex": 13, "sizey": 13},
         "ARI": {"sizex": 13, "sizey": 13},
@@ -90,9 +92,24 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         "WPG": {"sizex": 15, "sizey": 15},
         "WSH": {"sizex": 22, "sizey": 22},
     }
+    
+    # We create the hovertemplate
+    hovertemplate = (
+        f"<span style='font-weight: Bold'><b>Équipe</b></span>"
+        "<span> : %{customdata[0]}</span><br>"
+        f"<span style='font-weight: Bold'><b>Catégorie</b></span>"
+        "<span> : %{customdata[1]}</span><br>"
+        f"<span style='font-weight: Bold'><b>Buts marqués</b></span>"
+        "<span> : %{y}</span><br>"
+        f"<span style='font-weight: Bold'><b>Buts alloués</b></span>"
+        "<span> : %{x}</span><br><extra></extra>"
+    )
 
+    # We turn each point of the scatter into the team's logo and we add a very small point to get the color of the team for
+    # the hoverlabel's background color
     for i, row in preprocessed_df.iterrows():
         team_name = row["teamCode"]
+        category = row["Category"]
         x = row["goalsScoredAgainst"]
         y = row["goalsScored"]
 
@@ -107,6 +124,24 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
                 sizey=size_dictionnary[team_name]["sizey"],
                 xanchor="center",
                 yanchor="middle",
+                name=f"{team_name}"
+            )
+            
+            fig.add_trace(
+            go.Scatter(
+                x=[x],
+                y=[y],
+                mode="markers",
+                marker=dict(
+                    size = 30,
+                    opacity = 0,
+                    color=TEAM_COLOR_MAP.get(team_name, "black"),
+                ),
+                customdata=[[team_name, category]],
+                hovertemplate = hovertemplate,
+                hoverlabel=dict(font=dict(color="white")),
+                showlegend=False,
+                )
             )
 
     # We add the average line of goals allowed
@@ -191,21 +226,5 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
             showlegend=True,
         )
     )
-
-    # We add hovertemplate
-    hovertemplate = (
-        f"<span style='font-weight: Bold'><b>Équipe</b></span>"
-        "<span> : %{customdata[0]}</span><br>"
-        f"<span style='font-weight: Bold'><b>Catégorie</b></span>"
-        "<span> : %{customdata[1]}</span><br>"
-        f"<span style='font-weight: Bold'><b>Buts marqués</b></span>"
-        "<span> : %{y}</span><br>"
-        f"<span style='font-weight: Bold'><b>Buts alloués</b></span>"
-        "<span> : %{x}</span><br><extra></extra>"
-    )
-
-    fig.update_layout(hoverlabel=dict(bgcolor="white", font=dict(color="black")))
-
-    fig.update_traces(hovertemplate=hovertemplate)
 
     return fig

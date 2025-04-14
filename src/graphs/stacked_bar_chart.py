@@ -9,14 +9,14 @@ import pandas as pd
 MODES = dict(count='Quantité', percent='Pourcentage')
 
 event_category_map = {
-    'GIVE': 'Perte de palet',
+    'GIVE': 'Perte de rondelle',
     'SHOT': 'Tir au but',
     'HIT': 'Mise en échec',
     'TAKE': 'Récupération',
     'MISS': 'Tir raté',
     'FAC': 'Mise au jeu',
     'BLOCK': 'Tir bloqué',
-    'DELPEN': 'Pénalité différée',
+    'DELPEN': 'Pénalité à retardement',
     'STOP': 'Arrêt de jeu',
     'CHL': 'Révision vidéo',
     'GOAL': 'But'
