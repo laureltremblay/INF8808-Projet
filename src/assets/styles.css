@@ -50,13 +50,6 @@
     z-index: 10;
   }
   
-  /* (Optionnel) Ancienne version de .header-button commentée
-  .header-button {
-    ...
-  }
-  */
-  
-  
   /* ======================================================
      4) HEADER BUTTONS (Nouvelle version)
      ====================================================== */
@@ -74,7 +67,8 @@
     cursor: pointer;
     padding: 10px 15px;
     color: #333;
-    border-radius: 8px; /* petit arrondi */
+    border-radius: 8px;
+    white-space: nowrap;
   }
   
   .header-button:hover {
@@ -270,10 +264,11 @@
      12) GRAPH CONTROLS (TABS/BUTTONS)
      ====================================================== */
   
+  
   .graph-controls {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 14px;
     margin-bottom: 20px;
   }
@@ -282,8 +277,11 @@
     padding: 15px 20px;
     font-size: 20px;
     font-weight: bold;
+    white-space: nowrap;
     border: none;
+    width: 200px;
     border-radius: 12px;
+    flex-wrap: nowrap;
     cursor: pointer;
     text-align: center;
     min-width: 150px;
