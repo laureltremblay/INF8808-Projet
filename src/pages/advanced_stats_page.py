@@ -1,5 +1,7 @@
 from dash import html, dcc
-from graphs.stacked_bar_chart import get_stacked_bar_chart_figure, get_bar_chart_figure
+
+from components.stacked_bar_chart_layout import get_stacked_bar_chart_layout
+from graphs.stacked_bar_chart import get_bar_chart_figure
 from graphs.scatter_plot_pictogram import get_scatter_plot_pictogram_figure
 from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts
@@ -53,23 +55,7 @@ def get_advanced_content(data_df, team_logos=None):
                                 className="stack-graph-section fade-in",
                                 id="shots-analysis-section",
                                 children=[
-                                    html.Div(
-                                        className="graph-advanced",
-                                        children=[
-                                            dcc.Graph(
-                                                id="q5-stacked-bar-chart-graph",
-                                                figure=get_stacked_bar_chart_figure(data_df),
-                                                config={
-                                                    "scrollZoom": False,
-                                                    "showTips": False,
-                                                    "showAxisDragHandles": False,
-                                                    "doubleClick": False,
-                                                    "displayModeBar": False,
-                                                },
-                                                style={"width": "100%", "height": "400px"}
-                                            )
-                                        ],
-                                    ),
+                                    html.Div(get_stacked_bar_chart_layout(data_df), className="graph-advanced"),
                                     html.Div(
                                         className="graph-advanced",
                                         children=[
