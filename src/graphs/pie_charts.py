@@ -2,18 +2,6 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 def get_pie_chart_figure(data_df):
-    """
-    Crée une figure composite regroupant trois diagrammes circulaires (pie charts) :
-      - Diagramme pour les buts par période
-      - Diagramme pour les buts par type de match
-      - Diagramme pour les buts local/visiteur
-
-    Args:
-        data_df (DataFrame): Données contenant les événements (seul "GOAL" est pris en compte).
-
-    Returns:
-        Figure: Un objet plotly.graph_objects.Figure regroupant les 3 pie charts.
-    """
     # Filtrer les données pour ne garder que les "GOAL"
     df = data_df[data_df['event'] == 'GOAL'].copy()
 
@@ -45,7 +33,7 @@ def get_pie_chart_figure(data_df):
     fig = make_subplots(
         rows=1, cols=3,
         specs=[[{'type': 'domain'}, {'type': 'domain'}, {'type': 'domain'}]],
-        subplot_titles=("Buts par période", "Buts par type de match", "Buts local/visiteur")
+        subplot_titles=("Buts par période", "Buts par type de match", "Buts local/visiteur"),
     )
 
     # Ajout du pie chart pour les périodes
@@ -84,7 +72,7 @@ def get_pie_chart_figure(data_df):
     # Personnalisation de la mise en page
     fig.update_layout(
         autosize=True,
-        margin=dict(l=40, r=40, t=50, b=50),
+        margin=dict(l=10, r=10, t=20, b=20),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         transition=dict(duration=500)

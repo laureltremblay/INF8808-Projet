@@ -17,15 +17,15 @@ def register_advanced_page_callbacks(app):
         ],
     )
     def switch_advanced_tabs(shots_click, team_click, pie_click):
-        # Bouton déclencheur
         triggered_id = ctx.triggered_id
 
-        # Définir les classes de base pour chaque bouton
-        base_shots = "header-button scatter-button"
-        base_team = "header-button heatmap-button"
+        # ✔ Remplace "scatter-button" par "stack-button" 
+        #   et "heatmap-button" par "team-button"
+        base_shots = "header-button stack-button"   
+        base_team = "header-button team-button"
         base_pie = "header-button piecharts-button"
 
-        # Par défaut : l'onglet "Analyse des tirs" est actif
+        # Par défaut, on affiche "Par événement"
         if not triggered_id:
             return (
                 {"display": "block"},
@@ -63,7 +63,8 @@ def register_advanced_page_callbacks(app):
                 base_team,
                 base_pie + " active",
             )
-        # Par défaut (au cas où)
+
+        # Au cas où
         return (
             {"display": "block"},
             {"display": "none"},

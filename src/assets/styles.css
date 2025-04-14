@@ -68,7 +68,6 @@ html, body {
   background-color: #333;
   color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  /* Pas de transformation supplémentaire ici */
 }
 
 /* -------------------------------------------------------------------
@@ -256,30 +255,35 @@ html, body {
   background-color: #dd8839;
   color: #fff;
 }
+
 .stack-button {
-  background-color: #b5e7a0;
-  color: #333;
+  background-color: #4CAF50;
+  color: #fff;
 }
 .stack-button.active {
-  background-color: #3cae39;
+  background-color: #2E7D32;
   color: #fff;
 }
+
 .team-button {
-  background-color: #f2b5d4;
-  color: #333;
+  background-color: #009688;
+  color: #fff;
 }
 .team-button.active {
-  background-color: #d6398a;
+  background-color: #00695C;
   color: #fff;
 }
+
 .piecharts-button {
-  background-color: #f2b5d4;
-  color: #333;
+  background-color: #FFC107;
+  color: #fff;
 }
 .piecharts-button.active {
-  background-color: #d6398a;
+  background-color: #FFA000;
   color: #fff;
 }
+
+
 
 /* -------------------------------------------------------------------
    PIE CHARTS SECTION (pour "Par répartition")

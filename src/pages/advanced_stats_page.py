@@ -28,17 +28,17 @@ def get_advanced_content(data_df, team_logos=None):
                         children=[
                             html.Button(
                                 "Par événement",
-                                className="header-button stack-button active",
+                                className="graph-control-button stack-button active",
                                 id="shots-analysis-button",
                             ),
                             html.Button(
                                 "Par équipe",
-                                className="header-button team-button",
+                                className="graph-control-button team-button",
                                 id="team-analysis-button",
                             ),
                             html.Button(
                                 "Par répartition",
-                                className="header-button piecharts-button",
+                                className="graph-control-button piecharts",
                                 id="pie-charts-button",
                             ),
                         ],
@@ -110,7 +110,7 @@ def get_advanced_content(data_df, team_logos=None):
                                                     "displayModeBar": False,
                                                 },
                                                 style={ "width": "100%", 
-                                                        "height": "80vh",
+                                                        "height": "100%",
                                                 }
                                             )
                                         ],
@@ -140,8 +140,8 @@ def get_advanced_content(data_df, team_logos=None):
                                                             "doubleClick": False,
                                                             "displayModeBar": False,
                                                         },
-                                                        #style={"width": "100%", "height": "100%"}
-                                                    )
+                                                        style={"width": "100%"}
+                                                    ),
                                                 ],
                                             ),
                                             # Colonne du filtre (placé à droite)
