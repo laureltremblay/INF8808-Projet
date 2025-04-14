@@ -163,10 +163,10 @@ def register_main_page_callbacks(app, data_df):
 
         # Config for placeholder text and column names
         placeholders = {
-            "team": "Choose a team",
-            "player": "Choose a player",
-            "position": "Choose a position",
-            "goalie": "Choose a goalie",
+            "team": "Choisir une équipe",
+            "player": "Choisir un joueur",
+            "position": "Choisir une position",
+            "goalie": "Choisir un gardien",
         }
 
         columns = {

@@ -122,6 +122,7 @@ def get_filter_container():
 
 from dash import html, dcc
 
+
 def get_filter_pie_charts():
     return html.Div(
         id="filter-container",  # Identifiant modifié pour éviter conflit
@@ -132,9 +133,9 @@ def get_filter_pie_charts():
                     dcc.Dropdown(
                         id="team-choice",
                         options=[],  # sera rempli dynamiquement
-                        placeholder="Sélectionner une équipe...",
-                        clearable=True
-                    )
+                        placeholder="Choisir une équipe",
+                        clearable=True,
+                    ),
                 ]
             ),
             html.Hr(),

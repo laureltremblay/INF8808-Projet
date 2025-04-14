@@ -14,7 +14,7 @@ def get_main_page_content(data_df) -> html.Div:
                         className="graph-controls",
                         children=[
                             html.Button(
-                                "Scatter Plot",
+                                "Nuage de points",
                                 className="header-button scatter-button active",
                                 id="scatter-button",
                             ),
