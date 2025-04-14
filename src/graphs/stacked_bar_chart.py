@@ -1,4 +1,4 @@
-# 3e visualisation qui répond à la question 5: Comment est-ce que 
+# 3e visualisation qui répond à la question 5: Comment est-ce que
 # l'événement qui précède le tir impacte la chance de marquer?
 
 # x: Les évènements qui précèdent un tir (lastEventCategory).
@@ -6,20 +6,20 @@
 import plotly.graph_objects as go
 import pandas as pd
 
-MODES = dict(count='Quantité', percent='Pourcentage')
+MODES = dict(count="Quantité", percent="Pourcentage")
 
 event_category_map = {
-    'GIVE': 'Perte de palet',
-    'SHOT': 'Tir au but',
-    'HIT': 'Mise en échec',
-    'TAKE': 'Récupération',
-    'MISS': 'Tir raté',
-    'FAC': 'Mise au jeu',
-    'BLOCK': 'Tir bloqué',
-    'DELPEN': 'Pénalité différée',
-    'STOP': 'Arrêt de jeu',
-    'CHL': 'Révision vidéo',
-    'GOAL': 'But'
+    "GIVE": "Perte de palet",
+    "SHOT": "Tir au but",
+    "HIT": "Mise en échec",
+    "TAKE": "Récupération",
+    "MISS": "Tir raté",
+    "FAC": "Mise au jeu",
+    "BLOCK": "Tir bloqué",
+    "DELPEN": "Pénalité différée",
+    "STOP": "Arrêt de jeu",
+    "CHL": "Révision vidéo",
+    "GOAL": "But",
     # 'GIVE': 'Giveaway',
     # 'SHOT': 'Shot on Goal',
     # 'HIT': 'Hit',
@@ -35,195 +35,188 @@ event_category_map = {
 
 
 event_types_map = {
-    'SHOT': 'Tir cadré',
-    'MISS': 'Tir raté',
-    'GOAL': 'But',
+    "SHOT": "Tir cadré",
+    "MISS": "Tir raté",
+    "GOAL": "But",
 }
 
 event_types_colors = {
-    'Tir cadré': '#636EFA', 
-    'Tir raté': '#EF553B', 
-    'But': '#00CC96',
+    "Tir cadré": "#636EFA",
+    "Tir raté": "#EF553B",
+    "But": "#00CC96",
 }
+
 
 def get_stacked_bar_char_template(mode):
     base_template = (
         "<span style='font-family:Segoe UI; color:#333'>"
         "<b>%{fullData.name}</b><br>"  # Utilisation du nom français
     )
-    
-    if mode == 'Quantité':
+
+    if mode == "Quantité":
         return base_template + "Tirs: %{y}</span><extra></extra>"
-    elif mode == 'Pourcentage':
+    elif mode == "Pourcentage":
         return base_template + "Part: %{y:.2f}%</span><extra></extra>"
     return "Invalid mode"
 
-def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
-    df = data_df.copy(deep=True)
-    
-    # Prepare the data.
-    event_types = ['SHOT', 'MISS', 'GOAL']
-    df_filtered = df[df['event'].isin(event_types)]
-    df_filtered['lastEventCategory'] = df_filtered['lastEventCategory'].map(event_category_map)
-    # remove 'STOP': 'Arrêt de jeu' and 'CHL': 'Révision vidéo' from the lastEventCategory column because they are not relevant for the analysis.
-    df_filtered = df_filtered[~df_filtered['lastEventCategory'].isin(['Arrêt de jeu', 'Révision vidéo'])]
-    df_filtered = df_filtered[df_filtered['lastEventCategory'].notna()]
-    df_filtered['event'] = df_filtered['event'].map(event_types_map)
-    df_pivot = df_filtered.groupby(['lastEventCategory', 'event']).size().unstack(fill_value=0)
 
-    df_pivot['Total'] = df_pivot.sum(axis=1)
-    if mode == MODES['percent']:
+def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
+    df = data_df.copy(deep=True)
+
+    # Prepare the data.
+    event_types = ["SHOT", "MISS", "GOAL"]
+    df_filtered = df[df["event"].isin(event_types)]
+    df_filtered["lastEventCategory"] = df_filtered["lastEventCategory"].map(
+        event_category_map
+    )
+    # remove 'STOP': 'Arrêt de jeu' and 'CHL': 'Révision vidéo' from the lastEventCategory column because they are not relevant for the analysis.
+    df_filtered = df_filtered[
+        ~df_filtered["lastEventCategory"].isin(["Arrêt de jeu", "Révision vidéo"])
+    ]
+    df_filtered = df_filtered[df_filtered["lastEventCategory"].notna()]
+    df_filtered["event"] = df_filtered["event"].map(event_types_map)
+    df_pivot = (
+        df_filtered.groupby(["lastEventCategory", "event"]).size().unstack(fill_value=0)
+    )
+
+    df_pivot["Total"] = df_pivot.sum(axis=1)
+    if mode == MODES["percent"]:
         # Ordering by the percentage of goals.
-        df_pivot['% But'] = (df_pivot['But'] / df_pivot['Total'] * 100)
-        df_pivot = df_pivot.sort_values('% But', ascending=False)
+        df_pivot["% But"] = df_pivot["But"] / df_pivot["Total"] * 100
+        df_pivot = df_pivot.sort_values("% But", ascending=False)
     else:
         # Ordering by the total number of shots.
-        df_pivot = df_pivot.sort_values('Total', ascending=False)
-    
-    event_types = ['Tir cadré', 'Tir raté', 'But']
-    df_pivot_percent = df_pivot[event_types].div(df_pivot['Total'], axis=0) * 100
-    
-    fig = go.Figure() 
+        df_pivot = df_pivot.sort_values("Total", ascending=False)
+
+    event_types = ["Tir cadré", "Tir raté", "But"]
+    df_pivot_percent = df_pivot[event_types].div(df_pivot["Total"], axis=0) * 100
+
+    fig = go.Figure()
     for event in event_types:
         # Select the correct data depending on shot type.
-        y_data = df_pivot_percent[event] if mode == MODES['percent'] else df_pivot[event]
-        
-        fig.add_trace(go.Bar(
-            x=df_pivot.index,
-            y=y_data,
-            name=event,
-            marker_color=event_types_colors[event],
-            hovertemplate=get_stacked_bar_char_template(mode=mode),
-        ))
+        y_data = (
+            df_pivot_percent[event] if mode == MODES["percent"] else df_pivot[event]
+        )
+
+        fig.add_trace(
+            go.Bar(
+                x=df_pivot.index,
+                y=y_data,
+                name=event,
+                marker_color=event_types_colors[event],
+                hovertemplate=get_stacked_bar_char_template(mode=mode),
+            )
+        )
 
     # Customize the plot layout.
     yaxis_config = {
-        'title': 'Pourcentage des tirs (%)' if mode == MODES['percent'] else 'Nombre de tirs',
-        'range': [0, 100] if mode == MODES['percent'] else None
+        "title": (
+            "Pourcentage des tirs (%)" if mode == MODES["percent"] else "Nombre de tirs"
+        ),
+        "range": [0, 100] if mode == MODES["percent"] else None,
     }
-    
+
     fig.update_layout(
-    barmode='stack',
-    title=dict(
-        text='Répartition des types de tirs selon l\'événement précédent',
-        font=dict(
-            family='Segoe UI',
-            size=20,
-            color='#333'
-        ),
-        x=0.5
-    ),
-    xaxis_title=dict(
-        text='Événement précédent',
-        font=dict(
-            family='Segoe UI',
-            size=14,
-            color='#333'
-        )
-    ),
-    yaxis=dict(
+        barmode="stack",
         title=dict(
-            text=yaxis_config['title'],
-            font=dict(
-                family='Segoe UI',
-                size=14,
-                color='#333'
-            )
+            text="Répartition des types de tirs selon l'événement précédent",
+            font=dict(family="Segoe UI", size=20, color="#333"),
+            x=0.5,
         ),
-        range=yaxis_config['range'],
-        tickfont=dict(
-            family='Segoe UI',
-            size=12,
-            color='#666'
+        xaxis_title=dict(
+            text="Événement précédent",
+            font=dict(family="Segoe UI", size=14, color="#333"),
         ),
-        gridcolor='#eee'
-    ),
-    hovermode='x unified',
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)', 
-    legend=dict(
-        title_text='',
-        orientation='h',
-        yanchor='bottom',
-        y=1.02,
-        xanchor='right',
-        x=1,
-        font=dict(
-            family='Segoe UI',
-            size=12,
-            color='#333'
-        )
-    ),
-    margin=dict(b=100, t=60),
-    font=dict(family="Segoe UI", size=12)
+        yaxis=dict(
+            title=dict(
+                text=yaxis_config["title"],
+                font=dict(family="Segoe UI", size=14, color="#333"),
+            ),
+            range=yaxis_config["range"],
+            tickfont=dict(family="Segoe UI", size=12, color="#666"),
+            gridcolor="#eee",
+        ),
+        hovermode="x unified",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        legend=dict(
+            title_text="",
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(family="Segoe UI", size=12, color="#333"),
+        ),
+        margin=dict(b=100, t=60),
+        font=dict(family="Segoe UI", size=12),
     )
 
     fig.update_xaxes(
         tickangle=-45,
         showgrid=False,
-        tickfont=dict(
-            family='Segoe UI',
-            size=12,
-            color='#666'
-        )
+        tickfont=dict(family="Segoe UI", size=12, color="#666"),
     )
-    
+
+    fig.update_layout(
+        xaxis_fixedrange=True,
+        yaxis_fixedrange=True,
+    )
+
     fig.update_xaxes(tickangle=-45, showgrid=False)
-    fig.update_yaxes(showgrid=True, gridcolor='rgba(200, 200, 200, 0.3)')
-    
+    fig.update_yaxes(showgrid=True, gridcolor="rgba(200, 200, 200, 0.3)")
+
     return fig
 
 
 # Version 2
-# 3e visualisation qui répond à la question 5: Comment est-ce que 
+# 3e visualisation qui répond à la question 5: Comment est-ce que
 # l'événement qui précède le tir impacte la chance de marquer?
 
 # x: Les évènements qui précèdent un tir (lastEventCategory).
 # y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
 import plotly.express as px
 
+
 def get_bar_chart_figure(data_df: pd.DataFrame):
-    df = data_df.copy(deep=True) # Deepcopy to not affect the global dataframe.
-    
+    df = data_df.copy(deep=True)  # Deepcopy to not affect the global dataframe.
+
     # Prepare the data.
-    df['lastEventCategory'] = df['lastEventCategory'].map(event_category_map)
-    df_agg = df.groupby('lastEventCategory', as_index=False)['xGoal'].mean()
-    df_agg['xGoal_percent'] = df_agg['xGoal'] * 100
-    df_agg = df_agg.sort_values('xGoal_percent', ascending=False)
-    
+    df["lastEventCategory"] = df["lastEventCategory"].map(event_category_map)
+    df_agg = df.groupby("lastEventCategory", as_index=False)["xGoal"].mean()
+    df_agg["xGoal_percent"] = df_agg["xGoal"] * 100
+    df_agg = df_agg.sort_values("xGoal_percent", ascending=False)
+
     # Create the bar chart.
     fig = px.bar(
         df_agg,
-        x='lastEventCategory',
-        y='xGoal_percent',
+        x="lastEventCategory",
+        y="xGoal_percent",
         labels={
-            'xGoal_percent': 'Probabilité de but (%)',
-            'lastEventCategory': 'Événement précédent'
+            "xGoal_percent": "Probabilité de but (%)",
+            "lastEventCategory": "Événement précédent",
         },
-        color_discrete_sequence=['#1f77b4'],
-        hover_data={'xGoal': ':.3f'},
-        title="Probabilité de marquer selon l'événement précédent"
+        color_discrete_sequence=["#1f77b4"],
+        hover_data={"xGoal": ":.3f"},
+        title="Probabilité de marquer selon l'événement précédent",
     )
-    
+
     # Customize the plot layout.
     fig.update_layout(
-        yaxis=dict(
-            range=[0, 40],
-            ticksuffix='%',
-            gridcolor='lightgrey'
-        ),
-        hovermode='x unified',
+        yaxis=dict(range=[0, 40], ticksuffix="%", gridcolor="lightgrey"),
+        hovermode="x unified",
         uniformtext_minsize=8,
-        uniformtext_mode='hide',
+        uniformtext_mode="hide",
         xaxis=dict(tickangle=-45),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)', 
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
     )
-    
+
+    fig.update_layout(
+        xaxis_fixedrange=True,
+        yaxis_fixedrange=True,
+    )
     # Add black outline to each bar for better visibility.
-    fig.update_traces(
-        marker_line_color='black', 
-        marker_line_width=1.5,
-        opacity=0.8)
-    
+    fig.update_traces(marker_line_color="black", marker_line_width=1.5, opacity=0.8)
+
     return fig
