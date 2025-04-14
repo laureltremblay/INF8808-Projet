@@ -151,6 +151,31 @@
     /* Fond transparent pris en charge par Plotly si figure => paper_bgcolor='rgba(0,0,0,0)' */
   }
   
+
+  .unzoom {
+    background-color: #a7babc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+
+  }
+  
+  .unzoom:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+  }
+  
+  .unzoom i {
+    font-size: 16px;
+  }
+  
   
   /* ======================================================
      8) FILTERS
@@ -408,6 +433,8 @@
     max-width: 350px;
     min-width: 200px;
   }
+
+
   
   
   /* ======================================================

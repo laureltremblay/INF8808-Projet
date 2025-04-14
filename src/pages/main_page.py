@@ -32,6 +32,11 @@ def get_main_page_content(data_df) -> html.Div:
                                 className="graph",
                                 id="main-graph-div",
                                 children=[
+                                    html.Button(
+                                        " Dézoomer",
+                                        id="unzoom-button",
+                                        className="unzoom",
+                                    ),
                                     dcc.Graph(
                                         figure=get_scatter_figure(data_df),
                                         id="main-graph",
@@ -43,7 +48,7 @@ def get_main_page_content(data_df) -> html.Div:
                                             displayModeBar=False,
                                         ),
                                         style={"height": "75vh"},
-                                    )
+                                    ),
                                 ],
                             ),
                             get_filter_container(),
