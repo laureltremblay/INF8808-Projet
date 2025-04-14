@@ -120,9 +120,6 @@ def get_filter_container():
     )
 
 
-from dash import html, dcc
-
-
 def get_filter_pie_charts():
     return html.Div(
         id="filter-container",  # Identifiant modifié pour éviter conflit

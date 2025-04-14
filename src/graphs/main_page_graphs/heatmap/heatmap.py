@@ -25,6 +25,7 @@ def get_heatmap_figure(data_df):
             ],
             zmin=10,
             opacity=0.7,
+            hovertemplate="Coordonée horizontale: %{x} pieds<br>Coordonnée verticale: %{y} pieds<br>Nombre de buts: %{z}<extra></extra>",
         )
     )
 
