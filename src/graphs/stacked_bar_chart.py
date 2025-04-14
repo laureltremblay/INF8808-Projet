@@ -117,50 +117,21 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
     }
 
     fig.update_layout(
-        barmode="stack",
-        title=dict(
-            text="Répartition des types de tirs selon l'événement précédent",
-            font=dict(family="Segoe UI", size=20, color="#333"),
-            x=0.5,
-        ),
-        xaxis_title=dict(
-            text="Événement précédent",
-            font=dict(family="Segoe UI", size=14, color="#333"),
-        ),
-        yaxis=dict(
-            title=dict(
-                text=yaxis_config["title"],
-                font=dict(family="Segoe UI", size=14, color="#333"),
-            ),
-            range=yaxis_config["range"],
-            tickfont=dict(family="Segoe UI", size=12, color="#666"),
-            gridcolor="#eee",
-        ),
-        hovermode="x unified",
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
+        barmode='stack',
+        title='Répartition des types de tirs selon l\'événement précédent',
+        xaxis_title='Événement précédent',
+        yaxis=yaxis_config,
+        hovermode='x unified',
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
         legend=dict(
-            title_text="",
-            orientation="h",
-            yanchor="bottom",
+            orientation='h',
+            yanchor='bottom',
             y=1.02,
-            xanchor="right",
-            x=1,
-            font=dict(family="Segoe UI", size=12, color="#333"),
-        ),
-        margin=dict(b=100, t=60),
-        font=dict(family="Segoe UI", size=12),
-    )
-
-    fig.update_xaxes(
-        tickangle=-45,
-        showgrid=False,
-        tickfont=dict(family="Segoe UI", size=12, color="#666"),
-    )
-
-    fig.update_layout(
-        xaxis_fixedrange=True,
-        yaxis_fixedrange=True,
+            xanchor='right',
+            x=1),
+        margin=dict(b=100, t=40),
+        font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=15)
     )
 
     fig.update_xaxes(tickangle=-45, showgrid=False)
@@ -210,6 +181,7 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
         xaxis=dict(tickangle=-45),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=15)
     )
 
     fig.update_layout(
