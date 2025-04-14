@@ -42,7 +42,7 @@ def get_main_page_content(data_df) -> html.Div:
                                             doubleClick=False,
                                             displayModeBar=False,
                                         ),
-                                        style={"height": "80vh"},
+                                        style={"height": "75vh"},
                                     )
                                 ],
                             ),
