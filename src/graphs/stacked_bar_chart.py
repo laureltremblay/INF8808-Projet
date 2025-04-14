@@ -139,8 +139,8 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode = MODES['count']):
         gridcolor='#eee'
     ),
     hovermode='x unified',
-    plot_bgcolor='white',
-    paper_bgcolor='white',
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)', 
     legend=dict(
         title_text='',
         orientation='h',
@@ -212,11 +212,12 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
             ticksuffix='%',
             gridcolor='lightgrey'
         ),
-        plot_bgcolor='white',
         hovermode='x unified',
         uniformtext_minsize=8,
         uniformtext_mode='hide',
-        xaxis=dict(tickangle=-45)
+        xaxis=dict(tickangle=-45),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)', 
     )
     
     # Add black outline to each bar for better visibility.

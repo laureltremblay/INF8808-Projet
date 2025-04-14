@@ -34,8 +34,8 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         width=1050,
         height=800,
         title="Comparaison des buts marqués et alloués par équipe en 2023-2024",
-        xaxis_title="Goals Allowed",
-        yaxis_title="Goal Scored",
+        xaxis_title="Buts Alloués",
+        yaxis_title="Buts Marqués",
         plot_bgcolor="white",
         xaxis=dict(
             gridcolor="lightgray",
@@ -204,7 +204,11 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         "<span> : %{x}</span><br><extra></extra>"
     )
 
-    fig.update_layout(hoverlabel=dict(bgcolor="white", font=dict(color="black")))
+    fig.update_layout(
+        hoverlabel=dict(bgcolor="white", 
+        font=dict(color="black")),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)', )
 
     fig.update_traces(hovertemplate=hovertemplate)
 

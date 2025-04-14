@@ -120,8 +120,8 @@ def register_main_page_callbacks(app, data_df):
         if triggered == "heatmap-button":
             return (
                 get_heatmap_figure(df),
-                "header-button heatmap-button active",
-                "header-button scatter-button",
+                "graph-button heatmap-button active",
+                "graph-button scatter-button",
             )
         elif (
             triggered == "scatter-button"
@@ -129,8 +129,8 @@ def register_main_page_callbacks(app, data_df):
         ):
             return (
                 get_scatter_figure(df, color_var),
-                "header-button heatmap-button",
-                "header-button scatter-button active",
+                "graph-button heatmap-button",
+                "graph-button scatter-button active",
             )
 
     @app.callback(

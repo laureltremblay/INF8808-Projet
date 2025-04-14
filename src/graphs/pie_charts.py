@@ -44,7 +44,7 @@ def get_pie_chart_figure(data_df):
         textinfo='percent',
         textfont_size=14,
         marker=dict(line=dict(color='#ffffff', width=2)),
-        pull=[0.03] * len(period_counts)
+        pull=[0.03] * len(period_counts),
     ), row=1, col=1)
 
     # Ajout du pie chart pour le type de match
@@ -69,13 +69,23 @@ def get_pie_chart_figure(data_df):
         pull=[0.03] * len(home_team_counts)
     ), row=1, col=3)
 
-    # Personnalisation de la mise en page
     fig.update_layout(
-        autosize=True,
-        margin=dict(l=10, r=10, t=20, b=20),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        transition=dict(duration=500)
+    title_text="Répartition des Buts",
+    title_x=0.5,
+    title_font=dict(size=24, family="Arial, sans-serif"),
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=-0.15,
+        xanchor="center",
+        x=0.5
+    ),
+    autosize=True,
+    margin=dict(l=10, r=10, t=80, b=50),
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    transition=dict(duration=500)
     )
+    
 
     return fig
