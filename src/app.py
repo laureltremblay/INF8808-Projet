@@ -14,6 +14,7 @@ from callbacks.advanced_page_callbacks import register_advanced_page_callbacks
 
 app = dash.Dash(__name__)
 app.title = "NHL Shot Data 2023-2024"
+PORT = 8050
 
 data_df = pd.read_csv("assets/shots_2023_2024.csv")
 non_filtered_data_df = data_df.copy(deep=True)
@@ -80,4 +81,4 @@ def update_page(*_):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True, port=8050)
+    app.run_server(debug=False, port=PORT)
