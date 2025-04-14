@@ -205,10 +205,15 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
     )
 
     fig.update_layout(
-        hoverlabel=dict(bgcolor="white", 
-        font=dict(color="black")),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)', )
+        hoverlabel=dict(bgcolor="white", font=dict(color="black")),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+    ),
+
+    fig.update_layout(
+        xaxis_fixedrange=True,
+        yaxis_fixedrange=True,
+    )
 
     fig.update_traces(hovertemplate=hovertemplate)
 

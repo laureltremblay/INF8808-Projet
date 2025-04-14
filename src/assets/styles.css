@@ -307,7 +307,7 @@
   }
   
   .heatmap-button {
-    background-color: #e9bf9a;
+    background-color: #f4d2b5;
     color: #333;
   }
   .heatmap-button.active {
@@ -316,7 +316,7 @@
   }
   
   .stack-button {
-    background-color: #4CAF50;
+    background-color: #a3eaa5;
     color: #fff;
   }
   .stack-button.active {
@@ -325,7 +325,7 @@
   }
   
   .team-button {
-    background-color: #009688;
+    background-color: #98ebe3;
     color: #fff;
   }
   .team-button.active {
@@ -334,11 +334,11 @@
   }
   
   .piecharts-button {
-    background-color: #FFC107;
+    background-color: #e09ff8;
     color: #fff;
   }
   .piecharts-button.active {
-    background-color: #FFA000;
+    background-color: #952fd1;
     color: #fff;
   }
   
