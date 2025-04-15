@@ -48,15 +48,10 @@ event_types_colors = {
 
 
 def get_stacked_bar_char_template(mode):
-    base_template = (
-        "<span style='font-family:Segoe UI; color:#333'>"
-        "<b>%{fullData.name}</b><br>"  # Utilisation du nom français
-    )
-
     if mode == "Quantité":
-        return base_template + "Tirs: %{y}</span><extra></extra>"
+        return "<span style='font-family:Segoe UI; color:#333'>""<b>%{fullData.name}</b> : %{y}</span><extra></extra>"
     elif mode == "Pourcentage":
-        return base_template + "Part: %{y:.2f}%</span><extra></extra>"
+        return "<span style='font-family:Segoe UI; color:#333'>""<b>%{fullData.name}</b> : %{y:.2f}%</span><extra></extra>"
     return "Invalid mode"
 
 
@@ -127,7 +122,12 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
         },
         xaxis_title="Événement précédent",
         yaxis=yaxis_config,
+        dragmode=False,
         hovermode="x unified",
+        hoverlabel = dict(
+            bgcolor="white",
+            font_color="black",
+        ),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         # Positionnement de la légende à droite de la figure
@@ -179,6 +179,9 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
 # y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
 import plotly.express as px
 
+def get_bar_chart_template():
+    return "<span style='font-family:Segoe UI; color:#333'>%{y:.2f}%</span><extra></extra>"
+
 
 def get_bar_chart_figure(data_df: pd.DataFrame):
     df = data_df.copy(deep=True)  # Deepcopy to not affect the global dataframe.
@@ -200,13 +203,19 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
         },
         color_discrete_sequence=["#1f77b4"],
         hover_data={"xGoal": ":.3f"},
-        title="Probabilité de marquer selon l'événement précédent",
+        title="Probabilité de marquer selon l'événement précédent"
     )
+    fig.update_traces(hovertemplate=get_bar_chart_template())
 
     # Customize the plot layout.
     fig.update_layout(
         yaxis=dict(range=[0, 40], ticksuffix="%", gridcolor="lightgrey"),
+        dragmode=False,
         hovermode="x unified",
+        hoverlabel = dict(
+            bgcolor="white",
+            font_color="black",
+        ),
         uniformtext_minsize=8,
         uniformtext_mode="hide",
         xaxis=dict(tickangle=-45),
