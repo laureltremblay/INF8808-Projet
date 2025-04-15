@@ -17,8 +17,6 @@ event_category_map = {
     'FAC': 'Mise au jeu',
     'BLOCK': 'Tir bloqué',
     'DELPEN': 'Pénalité à retardement',
-    'STOP': 'Arrêt de jeu',
-    'CHL': 'Révision vidéo',
     'GOAL': 'But'
     # 'GIVE': 'Giveaway',
     # 'SHOT': 'Shot on Goal',
