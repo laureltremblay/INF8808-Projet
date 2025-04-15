@@ -34,7 +34,12 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         width=1050,
         height=800,
         dragmode=False,
-        title="Comparaison des buts marqués et accordés par équipe en 2023-2024",
+        title=dict(
+        text="Comparaison des buts marqués et accordés par équipe en 2023-2024",
+        font=dict(size=22),
+        x=0.5,
+        xanchor='center'
+        ),
         xaxis_title="Buts accordés",
         yaxis_title="Buts marqués",
         plot_bgcolor="rgba(0,0,0,0)",
