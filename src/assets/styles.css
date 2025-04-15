@@ -579,3 +579,14 @@ body {
     font-size: 13px;
   }
 }
+
+/* Make the Dash loading spinner bigger */
+.dash-spinner {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.dash-loading .dash-spinner > div {
+  width: 100px !important;
+  height: 100px !important;
+}
