@@ -9,17 +9,17 @@ import pandas as pd
 MODES = dict(count="Quantité", percent="Pourcentage")
 
 event_category_map = {
-    "GIVE": "Perte de palet",
-    "SHOT": "Tir au but",
-    "HIT": "Mise en échec",
-    "TAKE": "Récupération",
-    "MISS": "Tir raté",
-    "FAC": "Mise au jeu",
-    "BLOCK": "Tir bloqué",
-    "DELPEN": "Pénalité différée",
-    "STOP": "Arrêt de jeu",
-    "CHL": "Révision vidéo",
-    "GOAL": "But",
+    'GIVE': 'Perte de rondelle',
+    'SHOT': 'Tir au but',
+    'HIT': 'Mise en échec',
+    'TAKE': 'Récupération',
+    'MISS': 'Tir raté',
+    'FAC': 'Mise au jeu',
+    'BLOCK': 'Tir bloqué',
+    'DELPEN': 'Pénalité à retardement',
+    'STOP': 'Arrêt de jeu',
+    'CHL': 'Révision vidéo',
+    'GOAL': 'But'
     # 'GIVE': 'Giveaway',
     # 'SHOT': 'Shot on Goal',
     # 'HIT': 'Hit',
@@ -48,15 +48,11 @@ event_types_colors = {
 
 
 def get_stacked_bar_char_template(mode):
-    base_template = (
-        "<span style='font-family:Segoe UI; color:#333'>"
-        "<b>%{fullData.name}</b><br>"  # Utilisation du nom français
-    )
 
     if mode == "Quantité":
-        return base_template + "Tirs: %{y}</span><extra></extra>"
+        return "<span style='font-family:Segoe UI; color:#333'>""<b>%{fullData.name}</b> : %{y}</span><extra></extra>"
     elif mode == "Pourcentage":
-        return base_template + "Part: %{y:.2f}%</span><extra></extra>"
+        return "<span style='font-family:Segoe UI; color:#333'>""<b>%{fullData.name}</b> : %{y:.2f}%</span><extra></extra>"
     return "Invalid mode"
 
 
@@ -117,9 +113,10 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
     }
 
     fig.update_layout(
-        barmode="stack",
-        title="Répartition des types de tirs selon l'événement précédent",
-        xaxis_title="Événement précédent",
+        barmode='stack',
+        dragmode=False,
+        title='Répartition des types de tirs selon l\'événement précédent',
+        xaxis_title='Événement précédent',
         yaxis=yaxis_config,
         hovermode="x unified",
         paper_bgcolor="rgba(0,0,0,0)",
@@ -172,7 +169,12 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
     # Customize the plot layout.
     fig.update_layout(
         yaxis=dict(range=[0, 40], ticksuffix="%", gridcolor="lightgrey"),
+        dragmode=False,
         hovermode="x unified",
+        hoverlabel = dict(
+        bgcolor="white",
+        font_color="black",
+        ),
         uniformtext_minsize=8,
         uniformtext_mode="hide",
         xaxis=dict(tickangle=-45),

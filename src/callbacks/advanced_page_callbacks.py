@@ -1,4 +1,4 @@
-from dash import Input, Output, ctx
+from dash import Input, Output, State, ctx
 
 def register_advanced_page_callbacks(app):
     @app.callback(
@@ -19,11 +19,11 @@ def register_advanced_page_callbacks(app):
     def switch_advanced_tabs(shots_click, team_click, pie_click):
         triggered_id = ctx.triggered_id
 
-        # ✔ Remplace "scatter-button" par "stack-button" 
-        #   et "heatmap-button" par "team-button"
-        base_shots = "graph-button stack-button"   
-        base_team = "graph-button team-button"
-        base_pie = "graph-button piecharts-button"
+        # Remplace "scatter-button" par "stack-button" 
+        # et "heatmap-button" par "team-button"
+        base_shots = "header-button stack-button"   
+        base_team = "header-button team-button"
+        base_pie = "header-button piecharts-button"
 
         # Par défaut, on affiche "Par événement"
         if not triggered_id:
@@ -73,3 +73,30 @@ def register_advanced_page_callbacks(app):
             base_team,
             base_pie,
         )
+
+
+    @app.callback(
+        Output("scatter-plot-pictogram-graph", "figure"),
+        Input("scatter-plot-pictogram-graph", "hoverData"),
+        State("scatter-plot-pictogram-graph", "figure"),
+        prevent_initial_call=True
+    )
+    def update_image_opacity_on_hover(hoverData, fig):
+        if not fig or "layout" not in fig or "images" not in fig["layout"]:
+            return fig
+
+        hovered_team = None
+        if hoverData and "points" in hoverData:
+            point = hoverData["points"][0]
+            if "customdata" in point and point["customdata"]:
+                hovered_team = point["customdata"][0]
+
+        for img in fig["layout"]["images"]:
+            if hovered_team is None or img.get("name") == hovered_team:
+                img["opacity"] = 1.0
+                img["layer"] = "above"
+            else:
+                img["opacity"] = 0.5
+                img["layer"] = "below"
+
+        return fig

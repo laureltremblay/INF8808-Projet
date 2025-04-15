@@ -41,11 +41,12 @@ def get_pie_chart_figure(data_df):
         go.Pie(
             labels=period_counts.index,
             values=period_counts.values,
-            hoverinfo="label+percent+value",
+            hovertemplate="<b>%{label}</b><br><b>Nombre de buts : </b>%{value}<br><b>Pourcentage : </b>%{percent}<extra></extra>",
             textinfo="percent",
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(period_counts),
+            hoverlabel = dict(font_color="white")
         ),
         row=1,
         col=1,
@@ -56,11 +57,12 @@ def get_pie_chart_figure(data_df):
         go.Pie(
             labels=game_type_counts.index,
             values=game_type_counts.values,
-            hoverinfo="label+percent+value",
+            hovertemplate="<b>%{label}</b><br><b>Nombre de buts : </b>%{value}<br><b>Pourcentage : </b>%{percent}<extra></extra>",
             textinfo="percent",
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(game_type_counts),
+            hoverlabel = dict(font_color="white")
         ),
         row=1,
         col=2,
@@ -72,10 +74,12 @@ def get_pie_chart_figure(data_df):
             labels=home_team_counts.index,
             values=home_team_counts.values,
             hoverinfo="label+percent+value",
+            hovertemplate="<b>%{label}</b><br><b>Nombre de buts : </b>%{value}<br><b>Pourcentage : </b>%{percent}<extra></extra>",
             textinfo="percent",
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(home_team_counts),
+            hoverlabel = dict(font_color="white")
         ),
         row=1,
         col=3,

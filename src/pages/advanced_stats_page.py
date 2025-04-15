@@ -88,6 +88,7 @@ def get_advanced_content(data_df, team_logos=None):
                                             dcc.Graph(
                                                 id="scatter-plot-pictogram-graph",
                                                 figure=get_scatter_plot_pictogram_figure(data_df, team_logos),
+                                                clear_on_unhover=True,
                                                 config={
                                                     "scrollZoom": False,
                                                     "showTips": False,

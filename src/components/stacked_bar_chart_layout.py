@@ -89,7 +89,7 @@ def get_stacked_bar_chart_layout(data_df):
                                 className="stacked-mode-info",
                                 children=[
                                     html.I(className="fas fa-info-circle"),
-                                    html.Span("Mode d'affichage:", className="info-text"),
+                                    html.Span("Mode d'affichage :", className="info-text")
                                 ]
                             ),
                             dcc.RadioItems(
@@ -104,7 +104,7 @@ def get_stacked_bar_chart_layout(data_df):
                             html.Div(
                                 className="current-mode-badge",
                                 children=[
-                                    html.Span("Mode actuel: "),
+                                    html.Span("Mode actuel : "),
                                     html.Span(MODES['count'], id='mode')
                                 ]
                             )
