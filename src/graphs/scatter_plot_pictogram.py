@@ -33,12 +33,12 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
     fig.update_layout(
         width=1050,
         height=800,
-        dragmode = False,
+        dragmode=False,
         title="Comparaison des buts marqués et accordés par équipe en 2023-2024",
         xaxis_title="Buts accordés",
         yaxis_title="Buts marqués",
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
         xaxis=dict(
             gridcolor="gray",
             zerolinecolor="gray",
@@ -54,12 +54,10 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
             linecolor="gray",
             range=[128, 360],
             dtick=25,
-        )
+        ),
     )
-    
-    fig.update_traces(marker=dict(size=1, opacity=0),
-                      hoverinfo=None,
-                      visible = False)
+
+    fig.update_traces(marker=dict(size=1, opacity=0), hoverinfo=None, visible=False)
 
     # We create a dictionnary to define the size of each logo
     size_dictionnary = {
@@ -96,7 +94,7 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         "WPG": {"sizex": 15, "sizey": 15},
         "WSH": {"sizex": 22, "sizey": 22},
     }
-    
+
     # We create the hovertemplate
     hovertemplate = (
         f"<span style='font-weight: Bold'><b>Équipe</b></span>"
@@ -128,23 +126,23 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
                 sizey=size_dictionnary[team_name]["sizey"],
                 xanchor="center",
                 yanchor="middle",
-                name=f"{team_name}"
+                name=f"{team_name}",
             )
-            
+
             fig.add_trace(
-            go.Scatter(
-                x=[x],
-                y=[y],
-                mode="markers",
-                marker=dict(
-                    size = 30,
-                    opacity = 0,
-                    color=TEAM_COLOR_MAP.get(team_name, "black"),
-                ),
-                customdata=[[team_name, category]],
-                hovertemplate = hovertemplate,
-                hoverlabel=dict(font=dict(color="white")),
-                showlegend=False,
+                go.Scatter(
+                    x=[x],
+                    y=[y],
+                    mode="markers",
+                    marker=dict(
+                        size=30,
+                        opacity=0,
+                        color=TEAM_COLOR_MAP.get(team_name, "black"),
+                    ),
+                    customdata=[[team_name, category]],
+                    hovertemplate=hovertemplate,
+                    hoverlabel=dict(font=dict(color="white")),
+                    showlegend=False,
                 )
             )
 
@@ -230,5 +228,8 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
             showlegend=True,
         )
     )
+
+    # Disable legend interactions globally
+    fig.update_layout(legend=dict(itemclick=False, itemdoubleclick=False))
 
     return fig
