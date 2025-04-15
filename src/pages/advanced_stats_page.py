@@ -4,7 +4,7 @@ from components.stacked_bar_chart_layout import get_stacked_bar_chart_layout
 from graphs.stacked_bar_chart import get_bar_chart_figure
 from graphs.scatter_plot_pictogram import get_scatter_plot_pictogram_figure
 from graphs.pie_charts import get_pie_chart_figure
-from components.filter import get_filter_pie_charts
+from components.filter import get_filter_pie_charts, get_filter_stacked_bar_chart
 from components.filter import get_filter_container
 
 def get_advanced_content(data_df, team_logos=None):
@@ -55,7 +55,18 @@ def get_advanced_content(data_df, team_logos=None):
                                 className="stack-graph-section fade-in",
                                 id="shots-analysis-section",
                                 children=[
-                                    html.Div(get_stacked_bar_chart_layout(data_df)),
+                                    html.Div(
+                                        className="stacked-charts-and-filter-container",
+                                        children=[
+                                            # Colonne stacked bar chart
+                                            html.Div(get_stacked_bar_chart_layout(data_df)),
+                                            # Colonne du filtre (placé à droite)
+                                            html.Div(
+                                                className="stacked-filter-div",
+                                                children=get_filter_stacked_bar_chart()
+                                            ),
+                                        ],
+                                    ),
                                     html.Div(
                                         children=[
                                             dcc.Graph(

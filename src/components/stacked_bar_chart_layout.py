@@ -79,38 +79,8 @@ def get_stacked_bar_chart_layout(data_df):
                                 style={"width": "100%", "height": "100%"},
                             )
                         ],
-                        style={"flex": "3"}  # par ex. 3 parts sur 4
+                        style={"flex": "4"}  # par ex. 3 parts sur 4
                     ),
-                    # Le filtre à droite
-                    html.Div(
-                        className="stacked-controls-container",
-                        children=[
-                            html.Div(
-                                className="stacked-mode-info",
-                                children=[
-                                    html.I(className="fas fa-info-circle"),
-                                    html.Span("Mode d'affichage :", className="info-text")
-                                ]
-                            ),
-                            dcc.RadioItems(
-                                id='radio-items',
-                                options=[
-                                    {'label': MODES['count'], 'value': MODES['count']},
-                                    {'label': MODES['percent'], 'value': MODES['percent']},
-                                ],
-                                value=MODES['count'],
-                                className="stacked-radio-items"
-                            ),
-                            html.Div(
-                                className="current-mode-badge",
-                                children=[
-                                    html.Span("Mode actuel : "),
-                                    html.Span(MODES['count'], id='mode')
-                                ]
-                            )
-                        ],
-                        style={"flex": "1", "marginLeft": "20px"}  # 1 part sur 4, petite colonne à droite
-                    )
                 ]
             ),
             # -- Autre carte ou autre contenu (ex. si vous voulez un second graphique) --

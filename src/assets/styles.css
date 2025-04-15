@@ -207,46 +207,58 @@ body {
 /* ======================================================
      (NOUVEAU) STACKED-SECTIONS: Graphique + Contrôles
      ====================================================== */
+  
+  /* Conteneur principal vertical pour la zone "Analyse des tirs" */
+  .stack-graph-section {
+    display: flex;
+    flex-direction: column; /* empile les cartes en vertical */
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 40px;
+    /* pas de background/hover ici pour éviter la carte double */
+    background: none;
+    box-shadow: none;
+  }
+  
+  /* Sous-conteneur horizontal (graphique + contrôles) */
+  .stacked-section {
+    display: flex;
+    flex-direction: row; /* place le graph et le filtre côte à côte */
+    align-items: flex-start; /* aligne en haut si les hauteurs diffèrent */
+    gap: 20px; /* écarte un peu les 2 blocs */
+    margin-bottom: 30px;
+  }
+  
+  .stacked-graph {
+    flex: 3; /* le graphique prend plus d'espace */
+  }
+  
+  /* Le conteneur des contrôles (radio, labels, etc.) */
+  .stacked-controls-container {
+    flex: 1; /* le filtre prend moins d'espace */
+    /* s'il doit aussi être une "carte", on peut le laisser ainsi */
+    /*background: rgba(255, 255, 255, 0.7);*/
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
 
-/* Conteneur principal vertical pour la zone "Analyse des tirs" */
-.stack-graph-section {
-  display: flex;
-  flex-direction: column; /* empile les cartes en vertical */
-  gap: 30px;
-  max-width: 1200px;
-  width: 100%;
-  margin: 30px auto;
-  padding: 40px;
-  /* pas de background/hover ici pour éviter la carte double */
-  background: none;
-  box-shadow: none;
-}
-
-/* Sous-conteneur horizontal (graphique + contrôles) */
-.stacked-section {
-  display: flex;
-  flex-direction: row; /* place le graph et le filtre côte à côte */
-  align-items: flex-start; /* aligne en haut si les hauteurs diffèrent */
-  gap: 20px; /* écarte un peu les 2 blocs */
-  margin-bottom: 30px;
-}
-
-.stacked-graph {
-  flex: 3; /* le graphique prend plus d'espace */
-}
-
-/* Le conteneur des contrôles (radio, labels, etc.) */
-.stacked-controls-container {
-  flex: 1; /* le filtre prend moins d'espace */
-  /* s'il doit aussi être une "carte", on peut le laisser ainsi */
-  /*background: rgba(255, 255, 255, 0.7);*/
-  backdrop-filter: blur(6px);
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-/* ======================================================
+  .stacked-charts-and-filter-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 40px auto;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  /* ======================================================
      10) SECTION TITLES
      ====================================================== */
 
