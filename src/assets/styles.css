@@ -11,7 +11,7 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #f0f2f5;
   box-sizing: border-box;
-  overflow-y: auto; /* Affiche la barre de scroll si nécessaire */
+  overflow-y: auto;
 }
 
 *,
@@ -89,7 +89,6 @@ body {
      5) LAYOUT: GRAPH CONTAINER & GRAPH + FILTERS
      ====================================================== */
 
-/* Conteneur global des graphiques sur une page */
 .graph-container {
   display: flex;
   flex-direction: column;
@@ -98,17 +97,16 @@ body {
   padding: 30px 20px;
 }
 
-/* Conteneur qui regroupe un graphique et ses filtres (ou plusieurs graphes) */
 .graph-and-filters {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center; /* Centre verticalement */
+  justify-content: center;
+  align-items: center;
   gap: 40px;
   max-width: 1400px;
   width: 100%;
-  margin: 10px auto;
+  margin: 20px auto;
 }
 
 .unzoom {
@@ -134,22 +132,18 @@ body {
   font-size: 16px;
 }
 
-/* ======================================================
-
-/* Conteneur global des graphiques sur une page */
 .graph-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 30px 20px;
+  padding: 20px 20px;
 }
 
 /* ======================================================
      6) "CARDS": .graph / .pie-charts-div / #filter-container / #pie-filter-container
      ====================================================== */
 
-/* Les "cards" semi-transparentes avec flou en arrière-plan */
 .graph,
 .pie-charts-div,
 #filter-container,
@@ -163,7 +157,6 @@ body {
   margin: 0 auto;
 }
 
-/* Au survol, petit zoom + ombre plus forte */
 .graph:hover,
 .pie-charts-div:hover,
 #filter-container:hover,
@@ -180,7 +173,6 @@ body {
   width: 100%;
   height: auto;
   margin: 0 auto;
-  /* Fond transparent pris en charge par Plotly si figure => paper_bgcolor='rgba(0,0,0,0)' */
 }
 
 .unzoom {
@@ -210,38 +202,6 @@ body {
      8) FILTERS
      ====================================================== */
 
-/* Filtres (page principale) */
-#filter-container {
-  flex: 1;
-  max-width: 400px;
-  min-width: 280px;
-  font-size: 15px;
-}
-
-#filter-container > div {
-  margin-bottom: 20px;
-}
-
-#filter-container hr {
-  margin: 20px 0;
-}
-
-#filter-container .main-choice,
-#filter-container .filter {
-  margin-bottom: 20px;
-}
-
-#filter-container label,
-#filter-container p {
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 6px;
-}
-
-/* ======================================================
-     STACKED-SECTIONS: Graphique + Contrôles
-
-/* Filtres (page principale) */
 #filter-container {
   flex: 1;
   max-width: 400px;
@@ -273,37 +233,29 @@ body {
      (NOUVEAU) STACKED-SECTIONS: Graphique + Contrôles
      ====================================================== */
   
-  /* Conteneur principal vertical pour la zone "Analyse des tirs" */
   .stack-graph-section {
     display: flex;
-    flex-direction: column; /* empile les cartes en vertical */
+    flex-direction: column;
     gap: 30px;
     max-width: 1200px;
     width: 100%;
     margin: auto;
-    /* pas de background/hover ici pour éviter la carte double */
-    background: none;
-    box-shadow: none;
   }
   
-  /* Sous-conteneur horizontal (graphique + contrôles) */
   .stacked-section {
     display: flex;
-    flex-direction: row; /* place le graph et le filtre côte à côte */
-    align-items: flex-start; /* aligne en haut si les hauteurs diffèrent */
-    gap: 20px; /* écarte un peu les 2 blocs */
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
     margin-bottom: 20px;
   }
   
   .stacked-graph {
-    flex: 3; /* le graphique prend plus d'espace */
+    flex: 3;
   }
   
-  /* Le conteneur des contrôles (radio, labels, etc.) */
   .stacked-controls-container {
-    flex: 1; /* le filtre prend moins d'espace */
-    /* s'il doit aussi être une "carte", on peut le laisser ainsi */
-    /*background: rgba(255, 255, 255, 0.7);*/
+    flex: 1;
     backdrop-filter: blur(6px);
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
@@ -448,17 +400,16 @@ body {
 
 .pie-charts-div {
   flex: 2;
-  max-width: 80%; /* permet d'agrandir le graphe */
+  max-width: 80%;
   width: 100%;
   padding: 30px;
   margin: 0 auto;
 }
 
-/* Pour agrandir davantage les pie charts, on augmente leur min-height */
 .pie-chart-div {
   flex: 1 1 300px;
   max-width: 32%;
-  min-height: 480px; /* de 360px -> 480px */
+  min-height: 480px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -470,7 +421,6 @@ body {
   align-items: center;
 }
 
-/* Animation d'apparition pour chaque pie chart */
 @keyframes fadeInPie {
   from {
     opacity: 0;
@@ -487,7 +437,6 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Le container du filtre (pie charts) : même look "carte" */
 #pie-filter-container {
   background: #fff;
   border-radius: 16px;
@@ -499,32 +448,27 @@ body {
   min-width: 200px;
 }
 
-/* ======================================================
-
 .pie-charts-and-filter-container {
   display: flex;
   flex-direction: row;
   gap: 30px;
   max-width: 1400px;
   width: 100%;
-  margin: 40px auto;
   justify-content: center;
   align-items: center;
 }
 
 .pie-charts-div {
   flex: 2;
-  max-width: 80%; /* permet d'agrandir le graphe */
+  max-width: 80%;
   width: 100%;
-  padding: 30px;
   margin: 0 auto;
 }
 
-/* Pour agrandir davantage les pie charts, on augmente leur min-height */
 .pie-chart-div {
   flex: 1 1 300px;
   max-width: 32%;
-  min-height: 480px; /* de 360px -> 480px */
+  min-height: 480px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -536,7 +480,6 @@ body {
   align-items: center;
 }
 
-/* Animation d'apparition pour chaque pie chart */
 @keyframes fadeInPie {
   from {
     opacity: 0;
@@ -553,7 +496,6 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Le container du filtre (pie charts) : même look "carte" */
 #pie-filter-container {
   background: #fff;
   border-radius: 16px;
@@ -569,7 +511,6 @@ body {
      14) RESPONSIVE ADJUSTMENTS (MEDIA QUERIES)
      ====================================================== */
 
-/* -> Pour la section Pie Charts */
 @media (max-width: 900px) {
   .pie-charts-and-filter-container {
     flex-direction: column;
@@ -584,7 +525,6 @@ body {
   }
 }
 
-/* -> Pour les éléments "graph + filters" sur petit écran */
 @media (max-width: 900px) {
   .graph-and-filters {
     flex-direction: column;
