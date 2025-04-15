@@ -1,5 +1,7 @@
 from dash import html, dcc
 
+from graphs.stacked_bar_chart import MODES
+
 
 def get_filter_container():
     return html.Div(
@@ -184,3 +186,34 @@ def get_filter_pie_charts():
             ),
         ],
     )
+    
+def get_filter_stacked_bar_chart():
+    return html.Div(
+            id="filter-container",
+            children=[
+                html.Div(
+                    className="stacked-mode-info",
+                    children=[
+                        html.I(className="fas fa-info-circle"),
+                        html.Span("Mode d'affichage:", className="info-text"),
+                    ]
+                ),
+                dcc.RadioItems(
+                    id='radio-items',
+                    options=[
+                        {'label': MODES['count'], 'value': MODES['count']},
+                        {'label': MODES['percent'], 'value': MODES['percent']},
+                    ],
+                    value=MODES['count'],
+                    className="stacked-radio-items"
+                ),
+                html.Div(
+                    className="current-mode-badge",
+                    children=[
+                        html.Span("Mode actuel: "),
+                        html.Span(MODES['count'], id='mode')
+                    ]
+                )
+            ],
+            style={"flex": "1", "marginLeft": "20px"}  # 1 part sur 4, petite colonne à droite
+        )
