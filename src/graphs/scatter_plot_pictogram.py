@@ -28,34 +28,38 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
     fig = px.scatter(
         preprocessed_df,
         x="goalsScoredAgainst",
-        y="goalsScored"
+        y="goalsScored",
     )
     fig.update_layout(
         width=1050,
         height=800,
+        dragmode = False,
         title="Comparaison des buts marqués et accordés par équipe en 2023-2024",
         xaxis_title="Buts accordés",
         yaxis_title="Buts marqués",
-        plot_bgcolor="white",
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(
-            gridcolor="lightgray",
-            zerolinecolor="black",
+            gridcolor="gray",
+            zerolinecolor="gray",
             showline=True,
-            linecolor="black",
+            linecolor="gray",
             range=[184, 304],
             dtick=10,
         ),
         yaxis=dict(
-            gridcolor="lightgray",
-            zerolinecolor="black",
+            gridcolor="gray",
+            zerolinecolor="gray",
             showline=True,
-            linecolor="black",
+            linecolor="gray",
             range=[128, 360],
             dtick=25,
         )
     )
     
-    fig.update_traces(marker=dict(size=1, opacity=0))
+    fig.update_traces(marker=dict(size=1, opacity=0),
+                      hoverinfo=None,
+                      visible = False)
 
     # We create a dictionnary to define the size of each logo
     size_dictionnary = {
@@ -101,7 +105,7 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         "<span> : %{customdata[1]}</span><br>"
         f"<span style='font-weight: Bold'><b>Buts marqués</b></span>"
         "<span> : %{y}</span><br>"
-        f"<span style='font-weight: Bold'><b>Buts alloués</b></span>"
+        f"<span style='font-weight: Bold'><b>Buts accordés</b></span>"
         "<span> : %{x}</span><br><extra></extra>"
     )
 
@@ -211,7 +215,7 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
             y=[None],
             mode="lines",
             line=dict(color="red", dash="dot", width=2),
-            name="Nombre moyen de buts alloués",
+            name="Nombre moyen de buts accordés",
             showlegend=True,
         )
     )
