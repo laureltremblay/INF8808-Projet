@@ -1,7 +1,6 @@
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-
 def get_pie_chart_figure(data_df):
     # Filtrer les données pour ne garder que les "GOAL"
     df = data_df[data_df["event"] == "GOAL"].copy()
@@ -36,7 +35,7 @@ def get_pie_chart_figure(data_df):
         ),
     )
 
-    # Ajout du pie chart pour les périodes
+    # Ajout du pie chart pour les périodes, assigné à legendgroup "group1"
     fig.add_trace(
         go.Pie(
             labels=period_counts.index,
@@ -46,12 +45,13 @@ def get_pie_chart_figure(data_df):
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(period_counts),
+            legendgroup="group1"
         ),
         row=1,
         col=1,
     )
 
-    # Ajout du pie chart pour le type de match
+    # Ajout du pie chart pour le type de match, assigné à legendgroup "group2"
     fig.add_trace(
         go.Pie(
             labels=game_type_counts.index,
@@ -61,12 +61,13 @@ def get_pie_chart_figure(data_df):
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(game_type_counts),
+            legendgroup="group2"
         ),
         row=1,
         col=2,
     )
 
-    # Ajout du pie chart pour local/visiteur
+    # Ajout du pie chart pour local/visiteur, assigné à legendgroup "group3"
     fig.add_trace(
         go.Pie(
             labels=home_team_counts.index,
@@ -76,11 +77,13 @@ def get_pie_chart_figure(data_df):
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(home_team_counts),
+            legendgroup="group3"
         ),
         row=1,
         col=3,
     )
 
+    # Mise à jour du layout
     fig.update_layout(
         title_text="Répartition des Buts",
         title_x=0.5,
