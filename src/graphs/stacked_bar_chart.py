@@ -9,15 +9,17 @@ import pandas as pd
 MODES = dict(count="Quantité", percent="Pourcentage")
 
 event_category_map = {
-    "GIVE": "Perte de palet",
-    "SHOT": "Tir au but",
-    "HIT": "Mise en échec",
-    "TAKE": "Récupération",
-    "MISS": "Tir raté",
-    "FAC": "Mise au jeu",
-    "BLOCK": "Tir bloqué",
-    "DELPEN": "Pénalité différée",
-    "GOAL": "But",
+    'GIVE': 'Perte de rondelle',
+    'SHOT': 'Tir au but',
+    'HIT': 'Mise en échec',
+    'TAKE': 'Récupération',
+    'MISS': 'Tir raté',
+    'FAC': 'Mise au jeu',
+    'BLOCK': 'Tir bloqué',
+    'DELPEN': 'Pénalité à retardement',
+    'STOP': 'Arrêt de jeu',
+    'CHL': 'Révision vidéo',
+    'GOAL': 'But'
     # 'GIVE': 'Giveaway',
     # 'SHOT': 'Shot on Goal',
     # 'HIT': 'Hit',
@@ -46,6 +48,7 @@ event_types_colors = {
 
 
 def get_stacked_bar_char_template(mode):
+
     if mode == "Quantité":
         return "<span style='font-family:Segoe UI; color:#333'>""<b>%{fullData.name}</b> : %{y}</span><extra></extra>"
     elif mode == "Pourcentage":
