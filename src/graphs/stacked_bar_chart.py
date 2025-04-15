@@ -9,15 +9,15 @@ import pandas as pd
 MODES = dict(count="Quantité", percent="Pourcentage")
 
 event_category_map = {
-    'GIVE': 'Perte de rondelle',
-    'SHOT': 'Tir au but',
-    'HIT': 'Mise en échec',
-    'TAKE': 'Récupération',
-    'MISS': 'Tir raté',
-    'FAC': 'Mise au jeu',
-    'BLOCK': 'Tir bloqué',
-    'DELPEN': 'Pénalité à retardement',
-    'GOAL': 'But'
+    "GIVE": "Perte de rondelle",
+    "SHOT": "Tir au but",
+    "HIT": "Mise en échec",
+    "TAKE": "Récupération",
+    "MISS": "Tir raté",
+    "FAC": "Mise au jeu",
+    "BLOCK": "Tir bloqué",
+    "DELPEN": "Pénalité à retardement",
+    "GOAL": "But",
     # 'GIVE': 'Giveaway',
     # 'SHOT': 'Shot on Goal',
     # 'HIT': 'Hit',
@@ -48,9 +48,15 @@ event_types_colors = {
 def get_stacked_bar_char_template(mode):
 
     if mode == "Quantité":
-        return "<span style='font-family:Segoe UI; color:#333'>""<b>%{fullData.name}</b> : %{y}</span><extra></extra>"
+        return (
+            "<span style='color:#333'>"
+            "<b>%{fullData.name}</b> : %{y}</span><extra></extra>"
+        )
     elif mode == "Pourcentage":
-        return "<span style='font-family:Segoe UI; color:#333'>""<b>%{fullData.name}</b> : %{y:.2f}%</span><extra></extra>"
+        return (
+            "<span style='color:#333'>"
+            "<b>%{fullData.name}</b> : %{y:.2f}%</span><extra></extra>"
+        )
     return "Invalid mode"
 
 
@@ -105,7 +111,7 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
         ),
         "range": [0, 100] if mode == MODES["percent"] else None,
     }
-    
+
     fig.update_layout(
         barmode="stack",
         title={
@@ -119,7 +125,7 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
         yaxis=yaxis_config,
         dragmode=False,
         hovermode="x unified",
-        hoverlabel = dict(
+        hoverlabel=dict(
             bgcolor="white",
             font_color="black",
         ),
@@ -128,22 +134,20 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
         # Positionnement de la légende à droite de la figure
         legend=dict(
             orientation="v",
-            x=1.02,         # Légende à droite, hors de l'aire de tracé
+            x=1.02,  # Légende à droite, hors de l'aire de tracé
             y=1,
             xanchor="left",
-            yanchor="top"
+            yanchor="top",
         ),
         # On augmente la marge droite pour laisser de la place à la légende
         margin=dict(l=50, r=120, t=120, b=100),
         font=dict(
-            family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+            # family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
             size=16
         ),
         xaxis_fixedrange=True,
         yaxis_fixedrange=True,
     )
-
-
 
     # fig.update_layout(
     #     barmode="stack",
@@ -174,8 +178,9 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
 # y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
 import plotly.express as px
 
+
 def get_bar_chart_template():
-    return "<span style='font-family:Segoe UI; color:#333'>%{y:.2f}%</span><extra></extra>"
+    return "<span style='color:#333'>%{y:.2f}%</span><extra></extra>"
 
 
 def get_bar_chart_figure(data_df: pd.DataFrame):
@@ -196,9 +201,9 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
             "xGoal_percent": "Probabilité de but (%)",
             "lastEventCategory": "Événement précédent",
         },
-        color_discrete_sequence=["#1f77b4"],
+        color_discrete_sequence=["#00CC96"],
         hover_data={"xGoal": ":.3f"},
-        title="Probabilité de marquer selon l'événement précédent"
+        title="Probabilité de marquer selon l'événement précédent",
     )
     fig.update_traces(hovertemplate=get_bar_chart_template())
 
@@ -207,7 +212,7 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
         yaxis=dict(range=[0, 15], ticksuffix="%", gridcolor="lightgrey"),
         dragmode=False,
         hovermode="x unified",
-        hoverlabel = dict(
+        hoverlabel=dict(
             bgcolor="white",
             font_color="black",
         ),
@@ -216,14 +221,15 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
         xaxis=dict(tickangle=-45),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=16)
+        title_font=dict(size=22),
+        font=dict(size=16),
     )
 
     fig.update_layout(
         xaxis_fixedrange=True,
         yaxis_fixedrange=True,
     )
-    # Add black outline to each bar for better visibility.
-    fig.update_traces(marker_line_color="black", marker_line_width=1.5, opacity=0.8)
+    # # Add black outline to each bar for better visibility.
+    # fig.update_traces(marker_line_color="black", marker_line_width=1.5, opacity=0.8)
 
     return fig
