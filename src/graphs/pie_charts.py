@@ -45,7 +45,7 @@ def get_pie_chart_figure(data_df):
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(period_counts),
-            hoverlabel = dict(font_color="white")
+            hoverlabel = dict(font_color="white"),
             legendgroup="group1"
         ),
         row=1,
@@ -62,7 +62,7 @@ def get_pie_chart_figure(data_df):
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(game_type_counts),
-            hoverlabel = dict(font_color="white")
+            hoverlabel = dict(font_color="white"),
             legendgroup="group2"
         ),
         row=1,
@@ -80,7 +80,7 @@ def get_pie_chart_figure(data_df):
             textfont_size=14,
             marker=dict(line=dict(color="#ffffff", width=2)),
             pull=[0.03] * len(home_team_counts),
-            hoverlabel = dict(font_color="white")
+            hoverlabel = dict(font_color="white"),
             legendgroup="group3"
         ),
         row=1,
