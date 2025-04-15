@@ -77,7 +77,7 @@ def get_advanced_content(data_df, team_logos=None):
                             ),
                             # Onglet : Par équipe
                             html.Div(
-                                className="graph-section fade-in",
+                                className="team-graph-section fade-in",
                                 id="team-analysis-section",
                                 style={"display": "none"},  # Masqué par défaut
                                 children=[
