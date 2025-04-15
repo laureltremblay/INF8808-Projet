@@ -8,9 +8,8 @@ from callbacks.stacked_bar_chart_callbacks import register_stacked_bar_chart_cal
 from pages.advanced_stats_page import get_advanced_content
 from pages.main_page import get_main_page_content
 from preprocess import basic_filtering
-from load_logos import TEAM_LOGOS
+from assets.load_logos import TEAM_LOGOS
 from callbacks.advanced_page_callbacks import register_advanced_page_callbacks
-
 
 app = dash.Dash(__name__)
 app.title = "NHL Shot Data 2023-2024"
@@ -53,10 +52,16 @@ app.layout = html.Div(
                 ),
             ]
         ),
-        html.Main(
-            id="main-page-content",
-            className="chosen-page",
-            children=[get_main_page_content(data_df)],  # Initial content
+        dcc.Loading(
+            id="loading-spinner",
+            type="circle",
+            color="green",
+            fullscreen=False,
+            children=html.Main(
+                id="main-page-content",
+                className="chosen-page",
+                children=[get_main_page_content(data_df)],  # Initial content
+            ),
         ),
     ],
 )

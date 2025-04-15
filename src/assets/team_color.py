@@ -1,32 +1,34 @@
 TEAM_COLOR_MAP = {
-    "ANA": "#F47C20",  # Orange
-    "ARI": "#A52A2A",  # Brown
-    "BOS": "#FFB81C",  # Yellow
-    "BUF": "#C60C30",  # Red
-    "CAR": "#C8102E",  # Red
-    "CBJ": "#002654",  # Blue
-    "CHI": "#D32F2F",  # Darker Red (unique)
-    "COL": "#6F7DCE",  # Blue
-    "DAL": "#006847",  # Green
-    "DET": "#F44336",  # Bright Red (unique)
-    "EDM": "#00205B",  # Blue
-    "FLA": "#F9A800",  # Yellow-orange
-    "LAK": "#A2ACAD",  # Gray
-    "MIN": "#A45A3D",  # Brown
-    "MTL": "#E60012",  # Strong Red
-    "NJD": "#A50034",  # Dark Red
-    "NSH": "#FFB81C",  # Yellow
+    "ANA": "#F47A38",  # Orange
+    "ARI": "#8C2633",  # Brick Red
+    "BOS": "#FFB81C",  # Gold
+    "BUF": "#003087",  # Royal Blue
+    "CAR": "#CE1126",  # Red
+    "CBJ": "#002654",  # Union Blue
+    "CGY": "#D2001C",  # Red
+    "CHI": "#CF0A2C",  # Red
+    "COL": "#6F263D",  # Burgundy
+    "DAL": "#006847",  # Victory Green
+    "DET": "#CE1126",  # Red
+    "EDM": "#041E42",  # Blue
+    "FLA": "#C8102E",  # Red
+    "LAK": "#A2AAAD",  # Silver
+    "MIN": "#154734",  # Forest Green
+    "MTL": "#AF1E2D",  # Red
+    "NJD": "#CE1126",  # Red
+    "NSH": "#FFB81C",  # Gold
     "NYI": "#00539B",  # Blue
-    "NYR": "#003DA5",  # Blue
-    "OTT": "#D32F2F",  # Darker Red (unique)
-    "PHI": "#F74727",  # Orange-red
-    "PIT": "#FEC132",  # Yellow
-    "SJS": "#006EB7",  # Blue
-    "STL": "#FF5733",  # Bright Orange (unique)
-    "TBL": "#002F6C",  # Dark Blue
-    "TOR": "#003DA5",  # Blue
-    "VAN": "#00205B",  # Dark Blue
-    "VGK": "#C9B29B",  # Beige
-    "WPG": "#004B87",  # Blue
-    "WSH": "#D4002F",  # Dark Red (unique)
+    "NYR": "#0038A8",  # Blue
+    "OTT": "#DA1A32",  # Red
+    "PHI": "#F74902",  # Orange
+    "PIT": "#FCB514",  # Yellow
+    "SEA": "#99d9d9",  # Ice Blue
+    "SJS": "#006D75",  # Teal
+    "STL": "#002F87",  # Blue
+    "TBL": "#002868",  # Blue
+    "TOR": "#00205b",  # Blue
+    "VAN": "#00205B",  # Blue
+    "VGK": "#B4975A",  # Gold
+    "WPG": "#041E42",  # Navy
+    "WSH": "#C8102E",  # Red
 }

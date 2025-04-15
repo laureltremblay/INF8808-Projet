@@ -26,7 +26,7 @@ def get_main_page_content(data_df) -> html.Div:
                         ],
                     ),
                     html.Div(
-                        className="graph-and-filters",
+                        className="main-graph-section graph-and-filters",
                         children=[
                             html.Div(
                                 className="graph",
