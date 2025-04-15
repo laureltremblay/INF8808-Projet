@@ -17,8 +17,6 @@ event_category_map = {
     "FAC": "Mise au jeu",
     "BLOCK": "Tir bloqué",
     "DELPEN": "Pénalité différée",
-    "STOP": "Arrêt de jeu",
-    "CHL": "Révision vidéo",
     "GOAL": "But",
     # 'GIVE': 'Giveaway',
     # 'SHOT': 'Shot on Goal',
@@ -64,10 +62,6 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
     df_filtered["lastEventCategory"] = df_filtered["lastEventCategory"].map(
         event_category_map
     )
-    # remove 'STOP': 'Arrêt de jeu' and 'CHL': 'Révision vidéo' from the lastEventCategory column because they are not relevant for the analysis.
-    df_filtered = df_filtered[
-        ~df_filtered["lastEventCategory"].isin(["Arrêt de jeu", "Révision vidéo"])
-    ]
     df_filtered = df_filtered[df_filtered["lastEventCategory"].notna()]
     df_filtered["event"] = df_filtered["event"].map(event_types_map)
     df_pivot = (
@@ -209,7 +203,7 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
 
     # Customize the plot layout.
     fig.update_layout(
-        yaxis=dict(range=[0, 40], ticksuffix="%", gridcolor="lightgrey"),
+        yaxis=dict(range=[0, 15], ticksuffix="%", gridcolor="lightgrey"),
         dragmode=False,
         hovermode="x unified",
         hoverlabel = dict(
