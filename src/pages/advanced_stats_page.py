@@ -7,6 +7,7 @@ from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts, get_filter_stacked_bar_chart
 from components.filter import get_filter_container
 
+
 def get_advanced_content(data_df, team_logos=None):
     """
     Renvoie le contenu avancé de la page comprenant trois onglets :
@@ -17,7 +18,7 @@ def get_advanced_content(data_df, team_logos=None):
     """
     # On crée la figure composite pour les pie charts.
     composite_pie_fig = get_pie_chart_figure(data_df)
-    
+
     return html.Div(
         className="main-page",
         children=[
@@ -47,7 +48,7 @@ def get_advanced_content(data_df, team_logos=None):
                     ),
                     # Contenu des graphiques et filtres
                     html.Div(
-                        className="graph-and-filters graph-section fade-in", 
+                        className="graph-and-filters graph-section fade-in",
                         id="advanced-page-content",
                         children=[
                             # Onglet : Par événement (par défaut)
@@ -59,11 +60,13 @@ def get_advanced_content(data_df, team_logos=None):
                                         className="stacked-charts-and-filter-container",
                                         children=[
                                             # Colonne stacked bar chart
-                                            html.Div(get_stacked_bar_chart_layout(data_df)),
+                                            html.Div(
+                                                get_stacked_bar_chart_layout(data_df)
+                                            ),
                                             # Colonne du filtre (placé à droite)
                                             html.Div(
                                                 className="stacked-filter-div",
-                                                children=get_filter_stacked_bar_chart()
+                                                children=get_filter_stacked_bar_chart(),
                                             ),
                                         ],
                                     ),
@@ -80,7 +83,10 @@ def get_advanced_content(data_df, team_logos=None):
                                                     "doubleClick": False,
                                                     "displayModeBar": False,
                                                 },
-                                                style={"width": "100%", "height": "400px"}
+                                                style={
+                                                    "width": "100%",
+                                                    "height": "400px",
+                                                },
                                             )
                                         ],
                                     ),
@@ -98,7 +104,9 @@ def get_advanced_content(data_df, team_logos=None):
                                         children=[
                                             dcc.Graph(
                                                 id="scatter-plot-pictogram-graph",
-                                                figure=get_scatter_plot_pictogram_figure(data_df, team_logos),
+                                                figure=get_scatter_plot_pictogram_figure(
+                                                    data_df, team_logos
+                                                ),
                                                 clear_on_unhover=True,
                                                 config={
                                                     "scrollZoom": False,
@@ -107,9 +115,10 @@ def get_advanced_content(data_df, team_logos=None):
                                                     "doubleClick": False,
                                                     "displayModeBar": False,
                                                 },
-                                                style={ "width": "100%", 
-                                                        "height": "100%",
-                                                }
+                                                style={
+                                                    "width": "100%",
+                                                    "height": "100%",
+                                                },
                                             )
                                         ],
                                     ),
@@ -138,14 +147,14 @@ def get_advanced_content(data_df, team_logos=None):
                                                             "doubleClick": False,
                                                             "displayModeBar": False,
                                                         },
-                                                        style={"width": "100%"}
+                                                        style={"width": "100%"},
                                                     ),
                                                 ],
                                             ),
                                             # Colonne du filtre (placé à droite)
                                             html.Div(
                                                 className="pie-filter-div",
-                                                children=get_filter_pie_charts()
+                                                children=get_filter_pie_charts(),
                                             ),
                                         ],
                                     ),

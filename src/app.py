@@ -32,7 +32,7 @@ register_advanced_page_callbacks(app)
 app.layout = html.Div(
     className="content",
     children=[
-        dcc.Location(id="url", refresh=False),
+        dcc.Location(id="url"),
         html.Header(
             children=[
                 html.Div(
@@ -52,16 +52,10 @@ app.layout = html.Div(
                 ),
             ]
         ),
-        dcc.Loading(
-            id="loading-spinner",
-            type="circle",
-            color="green",
-            fullscreen=False,
-            children=html.Main(
-                id="main-page-content",
-                className="chosen-page",
-                children=[get_main_page_content(data_df)],  # Initial content
-            ),
+        html.Main(
+            id="main-page-content",
+            className="chosen-page",
+            children=[get_main_page_content(data_df)],  # Initial content
         ),
     ],
 )
