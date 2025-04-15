@@ -118,17 +118,14 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
         title='Répartition des types de tirs selon l\'événement précédent',
         xaxis_title='Événement précédent',
         yaxis=yaxis_config,
-        hovermode='x unified',
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        legend=dict(
-            orientation='h',
-            yanchor='bottom',
-            y=1.02,
-            xanchor='right',
-            x=1),
+        hovermode="x unified",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         margin=dict(b=100, t=40),
-        font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=15)
+        font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=15),
+        xaxis_fixedrange=True,
+        yaxis_fixedrange=True,
     )
 
     fig.update_xaxes(tickangle=-45, showgrid=False)
@@ -183,7 +180,7 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
         xaxis=dict(tickangle=-45),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=15)
+        font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=15),
     )
 
     fig.update_layout(
