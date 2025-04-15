@@ -11,7 +11,7 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #f0f2f5;
   box-sizing: border-box;
-  overflow-y: auto; /* Affiche la barre de scroll si nécessaire */
+  overflow-y: auto;
 }
 
 *,
@@ -89,7 +89,6 @@ body {
      5) LAYOUT: GRAPH CONTAINER & GRAPH + FILTERS
      ====================================================== */
 
-/* Conteneur global des graphiques sur une page */
 .graph-container {
   display: flex;
   flex-direction: column;
@@ -98,24 +97,53 @@ body {
   padding: 30px 20px;
 }
 
-/* Conteneur qui regroupe un graphique et ses filtres (ou plusieurs graphes) */
 .graph-and-filters {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center; /* Centre verticalement */
+  justify-content: center;
+  align-items: center;
   gap: 40px;
   max-width: 1400px;
   width: 100%;
-  margin: 0 auto;
+  margin: 20px auto;
+}
+
+.unzoom {
+  background-color: #a7babc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.unzoom:hover {
+  background-color: #138496;
+  transform: scale(1.05);
+}
+
+.unzoom i {
+  font-size: 16px;
+}
+
+.graph-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px 20px;
 }
 
 /* ======================================================
      6) "CARDS": .graph / .pie-charts-div / #filter-container / #pie-filter-container
      ====================================================== */
 
-/* Les "cards" semi-transparentes avec flou en arrière-plan */
 .graph,
 .pie-charts-div,
 #filter-container,
@@ -129,7 +157,6 @@ body {
   margin: 0 auto;
 }
 
-/* Au survol, petit zoom + ombre plus forte */
 .graph:hover,
 .pie-charts-div:hover,
 #filter-container:hover,
@@ -146,7 +173,6 @@ body {
   width: 100%;
   height: auto;
   margin: 0 auto;
-  /* Fond transparent pris en charge par Plotly si figure => paper_bgcolor='rgba(0,0,0,0)' */
 }
 
 .unzoom {
@@ -176,7 +202,6 @@ body {
      8) FILTERS
      ====================================================== */
 
-/* Filtres (page principale) */
 #filter-container {
   flex: 1;
   max-width: 400px;
@@ -208,42 +233,33 @@ body {
      (NOUVEAU) STACKED-SECTIONS: Graphique + Contrôles
      ====================================================== */
   
-  /* Conteneur principal vertical pour la zone "Analyse des tirs" */
   .stack-graph-section {
     display: flex;
-    flex-direction: column; /* empile les cartes en vertical */
+    flex-direction: column;
     gap: 30px;
     max-width: 1200px;
     width: 100%;
-    margin: 30px auto;
-    padding: 40px;
-    /* pas de background/hover ici pour éviter la carte double */
-    background: none;
-    box-shadow: none;
+    margin: auto;
   }
   
-  /* Sous-conteneur horizontal (graphique + contrôles) */
   .stacked-section {
     display: flex;
-    flex-direction: row; /* place le graph et le filtre côte à côte */
-    align-items: flex-start; /* aligne en haut si les hauteurs diffèrent */
-    gap: 20px; /* écarte un peu les 2 blocs */
-    margin-bottom: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
   }
   
   .stacked-graph {
-    flex: 3; /* le graphique prend plus d'espace */
+    flex: 3;
   }
   
-  /* Le conteneur des contrôles (radio, labels, etc.) */
   .stacked-controls-container {
-    flex: 1; /* le filtre prend moins d'espace */
-    /* s'il doit aussi être une "carte", on peut le laisser ainsi */
-    /*background: rgba(255, 255, 255, 0.7);*/
+    flex: 1;
     backdrop-filter: blur(6px);
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    padding: 20px;
+    padding: 10px;
   }
 
   .stacked-charts-and-filter-container {
@@ -252,7 +268,7 @@ body {
     gap: 30px;
     max-width: 1400px;
     width: 100%;
-    margin: 40px auto;
+    margin-bottom: auto;
     justify-content: center;
     align-items: center;
   }
@@ -378,24 +394,22 @@ body {
   gap: 30px;
   max-width: 1400px;
   width: 100%;
-  margin: 40px auto;
   justify-content: center;
   align-items: center;
 }
 
 .pie-charts-div {
   flex: 2;
-  max-width: 80%; /* permet d'agrandir le graphe */
+  max-width: 80%;
   width: 100%;
   padding: 30px;
   margin: 0 auto;
 }
 
-/* Pour agrandir davantage les pie charts, on augmente leur min-height */
 .pie-chart-div {
   flex: 1 1 300px;
   max-width: 32%;
-  min-height: 480px; /* de 360px -> 480px */
+  min-height: 480px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -407,7 +421,6 @@ body {
   align-items: center;
 }
 
-/* Animation d'apparition pour chaque pie chart */
 @keyframes fadeInPie {
   from {
     opacity: 0;
@@ -424,7 +437,65 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Le container du filtre (pie charts) : même look "carte" */
+#pie-filter-container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 0 auto;
+  flex: 1;
+  max-width: 350px;
+  min-width: 200px;
+}
+
+.pie-charts-and-filter-container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  max-width: 1400px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.pie-charts-div {
+  flex: 2;
+  max-width: 80%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.pie-chart-div {
+  flex: 1 1 300px;
+  max-width: 32%;
+  min-height: 480px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s, opacity 0.4s, box-shadow 0.4s;
+  animation: fadeInPie 0.8s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeInPie {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pie-chart-div:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
 #pie-filter-container {
   background: #fff;
   border-radius: 16px;
@@ -440,7 +511,6 @@ body {
      14) RESPONSIVE ADJUSTMENTS (MEDIA QUERIES)
      ====================================================== */
 
-/* -> Pour la section Pie Charts */
 @media (max-width: 900px) {
   .pie-charts-and-filter-container {
     flex-direction: column;
@@ -455,7 +525,6 @@ body {
   }
 }
 
-/* -> Pour les éléments "graph + filters" sur petit écran */
 @media (max-width: 900px) {
   .graph-and-filters {
     flex-direction: column;
