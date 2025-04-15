@@ -145,19 +145,6 @@ body {
   padding: 30px 20px;
 }
 
-/* Conteneur qui regroupe un graphique et ses filtres (ou plusieurs graphes) */
-.graph-and-filters {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center; /* Centre verticalement */
-  gap: 40px;
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-}
-
 /* ======================================================
      6) "CARDS": .graph / .pie-charts-div / #filter-container / #pie-filter-container
      ====================================================== */
@@ -332,14 +319,6 @@ body {
     margin-bottom: auto;
     justify-content: center;
     align-items: center;
-  }
-
-  .team-graph-section {
-    margin: 30px;
-  }
-
-  .main-graph-section {
-    margin: 10px;
   }
   
   
