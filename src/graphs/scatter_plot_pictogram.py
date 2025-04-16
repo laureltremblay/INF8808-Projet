@@ -124,6 +124,8 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
             fig.add_layout_image(
                 x=x,
                 y=y,
+                opacity = 0.6,
+                layer = 'above',
                 source=team_logos[team_name],
                 xref="x",
                 yref="y",
