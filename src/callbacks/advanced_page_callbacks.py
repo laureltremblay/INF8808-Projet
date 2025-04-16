@@ -74,7 +74,8 @@ def register_advanced_page_callbacks(app):
             base_pie,
         )
 
-
+    # Hover sur scatter plot pictogramme
+    '''
     @app.callback(
         Output("scatter-plot-pictogram-graph", "figure"),
         Input("scatter-plot-pictogram-graph", "hoverData"),
@@ -92,11 +93,11 @@ def register_advanced_page_callbacks(app):
                 hovered_team = point["customdata"][0]
 
         for img in fig["layout"]["images"]:
-            if hovered_team is not None and img.get("name") == hovered_team:
-                img["opacity"] = 1.0
-                img["layer"] = "above"
-            else:
-                img["opacity"] = 0.6
-                img["layer"] = "below"
+            should_be_focused = (hovered_team is None or img.get("name") == hovered_team)
+            target_opacity = 1 if should_be_focused else 0.5
+            if img.get("opacity") != target_opacity:
+                img["opacity"] = target_opacity
+                img["layer"] = "above" if should_be_focused else "below"
 
         return fig
+        '''
