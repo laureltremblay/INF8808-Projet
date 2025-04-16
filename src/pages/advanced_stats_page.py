@@ -7,6 +7,10 @@ from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts, get_filter_stacked_bar_chart
 from components.filter import get_filter_container
 
+from graphs.sunburst_diagram import get_sunburst_figure
+
+
+
 
 def get_advanced_content(data_df, team_logos=None):
     """
@@ -94,12 +98,12 @@ def get_advanced_content(data_df, team_logos=None):
                             ),
                             # Onglet : Par équipe
                             html.Div(
-                                className="team-graph-section fade-in",
+                                className="fade-in",
                                 id="team-analysis-section",
                                 style={"display": "none"},  # Masqué par défaut
                                 children=[
                                     html.Div(
-                                        className="graph",
+                                        className="graph stack-pie-section",
                                         id="scatter-plot-pictogram-div",
                                         children=[
                                             dcc.Graph(
@@ -128,12 +132,11 @@ def get_advanced_content(data_df, team_logos=None):
                             html.Div(
                                 className="graph-section fade-in",
                                 id="pie-charts-section",
-                                style={"display": "none"},  # Masqué par défaut
+                                style={"display": "none"},  # Masqué par défaut, activé via vos boutons
                                 children=[
                                     html.Div(
                                         className="pie-charts-and-filter-container",
                                         children=[
-                                            # Colonne des pie charts
                                             html.Div(
                                                 className="pie-charts-div",
                                                 children=[
@@ -147,7 +150,24 @@ def get_advanced_content(data_df, team_logos=None):
                                                             "doubleClick": False,
                                                             "displayModeBar": False,
                                                         },
-                                                        style={"width": "100%"},
+                                                        style={"width": "100%", "height": "400px"},
+                                                    ),
+                                                ],
+                                            ),
+                                            html.Div(
+                                                className="pie-chart-div",
+                                                children=[
+                                                    dcc.Graph(
+                                                        id="sunburst-diagram-graph",
+                                                        figure=get_sunburst_figure(data_df),
+                                                        config={
+                                                            "scrollZoom": False,
+                                                            "showTips": False,
+                                                            "showAxisDragHandles": False,
+                                                            "doubleClick": False,
+                                                            "displayModeBar": False,
+                                                        },
+                                                        style={"width": "100%", "height": "600px", "marginTop": "20px"},
                                                     ),
                                                 ],
                                             ),
