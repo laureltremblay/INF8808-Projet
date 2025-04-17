@@ -6,6 +6,7 @@ from graphs.scatter_plot_pictogram import get_scatter_plot_pictogram_figure
 from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts, get_filter_stacked_bar_chart
 from components.filter import get_filter_container
+from graphs.sunburst_plot import get_sunburst_figure
 
 
 def get_advanced_content(data_df, team_logos=None):
@@ -151,10 +152,29 @@ def get_advanced_content(data_df, team_logos=None):
                                                     ),
                                                 ],
                                             ),
+
                                             # Colonne du filtre (placé à droite)
                                             html.Div(
                                                 className="pie-filter-div",
                                                 children=get_filter_pie_charts(),
+                                            ),
+
+                                            html.Div(
+                                                className="sunburst-chart-div",
+                                                children=[
+                                                    dcc.Graph(
+                                                        id="sunburst-diagram-graph",
+                                                        figure=get_sunburst_figure(data_df),
+                                                        config={
+                                                            "scrollZoom": False,
+                                                            "showTips": False,
+                                                            "showAxisDragHandles": False,
+                                                            "doubleClick": False,
+                                                            "displayModeBar": False,
+                                                        },
+                                                        style={"width": "100%", "height": "700px", "marginTop": "10px"},
+                                                    ),
+                                                ],
                                             ),
                                         ],
                                     ),
