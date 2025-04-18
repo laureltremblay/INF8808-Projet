@@ -5,6 +5,7 @@ from graphs.stacked_bar_chart import get_bar_chart_figure
 from graphs.scatter_plot_pictogram import get_scatter_plot_pictogram_figure
 from graphs.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts, get_filter_stacked_bar_chart
+from graphs.facet_line_chart import get_facet_line_figure
 from components.filter import get_filter_container
 
 def get_advanced_content(data_df, team_logos=None):
@@ -17,6 +18,7 @@ def get_advanced_content(data_df, team_logos=None):
     """
     # On crée la figure composite pour les pie charts.
     composite_pie_fig = get_pie_chart_figure(data_df)
+    
     
     return html.Div(
         className="main-page",
@@ -113,6 +115,24 @@ def get_advanced_content(data_df, team_logos=None):
                                             )
                                         ],
                                     ),
+                                    html.Div(
+                                        className="facet-line-chart-div",
+                                        children=[
+                                            dcc.Graph(
+                                                id="facet-line-chart-graph",
+                                                figure=get_facet_line_figure(data_df),
+                                                config={
+                                                    "scrollZoom": False,
+                                                    "showTips": False,
+                                                    "showAxisDragHandles": False,
+                                                    "doubleClick": False,
+                                                    "displayModeBar": False,
+                                                },
+                                                style={"width": "100%", "height": "100%"}
+                                            )
+                                        ],
+                                    ),
+
                                 ],
                             ),
                             # Nouvel onglet : Pie Charts

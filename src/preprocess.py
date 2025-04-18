@@ -1,3 +1,5 @@
+import pandas as pd
+
 def basic_filtering(df):
     """
     Filter out missed shots from the data and NaN values.
@@ -33,6 +35,7 @@ def get_scatter_plot_pictogram_data(df):
         lambda x: x["awayTeamCode"] if x["team"] == "HOME" else x["homeTeamCode"],
         axis=1,
     )
+
     teams_goal_scored_against = (
         goal_df.groupby("teamCode")
         .agg({"goal": "sum"})
@@ -72,3 +75,47 @@ def get_scatter_plot_pictogram_data(df):
     scatter_plot_data.sort_values(by="teamCode", ascending=True, inplace=True)
 
     return scatter_plot_data
+
+
+def get_facet_line_chart_data(df):
+    """
+    Processes the data to build the facet line chart
+
+    args:
+        df: The original shot DataFrame for the 2023-2024 season in the NHL
+    returns:
+        The dataframe containing the amount of goals scored and allowed by each
+        team througout the 2023-2024 season in the NHL
+    """
+    goal_df = basic_filtering(df)
+
+    # 2 ── figure out who conceded each goal
+    goal_df["teamCode"] = goal_df.apply(
+        lambda x: x["awayTeamCode"] if x["team"] == "HOME" else x["homeTeamCode"],
+        axis=1,
+    )
+
+    # 3 ── build two mirrored frames:
+    #   • scoring team’s view  → goalsFor = 1, goalsAgainst = 0
+    #   • conceding team’s view→ goalsFor = 0, goalsAgainst = 1
+    scorer_view = (
+        goal_df
+        .assign(goalsFor=1, goalsAgainst=0)        # add flags
+        .loc[:, ["teamCode", "goalsFor", "goalsAgainst", "game_id", "time"]]
+    )
+
+    conceder_view = (
+        goal_df
+        .assign(teamCode=goal_df["teamCode"],  # flip to opponent
+                goalsFor=0,
+                goalsAgainst=1)
+        .loc[:, ["teamCode", "goalsFor", "goalsAgainst", "game_id", "time"]]
+    )
+
+    # 4 ── stack them; each row = one goal from one team’s perspective
+    line_plot_data = pd.concat([scorer_view, conceder_view],
+                                ignore_index=True)
+    
+    line_plot_data["time"] = (line_plot_data["time"] // 60).astype(int)
+
+    return line_plot_data
