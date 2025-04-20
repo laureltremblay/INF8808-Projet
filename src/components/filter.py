@@ -37,6 +37,22 @@ def get_filter_container():
                     )
                 ],
             ),
+            html.Div(
+                className="shooter-side-choice",
+                children=[
+                    html.P("Main dominante du tireur :"),
+                    dcc.RadioItems(
+                        id="shooter-side-choice",
+                        options=[
+                            {"label": "Tous", "value": "all"},
+                            {"label": "Droitier", "value": "right"},
+                            {"label": "Gaucher", "value": "left"},
+                        ],
+                        value="all",
+                        labelStyle={"display": "block"},
+                    ),
+                ],
+            ),
             html.Hr(),
             html.Div(
                 children=[
