@@ -19,7 +19,7 @@ def register_main_page_callbacks(app, data_df):
         Returns both the filtered dataframe and the column used for coloring in the scatter plot.
         """
         if not selected_main:
-            return df, "teamCode"
+            return df, None
 
         column_map = {
             "team": "teamCode",
@@ -32,7 +32,7 @@ def register_main_page_callbacks(app, data_df):
         if col:
             return df[df[col].isin(to_list(selected_main))], col
 
-        return df, "teamCode"
+        return df, None
 
     def filter_by_season(df, season_choice):
         """Filters the data to only include regular season or playoff games."""
