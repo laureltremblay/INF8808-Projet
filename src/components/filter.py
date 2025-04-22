@@ -40,7 +40,7 @@ def get_filter_container():
             html.Div(
                 className="shooter-side-choice",
                 children=[
-                    html.P("Main dominante du tireur :"),
+                    html.P("Latéralité du tireur : "),
                     dcc.RadioItems(
                         id="shooter-side-choice",
                         options=[
