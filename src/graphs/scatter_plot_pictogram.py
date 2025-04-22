@@ -42,8 +42,7 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         ),
         xaxis_title="Buts accordés",
         yaxis_title="Buts marqués",
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(255,255,255,255)",
         xaxis=dict(
             gridcolor="gray",
             zerolinecolor="gray",

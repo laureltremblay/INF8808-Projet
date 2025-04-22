@@ -74,6 +74,16 @@ def register_main_page_callbacks(app, data_df):
     def filter_by_toi(df, toi_choice):
         """Filters the data where the defending team's average TOI exceeds the selected threshold."""
         return df[df["defendingTeamAverageTimeOnIce"] >= toi_choice]
+    
+    def filter_by_shooter_side(df, side_choice):
+        """Filters the data based on the shooter's side (left or right or all)."""
+        if side_choice == "all":
+            return df
+        if side_choice == "left":
+            return df[df["shooterLeftRight"] == "L"]
+        if side_choice == "right": 
+            return df[df["shooterLeftRight"] == "R"]
+        return df
 
     @app.callback(
         Output("main-graph", "figure"),
@@ -84,6 +94,7 @@ def register_main_page_callbacks(app, data_df):
         Input("heatmap-button", "n_clicks"),
         Input("main-choice", "value"),
         Input("main-choice-dropdown", "value"),
+        Input("shooter-side-choice", "value"),
         Input("season-choice", "value"),
         Input("shot-type-choice", "value"),
         Input("period-choice", "value"),
@@ -97,6 +108,7 @@ def register_main_page_callbacks(app, data_df):
         heatmap_clicks,
         main_choice,
         selected_main,
+        shooter_side_choice,
         season_choice,
         shot_type_choice,
         period_choice,
@@ -111,6 +123,7 @@ def register_main_page_callbacks(app, data_df):
 
         # Apply all filters step-by-step
         df, color_var = filter_by_main_choice(data_df, main_choice, selected_main)
+        df = filter_by_shooter_side(df, shooter_side_choice)
         df = filter_by_season(df, season_choice)
         df = filter_by_shot_type(df, shot_type_choice)
         df = filter_by_period(df, period_choice)

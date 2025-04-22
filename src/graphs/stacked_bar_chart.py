@@ -129,8 +129,7 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
             bgcolor="white",
             font_color="black",
         ),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(255,255,255,255)",
         # Positionnement de la légende à droite de la figure
         legend=dict(
             orientation="v",
@@ -148,21 +147,6 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
         xaxis_fixedrange=True,
         yaxis_fixedrange=True,
     )
-
-    # fig.update_layout(
-    #     barmode="stack",
-    #     title="Répartition des types de tirs selon l'événement précédent",
-    #     xaxis_title="Événement précédent",
-    #     yaxis=yaxis_config,
-    #     hovermode="x unified",
-    #     paper_bgcolor="rgba(0,0,0,0)",
-    #     plot_bgcolor="rgba(0,0,0,0)",
-    #     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-    #     margin=dict(b=100, t=40),
-    #     font=dict(family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", size=16),
-    #     xaxis_fixedrange=True,
-    #     yaxis_fixedrange=True,
-    # )
 
     fig.update_xaxes(tickangle=-45, showgrid=False)
     fig.update_yaxes(showgrid=True, gridcolor="rgba(200, 200, 200, 0.3)")
@@ -219,8 +203,7 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
         uniformtext_minsize=8,
         uniformtext_mode="hide",
         xaxis=dict(tickangle=-45),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(255,255,255,255)",
         title_font=dict(size=22),
         font=dict(size=16),
     )

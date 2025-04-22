@@ -12,7 +12,7 @@ from graphs.main_page_graphs.scatter.scatter_layout_methods import (
 )
 
 
-def get_scatter_figure(data_df, color_var: str = "teamCode"):
+def get_scatter_figure(data_df, color_var):
     # Create the base scatter plot with full opacity
     fig = px.scatter(
         data_df,

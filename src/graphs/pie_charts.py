@@ -103,8 +103,6 @@ def get_pie_chart_figure(data_df):
         ),
         autosize=True,
         margin=dict(l=10, r=10, t=80, b=50),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
         transition=dict(duration=500),
     )
 

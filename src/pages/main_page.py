@@ -38,7 +38,7 @@ def get_main_page_content(data_df) -> html.Div:
                                         className="unzoom",
                                     ),
                                     dcc.Graph(
-                                        figure=get_scatter_figure(data_df),
+                                        figure=get_scatter_figure(data_df, None),
                                         id="main-graph",
                                         config=dict(
                                             scrollZoom=False,
