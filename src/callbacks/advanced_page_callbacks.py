@@ -1,5 +1,6 @@
 from dash import Input, Output, State, ctx
 
+
 def register_advanced_page_callbacks(app):
     @app.callback(
         [
@@ -19,9 +20,9 @@ def register_advanced_page_callbacks(app):
     def switch_advanced_tabs(shots_click, team_click, pie_click):
         triggered_id = ctx.triggered_id
 
-        # Remplace "scatter-button" par "stack-button" 
+        # Remplace "scatter-button" par "stack-button"
         # et "heatmap-button" par "team-button"
-        base_shots = "header-button stack-button"   
+        base_shots = "header-button stack-button"
         base_team = "header-button team-button"
         base_pie = "header-button piecharts-button"
 
@@ -75,7 +76,7 @@ def register_advanced_page_callbacks(app):
         )
 
     # Hover sur scatter plot pictogramme
-    '''
+    """
     @app.callback(
         Output("scatter-plot-pictogram-graph", "figure"),
         Input("scatter-plot-pictogram-graph", "hoverData"),
@@ -100,4 +101,4 @@ def register_advanced_page_callbacks(app):
                 img["layer"] = "above" if should_be_focused else "below"
 
         return fig
-        '''
+        """
