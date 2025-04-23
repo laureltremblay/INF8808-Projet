@@ -27,6 +27,49 @@ def get_advanced_content(data_df, team_logos=None):
                 children=[
                     # Boutons de contrôle pour basculer entre les onglets
                     html.Div(
+    className="info-popup-container",
+    children=[
+        html.Div(
+            className="tooltip-wrapper",
+            children=[
+                html.Button("i", id="info-button", className="info-button"),
+                                    html.Div(
+                                        className="tooltip-text",
+                                        children=[
+                                            html.H2("Tableau de bord LNH – Saison 2023-2024"),
+                                            html.P(
+                                                "Ce tableau de bord interactif présente l'analyse des buts marqués durant la saison 2023-2024 de la LNH, à travers trois sections principales."
+                                            ),
+                                            html.Br(),
+                                            html.H3("Par événement :"),
+                                            html.P(
+                                                "Explorez l'impact des événements précédents sur les tirs et les buts. La première visualisation montre la répartition des types de tirs selon l’événement précédant chaque tentative, tandis que la deuxième illustre la probabilité de marquer en fonction de ces mêmes événements."
+                                            ),
+                                            html.Br(),
+                                            html.H3("Par équipe :"),
+                                            html.P(
+                                                "Cette section compare la performance offensive et défensive des équipes. Le nuage de points positionne chaque équipe selon les buts marqués (axe vertical) et les buts accordés (axe horizontal), permettant d’identifier les forces et faiblesses de chaque formation."
+                                            ),
+                                            html.Br(),
+                                            html.H3("Par répartition :"),
+                                            html.P(
+                                                "Visualisez la distribution des buts selon la période de jeu, le type de match (saison régulière ou séries éliminatoires), et le statut domicile/extérieur. Les filtres sur la droite permettent d’ajuster la vue par équipe, période, type de match et localisation."
+                                            ),
+                                            html.Br(),
+                                            html.P("Utilisez ces visualisations et filtres pour mieux comprendre les tendances de la saison."),
+                                        ],
+                                    ),
+                                ],
+                            ),
+                        ],
+                        style={
+                            "position": "absolute",
+                            "top": "10px",
+                            "right": "10px",
+                            "zIndex": 10,
+                        },
+                    ),
+                    html.Div(
                         className="graph-controls",
                         children=[
                             html.Button(
