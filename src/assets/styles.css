@@ -603,7 +603,7 @@ body {
 
 .tooltip-text {
   visibility: hidden;
-  width: 250px;
+  width: 320px;
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
   text-align: left;

@@ -18,56 +18,56 @@ def get_main_page_content(data_df) -> html.Div:
                             html.Div(
                                 className="tooltip-text",
                                 children=[
-                                    html.H4("Tableau de bord LNH – Saison 2023-2024"),
+                                    html.H2("Tableau de bord LNH – Saison 2023-2024"),
                                     html.P(
                                         "Ce tableau de bord vous permet de visualiser l'ensemble des buts marqués durant la saison 2023-2024 de la LNH à travers deux types de visualisations : un nuage de points et une carte thermique."
                                     ),
                                     html.Br(),
-                                    html.H5("Filtres disponibles :"),
+                                    html.H3("Filtres disponibles :"),
                                     html.Ul(
                                         [
                                             html.Li(
                                                 [
                                                     html.B("Vue principale : "),
-                                                    "Affiche toutes les données ou les regroupe par équipe, joueur, position ou gardien.",
+                                                    "Affiche toutes les données ou les regroupe par équipe, joueur, position ou gardien. La liste déroulante  associée s'adapte en fonction de la sélection.",
                                                 ]
                                             ),
-                                            html.Li(
-                                                [
-                                                    html.B("Liste déroulante : "),
-                                                    "Permet de sélectionner une ou plusieurs valeurs en fonction du filtre principal choisi.",
-                                                ]
-                                            ),
+                                            html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Latéralité du tireur : "),
                                                     "Filtrer les buts selon que le tireur est gaucher, droitier ou inclure tous.",
                                                 ]
                                             ),
+                                            html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Type de match : "),
                                                     "Choisir entre tous les matchs, la saison régulière ou les séries éliminatoires.",
                                                 ]
                                             ),
+                                            html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Type de tir : "),
-                                                    "Filtrer selon la catégorie du tir : tir du poignet, lancer frappé, tir du revers ou déviation.",
+                                                    "Filtrer selon la catégorie du tir : tir du poignet, lancer frappé, tir du revers ou déviation. La liste déroulante  associée s'adapte en fonction de la sélection.",
                                                 ]
                                             ),
+                                            html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Période : "),
                                                     "Filtrer selon la période durant laquelle le but a été marqué (1ère, 2e, 3e ou prolongation).",
                                                 ]
                                             ),
+                                            html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Situation numérique : "),
                                                     "Filtrer selon le contexte du but : égalité numérique, avantage ou désavantage.",
                                                 ]
                                             ),
+                                            html.Br(),
                                             html.Li(
                                                 [
                                                     html.B(
