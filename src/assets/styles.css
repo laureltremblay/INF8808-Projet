@@ -357,29 +357,29 @@ body {
 }
 
 .stack-button {
-  background-color: #a3eaa5;
-  color: #fff;
+  background-color: #b5cfe7;
+  color: #333;
 }
 .stack-button.active {
-  background-color: #2e7d32;
+  background-color: #3989ca;
   color: #fff;
 }
 
 .team-button {
-  background-color: #98ebe3;
-  color: #fff;
+  background-color: #b5cfe7;
+  color: #333;
 }
 .team-button.active {
-  background-color: #00695c;
+  background-color: #3989ca;
   color: #fff;
 }
 
 .piecharts-button {
-  background-color: #e09ff8;
-  color: #fff;
+  background-color: #b5cfe7;
+  color: #333;
 }
 .piecharts-button.active {
-  background-color: #952fd1;
+  background-color: #3989ca;
   color: #fff;
 }
 
