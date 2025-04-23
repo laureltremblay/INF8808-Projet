@@ -74,14 +74,14 @@ def register_main_page_callbacks(app, data_df):
     def filter_by_toi(df, toi_choice):
         """Filters the data where the defending team's average TOI exceeds the selected threshold."""
         return df[df["defendingTeamAverageTimeOnIce"] >= toi_choice]
-    
+
     def filter_by_shooter_side(df, side_choice):
         """Filters the data based on the shooter's side (left or right or all)."""
         if side_choice == "all":
             return df
         if side_choice == "left":
             return df[df["shooterLeftRight"] == "L"]
-        if side_choice == "right": 
+        if side_choice == "right":
             return df[df["shooterLeftRight"] == "R"]
         return df
 
@@ -200,3 +200,11 @@ def register_main_page_callbacks(app, data_df):
             )
 
         return "---", [], True
+
+    @app.callback(
+        Output("info-popup", "displayed"),
+        Input("info-button", "n_clicks"),
+        prevent_initial_call=True,
+    )
+    def display_info_popup(n_clicks):
+        return True

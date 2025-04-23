@@ -7,6 +7,93 @@ def get_main_page_content(data_df) -> html.Div:
     return html.Div(
         className="main-page",
         children=[
+            # Info button and hover popup
+            html.Div(
+                className="info-popup-container",
+                children=[
+                    html.Div(
+                        className="tooltip-wrapper",
+                        children=[
+                            html.Button("i", id="info-button", className="info-button"),
+                            html.Div(
+                                className="tooltip-text",
+                                children=[
+                                    html.H2("Tableau de bord LNH – Saison 2023-2024"),
+                                    html.P(
+                                        "Ce tableau de bord vous permet de visualiser l'ensemble des buts marqués durant la saison 2023-2024 de la LNH à travers deux types de visualisations : un nuage de points et une carte thermique."
+                                    ),
+                                    html.Br(),
+                                    html.H3("Filtres disponibles :"),
+                                    html.Ul(
+                                        [
+                                            html.Li(
+                                                [
+                                                    html.B("Vue principale : "),
+                                                    "Affiche toutes les données ou les regroupe par équipe, joueur, position ou gardien. La liste déroulante  associée s'adapte en fonction de la sélection.",
+                                                ]
+                                            ),
+                                            html.Br(),
+                                            html.Li(
+                                                [
+                                                    html.B("Latéralité du tireur : "),
+                                                    "Filtrer les buts selon que le tireur est gaucher, droitier ou inclure tous.",
+                                                ]
+                                            ),
+                                            html.Br(),
+                                            html.Li(
+                                                [
+                                                    html.B("Type de match : "),
+                                                    "Choisir entre tous les matchs, la saison régulière ou les séries éliminatoires.",
+                                                ]
+                                            ),
+                                            html.Br(),
+                                            html.Li(
+                                                [
+                                                    html.B("Type de tir : "),
+                                                    "Filtrer selon la catégorie du tir : tir du poignet, lancer frappé, tir du revers ou déviation. La liste déroulante  associée s'adapte en fonction de la sélection.",
+                                                ]
+                                            ),
+                                            html.Br(),
+                                            html.Li(
+                                                [
+                                                    html.B("Période : "),
+                                                    "Filtrer selon la période durant laquelle le but a été marqué (1ère, 2e, 3e ou prolongation).",
+                                                ]
+                                            ),
+                                            html.Br(),
+                                            html.Li(
+                                                [
+                                                    html.B("Situation numérique : "),
+                                                    "Filtrer selon le contexte du but : égalité numérique, avantage ou désavantage.",
+                                                ]
+                                            ),
+                                            html.Br(),
+                                            html.Li(
+                                                [
+                                                    html.B(
+                                                        "Temps de glace défensif moyen : "
+                                                    ),
+                                                    "Utiliser le curseur pour sélectionner un minimum de temps moyen passé sur la glace par l'équipe défensive.",
+                                                ]
+                                            ),
+                                        ]
+                                    ),
+                                    html.Br(),
+                                    html.P(
+                                        "Utilisez ces filtres dans le panneau à droite pour explorer les données selon vos critères."
+                                    ),
+                                ],
+                            ),
+                        ],
+                    ),
+                ],
+                style={
+                    "position": "absolute",
+                    "top": "10px",
+                    "right": "10px",
+                    "zIndex": 10,
+                },
+            ),
             html.Div(
                 className="graph-container",
                 children=[
