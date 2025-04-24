@@ -223,13 +223,6 @@ def get_filter_stacked_bar_chart():
                     value=MODES['count'],
                     className="stacked-radio-items"
                 ),
-                html.Div(
-                    className="current-mode-badge",
-                    children=[
-                        html.Span("Mode actuel: "),
-                        html.Span(MODES['count'], id='mode')
-                    ]
-                )
             ],
-            style={"flex": "1", "marginLeft": "20px"}  # 1 part sur 4, petite colonne à droite
+            style={"flex": "1", "marginLeft": "20px"}  # 1 part sur 4, petite colonne à droite.
         )

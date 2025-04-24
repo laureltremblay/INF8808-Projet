@@ -104,12 +104,13 @@ def get_advanced_content(data_df, team_logos=None):
                                         children=[
                                             # Colonne stacked bar chart
                                             html.Div(
-                                                get_stacked_bar_chart_layout(data_df)
+                                                get_stacked_bar_chart_layout(data_df), style={"flex": "4", "height": "100%"}
                                             ),
                                             # Colonne du filtre (placé à droite)
                                             html.Div(
                                                 className="stacked-filter-div",
                                                 children=get_filter_stacked_bar_chart(),
+                                                style={"flex": "1", "height": "100%"},
                                             ),
                                         ],
                                     ),

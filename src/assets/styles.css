@@ -264,11 +264,11 @@ body {
   .stacked-charts-and-filter-container {
     display: flex;
     flex-direction: row;
-    gap: 30px;
-    max-width: 1400px;
+    gap: 20px;
+    max-width: 1200px;
     width: 100%;
-    margin-bottom: auto;
-    justify-content: center;
+    margin: 0 auto 20px;
+    justify-content: space-between;
     align-items: center;
   }
   

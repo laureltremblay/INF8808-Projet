@@ -2,9 +2,11 @@
 # l'événement qui précède le tir impacte la chance de marquer?
 
 # x: Les évènements qui précèdent un tir (lastEventCategory).
-# y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
+# y: Pourcentage des tirs ou quantité de tirs selon l'événement précédent.
 import plotly.graph_objects as go
 import pandas as pd
+
+from preprocess import get_bar_chart_data, get_stacked_bar_chart_data
 
 MODES = dict(count="Quantité", percent="Pourcentage")
 
@@ -63,40 +65,20 @@ def get_stacked_bar_char_template(mode):
 def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
     df = data_df.copy(deep=True)
 
-    # Prepare the data.
-    event_types = ["SHOT", "MISS", "GOAL"]
-    df_filtered = df[df["event"].isin(event_types)]
-    df_filtered["lastEventCategory"] = df_filtered["lastEventCategory"].map(
-        event_category_map
-    )
-    df_filtered = df_filtered[df_filtered["lastEventCategory"].notna()]
-    df_filtered["event"] = df_filtered["event"].map(event_types_map)
-    df_pivot = (
-        df_filtered.groupby(["lastEventCategory", "event"]).size().unstack(fill_value=0)
-    )
-
-    df_pivot["Total"] = df_pivot.sum(axis=1)
-    if mode == MODES["percent"]:
-        # Ordering by the percentage of goals.
-        df_pivot["% But"] = df_pivot["But"] / df_pivot["Total"] * 100
-        df_pivot = df_pivot.sort_values("% But", ascending=False)
-    else:
-        # Ordering by the total number of shots.
-        df_pivot = df_pivot.sort_values("Total", ascending=False)
-
+    # Get the preprocessed data.
+    processed_df, processed_percent_df = get_stacked_bar_chart_data(df, mode=mode)
     event_types = ["Tir cadré", "Tir raté", "But"]
-    df_pivot_percent = df_pivot[event_types].div(df_pivot["Total"], axis=0) * 100
-
+    
     fig = go.Figure()
     for event in event_types:
         # Select the correct data depending on shot type.
         y_data = (
-            df_pivot_percent[event] if mode == MODES["percent"] else df_pivot[event]
+            processed_percent_df[event] if mode == MODES["percent"] else processed_df[event]
         )
 
         fig.add_trace(
             go.Bar(
-                x=df_pivot.index,
+                x=processed_df.index,
                 y=y_data,
                 name=event,
                 marker_color=event_types_colors[event],
@@ -130,15 +112,15 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
             font_color="black",
         ),
         plot_bgcolor="rgba(255,255,255,255)",
-        # Positionnement de la légende à droite de la figure
+        
+        # Legend on the right.
         legend=dict(
             orientation="v",
-            x=1.02,  # Légende à droite, hors de l'aire de tracé
+            x=1.02,
             y=1,
             xanchor="left",
             yanchor="top",
         ),
-        # On augmente la marge droite pour laisser de la place à la légende
         margin=dict(l=50, r=120, t=120, b=100),
         font=dict(
             # family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -168,17 +150,14 @@ def get_bar_chart_template():
 
 
 def get_bar_chart_figure(data_df: pd.DataFrame):
-    df = data_df.copy(deep=True)  # Deepcopy to not affect the global dataframe.
+    df = data_df.copy(deep=True)
 
-    # Prepare the data.
-    df["lastEventCategory"] = df["lastEventCategory"].map(event_category_map)
-    df_agg = df.groupby("lastEventCategory", as_index=False)["xGoal"].mean()
-    df_agg["xGoal_percent"] = df_agg["xGoal"] * 100
-    df_agg = df_agg.sort_values("xGoal_percent", ascending=False)
+    # Get the processed data.
+    processed_df = get_bar_chart_data(df)
 
     # Create the bar chart.
     fig = px.bar(
-        df_agg,
+        processed_df,
         x="lastEventCategory",
         y="xGoal_percent",
         labels={
