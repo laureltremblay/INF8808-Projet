@@ -20,7 +20,7 @@ def get_main_page_content(data_df) -> html.Div:
                                 children=[
                                     html.H2("Tableau de bord LNH – Saison 2023-2024"),
                                     html.P(
-                                        "Ce tableau de bord vous permet de visualiser l'ensemble des buts marqués durant la saison 2023-2024 de la LNH à travers deux types de visualisations : un nuage de points et une carte thermique."
+                                        "Ce tableau de bord vous permet de visualiser l'ensemble des buts marqués durant la saison 2023-2024 de la LNH à travers deux types de visualisations : un nuage de points et une carte carte isarithmique."
                                     ),
                                     html.Br(),
                                     html.H3("Filtres disponibles :"),
@@ -29,42 +29,42 @@ def get_main_page_content(data_df) -> html.Div:
                                             html.Li(
                                                 [
                                                     html.B("Vue principale : "),
-                                                    "Affiche toutes les données ou les regroupe par équipe, joueur, position ou gardien. La liste déroulante  associée s'adapte en fonction de la sélection.",
+                                                    "Affiche tous les buts marqués ou uniquement ceux associés aux équipes, joueurs, positions sélectionnés, ou aux gardiens sélectionnés qui les ont accordés. La liste déroulante s’adapte dynamiquement en fonction des choix effectués.",
                                                 ]
                                             ),
                                             html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Latéralité du tireur : "),
-                                                    "Filtrer les buts selon que le tireur est gaucher, droitier ou inclure tous.",
+                                                    "Filtre les buts selon que le marqueur est gaucher, droitier, ou inclut tous les marqueurs.",
                                                 ]
                                             ),
                                             html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Type de match : "),
-                                                    "Choisir entre tous les matchs, la saison régulière ou les séries éliminatoires.",
+                                                    "Choisir entre toutes les parties, uniquement les parties de saison régulière ou uniquement celles des séries éliminatoires.",
                                                 ]
                                             ),
                                             html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Type de tir : "),
-                                                    "Filtrer selon la catégorie du tir : tir du poignet, lancer frappé, tir du revers ou déviation. La liste déroulante  associée s'adapte en fonction de la sélection.",
+                                                    "Filtre les buts selon la catégorie du tir : tir du poignet, lancer frappé, tir du revers ou déviation. La liste déroulante s’adapte dynamiquement en fonction de la sélection.",
                                                 ]
                                             ),
                                             html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Période : "),
-                                                    "Filtrer selon la période durant laquelle le but a été marqué (1ère, 2e, 3e ou prolongation).",
+                                                    "Filtre les buts selon la période durant laquelle ils ont été marqués : 1ère, 2e, 3e période ou prolongation.",
                                                 ]
                                             ),
                                             html.Br(),
                                             html.Li(
                                                 [
                                                     html.B("Situation numérique : "),
-                                                    "Filtrer selon le contexte du but : égalité numérique, avantage ou désavantage.",
+                                                    "Filtre selon le contexte dans lequel les buts ont été marqués : égalité numérique, avantage numérique ou désavantage numérique.",
                                                 ]
                                             ),
                                             html.Br(),
@@ -73,14 +73,14 @@ def get_main_page_content(data_df) -> html.Div:
                                                     html.B(
                                                         "Temps de glace défensif moyen : "
                                                     ),
-                                                    "Utiliser le curseur pour sélectionner un minimum de temps moyen passé sur la glace par l'équipe défensive.",
+                                                    "Utilisez le curseur pour sélectionner le temps moyen minimum passé sur la glace par l'équipe défensive",
                                                 ]
                                             ),
                                         ]
                                     ),
                                     html.Br(),
                                     html.P(
-                                        "Utilisez ces filtres dans le panneau à droite pour explorer les données selon vos critères."
+                                        "Utilisez ces filtres du panneau de droite pour explorer les données selon vos critères."
                                     ),
                                 ],
                             ),
@@ -106,7 +106,7 @@ def get_main_page_content(data_df) -> html.Div:
                                 id="scatter-button",
                             ),
                             html.Button(
-                                "Heatmap",
+                                "Carte Isarithmique",
                                 className="header-button heatmap-button",
                                 id="heatmap-button",
                             ),

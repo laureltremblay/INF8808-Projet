@@ -1,23 +1,24 @@
 """
 4e visualisation qui répond à :
 Question cible 8 : Y avait-il des équipes plus efficaces pour marquer des buts en 2023-2024?
-la question cible 9 : Y avait-il des équipes plus efficaces pour empêcher des buts en 2023-2024?
+Question cible 9 : Y avait-il des équipes plus efficaces pour empêcher des buts en 2023-2024?
 """
 
 import plotly.express as px
 import plotly.graph_objects as go
 from preprocess import get_scatter_plot_pictogram_data
 from assets.team_color import TEAM_COLOR_MAP
+from assets.team_logo_sizes import size_dictionnary
 
 
 def get_scatter_plot_pictogram_figure(goal_df, team_logos):
     """
-    Processes the data to build the scatter plot pictogram
+    Build the scatter plot pictogram
 
     args:
         df: The original shot DataFrame for the 2023-2024 season in the NHL
     returns:
-        The scatter plot with pictograms instead of points representing the amount of goals scored
+        The scatter plot with team logos as the points representing the amount of goals scored
         and allowed by each team during the 2023-2024 NHL season
     """
 
@@ -60,44 +61,8 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
             dtick=25,
         ),
     )
-
+    
     fig.update_traces(marker=dict(size=1, opacity=0), hoverinfo=None, visible=False)
-
-    # We create a dictionnary to define the size of each logo
-    size_dictionnary = {
-        "ANA": {"sizex": 13, "sizey": 13},
-        "ARI": {"sizex": 13, "sizey": 13},
-        "BOS": {"sizex": 12, "sizey": 12},
-        "BUF": {"sizex": 12, "sizey": 12},
-        "CAR": {"sizex": 19, "sizey": 19},
-        "CBJ": {"sizex": 12, "sizey": 12},
-        "CGY": {"sizex": 12, "sizey": 12},
-        "CHI": {"sizex": 15, "sizey": 15},
-        "COL": {"sizex": 16, "sizey": 16},
-        "DAL": {"sizex": 13, "sizey": 13},
-        "DET": {"sizex": 18, "sizey": 18},
-        "EDM": {"sizex": 13, "sizey": 13},
-        "FLA": {"sizex": 15, "sizey": 15},
-        "LAK": {"sizex": 15, "sizey": 15},
-        "MIN": {"sizex": 18, "sizey": 18},
-        "MTL": {"sizex": 11, "sizey": 11},
-        "NJD": {"sizex": 13, "sizey": 13},
-        "NSH": {"sizex": 18, "sizey": 18},
-        "NYI": {"sizex": 14, "sizey": 14},
-        "NYR": {"sizex": 15, "sizey": 15},
-        "OTT": {"sizex": 13, "sizey": 13},
-        "PHI": {"sizex": 16, "sizey": 16},
-        "PIT": {"sizex": 16, "sizey": 16},
-        "SEA": {"sizex": 13, "sizey": 13},
-        "SJS": {"sizex": 17, "sizey": 17},
-        "STL": {"sizex": 12, "sizey": 12},
-        "TBL": {"sizex": 13, "sizey": 13},
-        "TOR": {"sizex": 16, "sizey": 16},
-        "VAN": {"sizex": 13, "sizey": 13},
-        "VGK": {"sizex": 15, "sizey": 15},
-        "WPG": {"sizex": 15, "sizey": 15},
-        "WSH": {"sizex": 22, "sizey": 22},
-    }
 
     # We create the hovertemplate
     hovertemplate = (
