@@ -2,7 +2,7 @@
 # l'événement qui précède le tir impacte la chance de marquer?
 
 # x: Les évènements qui précèdent un tir (lastEventCategory).
-# y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
+# y: Pourcentage des tirs ou quantité de tirs selon l'événement précédent.
 import plotly.graph_objects as go
 import pandas as pd
 
@@ -130,15 +130,15 @@ def get_stacked_bar_chart_figure(data_df: pd.DataFrame, mode=MODES["count"]):
             font_color="black",
         ),
         plot_bgcolor="rgba(255,255,255,255)",
-        # Positionnement de la légende à droite de la figure
+        
+        # Legend on the right.
         legend=dict(
             orientation="v",
-            x=1.02,  # Légende à droite, hors de l'aire de tracé
+            x=1.02,
             y=1,
             xanchor="left",
             yanchor="top",
         ),
-        # On augmente la marge droite pour laisser de la place à la légende
         margin=dict(l=50, r=120, t=120, b=100),
         font=dict(
             # family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -168,7 +168,7 @@ def get_bar_chart_template():
 
 
 def get_bar_chart_figure(data_df: pd.DataFrame):
-    df = data_df.copy(deep=True)  # Deepcopy to not affect the global dataframe.
+    df = data_df.copy(deep=True)
 
     # Prepare the data.
     df["lastEventCategory"] = df["lastEventCategory"].map(event_category_map)
