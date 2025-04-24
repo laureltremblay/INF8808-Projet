@@ -1,3 +1,23 @@
+event_category_map = {
+    "GIVE": "Perte de rondelle",
+    "SHOT": "Tir au but",
+    "HIT": "Mise en échec",
+    "TAKE": "Récupération",
+    "MISS": "Tir raté",
+    "FAC": "Mise au jeu",
+    "BLOCK": "Tir bloqué",
+    "DELPEN": "Pénalité à retardement",
+    "GOAL": "But",
+}
+
+event_types_map = {
+    "SHOT": "Tir cadré",
+    "MISS": "Tir raté",
+    "GOAL": "But",
+}
+
+MODES = dict(count="Quantité", percent="Pourcentage")
+
 def basic_filtering(df):
     """
     Filter out missed shots from the data and NaN values.
@@ -6,6 +26,41 @@ def basic_filtering(df):
     df = df[df["event"] == "GOAL"]
     return df
 
+def get_stacked_bar_chart_data(df, mode):
+    # Prepare the data.
+    event_types = ["SHOT", "MISS", "GOAL"]
+    df_filtered = df[df["event"].isin(event_types)]
+    df_filtered["lastEventCategory"] = df_filtered["lastEventCategory"].map(
+        event_category_map
+    )
+    df_filtered = df_filtered[df_filtered["lastEventCategory"].notna()]
+    df_filtered["event"] = df_filtered["event"].map(event_types_map)
+    processed_df = (
+        df_filtered.groupby(["lastEventCategory", "event"]).size().unstack(fill_value=0)
+    )
+
+    processed_df["Total"] = processed_df.sum(axis=1)
+    if mode == MODES["percent"]:
+        # Ordering by the percentage of goals.
+        processed_df["% But"] = processed_df["But"] / processed_df["Total"] * 100
+        processed_df = processed_df.sort_values("% But", ascending=False)
+    else:
+        # Ordering by the total number of shots.
+        processed_df = processed_df.sort_values("Total", ascending=False)
+
+    event_types = ["Tir cadré", "Tir raté", "But"]
+    processed_percent_df = processed_df[event_types].div(processed_df["Total"], axis=0) * 100
+    
+    return processed_df, processed_percent_df
+
+def get_bar_chart_data(df):
+    # Prepare the data.
+    df["lastEventCategory"] = df["lastEventCategory"].map(event_category_map)
+    processed_df = df.groupby("lastEventCategory", as_index=False)["xGoal"].mean()
+    processed_df["xGoal_percent"] = processed_df["xGoal"] * 100
+    processed_df = processed_df.sort_values("xGoal_percent", ascending=False)
+    
+    return processed_df
 
 def get_scatter_plot_pictogram_data(df):
     """
