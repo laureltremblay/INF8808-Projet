@@ -119,31 +119,3 @@ def register_advanced_page_callbacks(app):
                 html.Li("Emplacement : Équipe locale, équipe visiteuse ou les deux."),
                 html.Br()
             ]
-
-    # Hover sur scatter plot pictogramme
-    """
-    @app.callback(
-        Output("scatter-plot-pictogram-graph", "figure"),
-        Input("scatter-plot-pictogram-graph", "hoverData"),
-        State("scatter-plot-pictogram-graph", "figure"),
-        prevent_initial_call=True
-    )
-    def update_image_opacity_on_hover(hoverData, fig):
-        if not fig or "layout" not in fig or "images" not in fig["layout"]:
-            return fig
-
-        hovered_team = None
-        if hoverData and "points" in hoverData:
-            point = hoverData["points"][0]
-            if "customdata" in point and point["customdata"]:
-                hovered_team = point["customdata"][0]
-
-        for img in fig["layout"]["images"]:
-            should_be_focused = (hovered_team is None or img.get("name") == hovered_team)
-            target_opacity = 1 if should_be_focused else 0.5
-            if img.get("opacity") != target_opacity:
-                img["opacity"] = target_opacity
-                img["layer"] = "above" if should_be_focused else "below"
-
-        return fig
-        """
