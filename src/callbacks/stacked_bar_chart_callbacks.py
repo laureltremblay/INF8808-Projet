@@ -1,4 +1,4 @@
-from dash import Input, Output
+from dash import Input, Output, State
 
 from graphs.stacked_bar_chart import get_stacked_bar_chart_figure
 

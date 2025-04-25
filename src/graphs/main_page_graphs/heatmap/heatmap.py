@@ -29,7 +29,10 @@ def get_heatmap_figure(data_df):
         )
     )
 
+    # Update axes names
     update_axes(fig)
+
+    # Update rink background
     add_rink_background(fig, image_uri)
 
     return fig
