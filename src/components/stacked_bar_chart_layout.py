@@ -1,6 +1,6 @@
 from dash import html, dcc
 
-from graphs.stacked_bar_chart import MODES, get_stacked_bar_chart_figure
+from graphs.stacked_bar_chart import get_stacked_bar_chart_figure
 
 def get_stacked_bar_chart_layout(data_df):
     return html.Div(
