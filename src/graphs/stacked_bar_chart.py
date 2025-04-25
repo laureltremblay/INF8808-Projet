@@ -191,5 +191,7 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
         xaxis_fixedrange=True,
         yaxis_fixedrange=True,
     )
+    # # Add black outline to each bar for better visibility.
+    # fig.update_traces(marker_line_color="black", marker_line_width=1.5, opacity=0.8)
 
     return fig
