@@ -1,6 +1,6 @@
-from dash import Input, Output, State
+from dash import Input, Output
 
-from graphs.stacked_bar_chart import get_stacked_bar_chart_figure
+from graphs.advanced_stats_page_graphs.stacked_bar_chart.stacked_bar_chart import get_stacked_bar_chart_figure
 
 def register_stacked_bar_chart_callbacks(app, data_df):
     @app.callback(

@@ -1,6 +1,6 @@
 from dash import html, dcc
 
-from graphs.stacked_bar_chart import MODES
+MODES = dict(count="Quantité", percent="Pourcentage")
 
 
 def get_filter_container():
