@@ -92,7 +92,8 @@ def register_advanced_page_callbacks(app):
                 html.P("Cette section permet d'explorer l'impact des événements précédents sur les buts marqués dans la LNH lors de la saison 2023-2024 : "),
                 html.Li("La première visualisation présente le nombre de buts marqués en fonction de l'événement précédent, avec la possibilité, grâce au panneau à droite, de transformer ces données en pourcentage de tirs qui ont abouti à un but selon l'événement précédent."),
                 html.Br(), 
-                html.Li("La deuxième visualisation, située plus bas, illustre la probabilité de marquer un but selon l'événement précédent, en se basant sur un modèle qui estime la probabilité qu'un tir soit transformé en but, en prenant en compte plusieurs facteurs.")                
+                html.Li("La deuxième visualisation, située plus bas, illustre la probabilité de marquer un but selon l'événement précédent, en se basant sur un modèle qui estime la probabilité qu'un tir soit transformé en but, en prenant en compte plusieurs facteurs."),                
+                html.Br(),            
             ]
         elif triggered_id == "team-analysis-button":
             return [
@@ -116,6 +117,7 @@ def register_advanced_page_callbacks(app):
                 html.Li("Type de match : Saison régulière, séries éliminatoires ou les deux."),
                 html.Br(),                
                 html.Li("Emplacement : Équipe locale, équipe visiteuse ou les deux."),
+                html.Br()
             ]
 
     # Hover sur scatter plot pictogramme
