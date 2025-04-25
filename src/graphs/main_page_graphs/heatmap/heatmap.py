@@ -1,7 +1,7 @@
 import plotly.graph_objs as go
 
 from assets.image_rink_loading import image_uri
-from graphs.main_page_graphs.main_page_common_methods import (
+from graphs.main_page_graphs.main_page_common_layout import (
     add_rink_background,
     update_axes,
 )

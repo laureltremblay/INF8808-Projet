@@ -1,12 +1,12 @@
 from assets.team_color import TEAM_COLOR_MAP
 import plotly.express as px
 import plotly.graph_objects as go
-from graphs.main_page_graphs.main_page_common_methods import (
+from graphs.main_page_graphs.main_page_common_layout import (
     add_rink_background,
     update_axes,
 )
 from assets.image_rink_loading import image_uri
-from graphs.main_page_graphs.scatter.scatter_layout_methods import (
+from graphs.main_page_graphs.scatter.scatter_layout import (
     update_scatter_hover_template,
     update_scatter_legend,
 )

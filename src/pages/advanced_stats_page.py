@@ -1,7 +1,7 @@
 from dash import html, dcc
 
-from graphs.advanced_stats_page_graphs.stacked_bar_chart.stacked_bar_chart_layout import get_stacked_bar_chart_layout
-from graphs.advanced_stats_page_graphs.stacked_bar_chart.stacked_bar_chart import get_bar_chart_figure
+from graphs.advanced_stats_page_graphs.bar_charts.stacked_bar_chart.stacked_bar_chart_layout import get_stacked_bar_chart_layout
+from graphs.advanced_stats_page_graphs.bar_charts.bar_chart.bar_chart import get_bar_chart_figure
 from graphs.advanced_stats_page_graphs.scatter_plot.scatter_plot_pictogram import get_scatter_plot_pictogram_figure
 from graphs.advanced_stats_page_graphs.pie_charts.pie_charts import get_pie_chart_figure
 from components.filter import get_filter_pie_charts, get_filter_stacked_bar_chart
