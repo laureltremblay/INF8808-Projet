@@ -72,7 +72,7 @@ def get_main_page_content(data_df) -> html.Div:
                                                     html.B(
                                                         "Temps de glace défensif moyen : "
                                                     ),
-                                                    "Utilisez le curseur pour sélectionner le temps moyen minimum passé sur la glace par l'équipe défensive",
+                                                    "Utilisez le curseur pour sélectionner le temps moyen minimum passé sur la glace par l'équipe défensive.",
                                                 ]
                                             ),
                                         ]
