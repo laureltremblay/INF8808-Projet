@@ -1,6 +1,5 @@
 import dash
 from dash import Input, Output, ctx, dcc, html
-import plotly.express as px
 import pandas as pd
 from callbacks.main_page_callbacks import register_main_page_callbacks
 from callbacks.pie_charts_callbacks import register_pie_charts_callbacks
