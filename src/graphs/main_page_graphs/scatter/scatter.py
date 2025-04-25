@@ -1,14 +1,8 @@
 from assets.team_color import TEAM_COLOR_MAP
 import plotly.express as px
-import plotly.graph_objects as go
-from graphs.main_page_graphs.main_page_common_layout import (
-    add_rink_background,
-    update_axes,
-)
 from assets.image_rink_loading import image_uri
 from graphs.main_page_graphs.scatter.scatter_layout import (
-    update_scatter_hover_template,
-    update_scatter_legend,
+    update_scatter_layout,
 )
 
 
@@ -35,25 +29,15 @@ def get_scatter_figure(data_df, color_var):
         ],
     )
 
-    # Update points to be fully visible but with a special class
+    # Update points to be bigger
     fig.update_traces(
         marker=dict(
             size=10,
-            opacity=1,  # Set full opacity
+            opacity=1,
         ),
         selector=dict(mode="markers"),
     )
 
-    # Update axes names
-    update_axes(fig)
-
-    # Update legend
-    update_scatter_legend(fig, color_var)
-
-    # Update background
-    add_rink_background(fig, image_uri)
-
-    # Update hover template
-    update_scatter_hover_template(fig)
+    update_scatter_layout(fig, color_var, image_uri)
 
     return fig

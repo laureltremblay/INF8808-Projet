@@ -1,10 +1,7 @@
 import plotly.graph_objs as go
 
 from assets.image_rink_loading import image_uri
-from graphs.main_page_graphs.main_page_common_layout import (
-    add_rink_background,
-    update_axes,
-)
+from graphs.main_page_graphs.heatmap.heatmap_layout import update_heatmap_layout
 
 
 def get_heatmap_figure(data_df):
@@ -29,10 +26,6 @@ def get_heatmap_figure(data_df):
         )
     )
 
-    # Update axes names
-    update_axes(fig)
-
-    # Update rink background
-    add_rink_background(fig, image_uri)
+    update_heatmap_layout(fig, image_uri)
 
     return fig

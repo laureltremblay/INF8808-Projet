@@ -1,5 +1,5 @@
 from dash import html, dcc
-from components.filter import get_filter_container
+from components.filters import get_filter_container
 from graphs.main_page_graphs.scatter.scatter import get_scatter_figure
 
 
@@ -7,7 +7,6 @@ def get_main_page_content(data_df) -> html.Div:
     return html.Div(
         className="main-page",
         children=[
-            # Info button and hover popup
             html.Div(
                 className="info-popup-container",
                 children=[

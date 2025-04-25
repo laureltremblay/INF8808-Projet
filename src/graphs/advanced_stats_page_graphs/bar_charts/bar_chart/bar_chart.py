@@ -1,14 +1,9 @@
-# Version 2
-# 3e visualisation qui répond à la question 5: Comment est-ce que
-# l'événement qui précède le tir impacte la chance de marquer?
-
-# x: Les évènements qui précèdent un tir (lastEventCategory).
-# y: La probabilité moyenne de convertir un tir à un but (xGoal_percent).
-
 import plotly.graph_objects as go
 import pandas as pd
 
-from graphs.advanced_stats_page_graphs.bar_charts.bar_chart.bar_chart_layout import update_bar_chart_layout
+from graphs.advanced_stats_page_graphs.bar_charts.bar_chart.bar_chart_layout import (
+    update_bar_chart_layout,
+)
 from preprocess import get_bar_chart_data
 
 import plotly.express as px
@@ -21,10 +16,10 @@ def get_bar_chart_template():
 def get_bar_chart_figure(data_df: pd.DataFrame):
     df = data_df.copy(deep=True)
 
-    # Get the processed data.
+    # Get the processed data
     processed_df = get_bar_chart_data(df)
 
-    # Create the bar chart.
+    # Create the bar chart
     fig = px.bar(
         processed_df,
         x="lastEventCategory",
@@ -39,7 +34,7 @@ def get_bar_chart_figure(data_df: pd.DataFrame):
     )
     fig.update_traces(hovertemplate=get_bar_chart_template())
 
-    # Customize the plot layout.
+    # Customize the plot layout
     update_bar_chart_layout(fig)
 
     return fig

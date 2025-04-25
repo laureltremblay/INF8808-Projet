@@ -1,11 +1,8 @@
-"""
-4e visualisation qui répond à :
-Question cible 8 : Y avait-il des équipes plus efficaces pour marquer des buts en 2023-2024?
-Question cible 9 : Y avait-il des équipes plus efficaces pour empêcher des buts en 2023-2024?
-"""
-
 import plotly.express as px
 import plotly.graph_objects as go
+from graphs.advanced_stats_page_graphs.scatter_plot.scatter_plot_pictogram_layout import (
+    update_scatter_plot_pictogram_layout,
+)
 from preprocess import get_scatter_plot_pictogram_data
 from assets.team_color import TEAM_COLOR_MAP
 from assets.team_logo_sizes import size_dictionnary
@@ -31,37 +28,8 @@ def get_scatter_plot_pictogram_figure(goal_df, team_logos):
         x="goalsScoredAgainst",
         y="goalsScored",
     )
-    fig.update_layout(
-        width=1050,
-        height=800,
-        dragmode=False,
-        title=dict(
-        text="Comparaison des buts marqués et accordés par équipe en 2023-2024",
-        font=dict(size=22),
-        x=0.5,
-        xanchor='center'
-        ),
-        xaxis_title="Buts accordés",
-        yaxis_title="Buts marqués",
-        plot_bgcolor="rgba(255,255,255,255)",
-        xaxis=dict(
-            gridcolor="gray",
-            zerolinecolor="gray",
-            showline=True,
-            linecolor="gray",
-            range=[184, 304],
-            dtick=10,
-        ),
-        yaxis=dict(
-            gridcolor="gray",
-            zerolinecolor="gray",
-            showline=True,
-            linecolor="gray",
-            range=[128, 360],
-            dtick=25,
-        ),
-    )
-    
+
+    update_scatter_plot_pictogram_layout(fig)
     fig.update_traces(marker=dict(size=1, opacity=0), hoverinfo=None, visible=False)
 
     # We create the hovertemplate

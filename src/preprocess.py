@@ -1,22 +1,5 @@
-event_category_map = {
-    "GIVE": "Perte de rondelle",
-    "SHOT": "Tir au but",
-    "HIT": "Mise en échec",
-    "TAKE": "Récupération",
-    "MISS": "Tir raté",
-    "FAC": "Mise au jeu",
-    "BLOCK": "Tir bloqué",
-    "DELPEN": "Pénalité à retardement",
-    "GOAL": "But",
-}
+from assets.event_types import event_category_map, event_types_map, MODES
 
-event_types_map = {
-    "SHOT": "Tir cadré",
-    "MISS": "Tir raté",
-    "GOAL": "But",
-}
-
-MODES = dict(count="Quantité", percent="Pourcentage")
 
 def basic_filtering(df):
     """
@@ -25,6 +8,7 @@ def basic_filtering(df):
     df = df.dropna()
     df = df[df["event"] == "GOAL"]
     return df
+
 
 def get_stacked_bar_chart_data(df, mode):
     # Prepare the data.
@@ -49,9 +33,12 @@ def get_stacked_bar_chart_data(df, mode):
         processed_df = processed_df.sort_values("Total", ascending=False)
 
     event_types = ["Tir cadré", "Tir raté", "But"]
-    processed_percent_df = processed_df[event_types].div(processed_df["Total"], axis=0) * 100
-    
+    processed_percent_df = (
+        processed_df[event_types].div(processed_df["Total"], axis=0) * 100
+    )
+
     return processed_df, processed_percent_df
+
 
 def get_bar_chart_data(df):
     # Prepare the data.
@@ -59,8 +46,9 @@ def get_bar_chart_data(df):
     processed_df = df.groupby("lastEventCategory", as_index=False)["xGoal"].mean()
     processed_df["xGoal_percent"] = processed_df["xGoal"] * 100
     processed_df = processed_df.sort_values("xGoal_percent", ascending=False)
-    
+
     return processed_df
+
 
 def get_scatter_plot_pictogram_data(df):
     """

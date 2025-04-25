@@ -1,6 +1,5 @@
+from assets.event_types import MODES
 from dash import html, dcc
-
-MODES = dict(count="Quantité", percent="Pourcentage")
 
 
 def get_filter_container():
@@ -19,7 +18,7 @@ def get_filter_container():
                             {"label": "Par position", "value": "position"},
                             {"label": "Par gardien", "value": "goalie"},
                         ],
-                        value="all",  # Sélection par défaut
+                        value="all",
                         labelStyle={"display": "block"},
                     ),
                 ],
@@ -63,7 +62,7 @@ def get_filter_container():
                             {"label": "Saison régulière", "value": "regular_season"},
                             {"label": "Séries éliminatoires", "value": "playoffs"},
                         ],
-                        value="all",  # Sélection par défaut
+                        value="all",
                         labelStyle={"display": "block"},
                     ),
                 ]
@@ -81,7 +80,7 @@ def get_filter_container():
                             {"label": "Tirs du revers", "value": "BACK"},
                             {"label": "Déviations", "value": "TIP"},
                         ],
-                        value="all",  # Sélection par défaut
+                        value="all",
                         clearable=False,
                         searchable=False,
                     ),
@@ -99,7 +98,7 @@ def get_filter_container():
                             {"label": "3ème période", "value": "3"},
                             {"label": "Prolongation", "value": "4"},
                         ],
-                        value="all",  # Sélection par défaut
+                        value="all",
                         labelStyle={"display": "block"},
                     )
                 ]
@@ -115,13 +114,13 @@ def get_filter_container():
                             {"label": "Avantage numérique", "value": "powerplay"},
                             {"label": "Désavantage numérique", "value": "short_handed"},
                         ],
-                        value="all",  # Sélection par défaut
+                        value="all",
                         labelStyle={"display": "block"},
                     )
                 ]
             ),
             html.Hr(),
-            # add slider for defending team avg time on ice
+            # Slider for defending TOI
             html.Div(
                 children=[
                     html.P("Temps de glace moyen minimal de l'équipe défensive : "),
@@ -140,14 +139,14 @@ def get_filter_container():
 
 def get_filter_pie_charts():
     return html.Div(
-        id="filter-container",  # Identifiant modifié pour éviter conflit
+        id="filter-container",
         children=[
             html.Div(
                 children=[
                     html.Label("Filtrer par équipe :"),
                     dcc.Dropdown(
                         id="team-choice",
-                        options=[],  # sera rempli dynamiquement
+                        options=[],
                         placeholder="Choisir une équipe",
                         clearable=True,
                     ),
@@ -202,27 +201,31 @@ def get_filter_pie_charts():
             ),
         ],
     )
-    
+
+
 def get_filter_stacked_bar_chart():
     return html.Div(
-            id="filter-container",
-            children=[
-                html.Div(
-                    className="stacked-mode-info",
-                    children=[
-                        html.I(className="fas fa-info-circle"),
-                        html.Span("Mode d'affichage:", className="info-text"),
-                    ]
-                ),
-                dcc.RadioItems(
-                    id='radio-items',
-                    options=[
-                        {'label': MODES['count'], 'value': MODES['count']},
-                        {'label': MODES['percent'], 'value': MODES['percent']},
-                    ],
-                    value=MODES['count'],
-                    className="stacked-radio-items"
-                ),
-            ],
-            style={"flex": "1", "marginLeft": "20px"}  # 1 part sur 4, petite colonne à droite.
-        )
+        id="filter-container",
+        children=[
+            html.Div(
+                className="stacked-mode-info",
+                children=[
+                    html.I(className="fas fa-info-circle"),
+                    html.Span("Mode d'affichage:", className="info-text"),
+                ],
+            ),
+            dcc.RadioItems(
+                id="radio-items",
+                options=[
+                    {"label": MODES["count"], "value": MODES["count"]},
+                    {"label": MODES["percent"], "value": MODES["percent"]},
+                ],
+                value=MODES["count"],
+                className="stacked-radio-items",
+            ),
+        ],
+        style={
+            "flex": "1",
+            "marginLeft": "20px",
+        },
+    )
