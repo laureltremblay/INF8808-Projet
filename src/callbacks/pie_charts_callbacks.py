@@ -1,5 +1,5 @@
 from dash import Input, Output
-from graphs.pie_charts import get_pie_chart_figure
+from graphs.advanced_stats_page_graphs.pie_charts.pie_charts import get_pie_chart_figure
 
 def register_pie_charts_callbacks(app, data_df):
     @app.callback(

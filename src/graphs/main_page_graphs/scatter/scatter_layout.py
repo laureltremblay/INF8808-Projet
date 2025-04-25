@@ -1,3 +1,9 @@
+from graphs.main_page_graphs.main_page_common_layout import (
+    add_rink_background,
+    update_axes,
+)
+
+
 def update_scatter_legend(fig, color_var):
     """
     Updates the legend title of the scatter plot figure based on the current grouping variable.
@@ -45,3 +51,10 @@ def update_scatter_hover_template(fig):
             "<extra></extra>"
         ),
     )
+
+
+def update_scatter_layout(fig, color_var, image_uri):
+    update_axes(fig)
+    update_scatter_legend(fig, color_var)
+    add_rink_background(fig, image_uri)
+    update_scatter_hover_template(fig)

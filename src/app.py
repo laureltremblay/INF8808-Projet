@@ -17,7 +17,7 @@ PORT = 8050
 
 data_df = pd.read_csv("assets/shots_2023_2024.csv")
 non_filtered_data_df = data_df.copy(deep=True)
-data_df = basic_filtering(data_df)  # This only keeps the goals!
+data_df = basic_filtering(data_df)
 
 # Register all callbacks
 register_main_page_callbacks(app, data_df)
@@ -25,8 +25,6 @@ register_stacked_bar_chart_callbacks(app, non_filtered_data_df)
 
 # Register callbacks for advanced stats page
 register_pie_charts_callbacks(app, non_filtered_data_df)
-
-# Register callbacks for advanced page
 register_advanced_page_callbacks(app)
 
 app.layout = html.Div(
@@ -55,7 +53,7 @@ app.layout = html.Div(
         html.Main(
             id="main-page-content",
             className="chosen-page",
-            children=[get_main_page_content(data_df)],  # Initial content
+            children=[get_main_page_content(data_df)],
         ),
     ],
 )

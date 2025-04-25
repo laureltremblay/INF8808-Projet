@@ -1,22 +1,25 @@
+from components.stacked_bar_chart_component import get_stacked_bar_chart_component
 from dash import html, dcc
 
-from components.stacked_bar_chart_layout import get_stacked_bar_chart_layout
-from graphs.stacked_bar_chart import get_bar_chart_figure
-from graphs.scatter_plot_pictogram import get_scatter_plot_pictogram_figure
-from graphs.pie_charts import get_pie_chart_figure
-from components.filter import get_filter_pie_charts, get_filter_stacked_bar_chart
-from components.filter import get_filter_container
+from graphs.advanced_stats_page_graphs.bar_charts.bar_chart.bar_chart import (
+    get_bar_chart_figure,
+)
+from graphs.advanced_stats_page_graphs.scatter_plot.scatter_plot_pictogram import (
+    get_scatter_plot_pictogram_figure,
+)
+from graphs.advanced_stats_page_graphs.pie_charts.pie_charts import get_pie_chart_figure
+from components.filters import get_filter_pie_charts, get_filter_stacked_bar_chart
 
 
 def get_advanced_content(data_df, team_logos=None):
     """
-    Renvoie le contenu avancé de la page comprenant trois onglets :
-      - "Analyse des tirs" : stacked bar chart et bar chart.
-      - "Par équipe" : scatter plot pictogram.
-      - "Pie Charts"   : figure composite regroupant 3 pie charts et un filtre,
-                         disposés côte à côte (le filtre à droite).
+    Returns the advanced content of the page, including three tabs:
+      - "Analyse des tirs": stacked bar chart and bar chart.
+      - "Par équipe": scatter plot pictogram.
+      - "Pie Charts": composite figure with 3 pie charts and a filter,
+                      arranged side-by-side (filter on the right).
     """
-    # On crée la figure composite pour les pie charts.
+    # Create the composite figure for the pie charts
     composite_pie_fig = get_pie_chart_figure(data_df)
 
     return html.Div(
@@ -25,17 +28,19 @@ def get_advanced_content(data_df, team_logos=None):
             html.Div(
                 className="graph-container",
                 children=[
-                    # Boutons de contrôle pour basculer entre les onglets
+                    # Control buttons to switch between tabs
                     html.Div(
-    className="info-popup-container",
-    children=[
-        html.Div(
-            className="tooltip-wrapper",
-            children=[
-                html.Button("i", id="info-button", className="info-button"),
+                        className="info-popup-container",
+                        children=[
+                            html.Div(
+                                className="tooltip-wrapper",
+                                children=[
+                                    html.Button(
+                                        "i", id="info-button", className="info-button"
+                                    ),
                                     html.Div(
                                         className="tooltip-text",
-                                        id = "tooltip-text-content-advanced",
+                                        id="tooltip-text-content-advanced",
                                         children=[],
                                     ),
                                 ],
@@ -68,12 +73,12 @@ def get_advanced_content(data_df, team_logos=None):
                             ),
                         ],
                     ),
-                    # Contenu des graphiques et filtres
+                    # Graph and filter content
                     html.Div(
                         className="graph-and-filters graph-section fade-in",
                         id="advanced-page-content",
                         children=[
-                            # Onglet : Par événement (par défaut)
+                            # Tab: By Event (default)
                             html.Div(
                                 className="stack-graph-section fade-in",
                                 id="shots-analysis-section",
@@ -81,11 +86,14 @@ def get_advanced_content(data_df, team_logos=None):
                                     html.Div(
                                         className="stacked-charts-and-filter-container",
                                         children=[
-                                            # Colonne stacked bar chart
+                                            # Stacked bar chart column
                                             html.Div(
-                                                get_stacked_bar_chart_layout(data_df), style={"flex": "4", "height": "100%"}
+                                                get_stacked_bar_chart_component(
+                                                    data_df
+                                                ),
+                                                style={"flex": "4", "height": "100%"},
                                             ),
-                                            # Colonne du filtre (placé à droite)
+                                            # Filter column (on the right)
                                             html.Div(
                                                 className="stacked-filter-div",
                                                 children=get_filter_stacked_bar_chart(),
@@ -115,11 +123,11 @@ def get_advanced_content(data_df, team_logos=None):
                                     ),
                                 ],
                             ),
-                            # Onglet : Par équipe
+                            # Tab: By Team
                             html.Div(
                                 className="team-graph-section fade-in",
                                 id="team-analysis-section",
-                                style={"display": "none"},  # Masqué par défaut
+                                style={"display": "none"},  # Hidden by default
                                 children=[
                                     html.Div(
                                         className="graph",
@@ -147,16 +155,16 @@ def get_advanced_content(data_df, team_logos=None):
                                     ),
                                 ],
                             ),
-                            # Nouvel onglet : Pie Charts
+                            # New tab: Pie Charts
                             html.Div(
                                 className="graph-section fade-in",
                                 id="pie-charts-section",
-                                style={"display": "none"},  # Masqué par défaut
+                                style={"display": "none"},  # Hidden by default
                                 children=[
                                     html.Div(
                                         className="pie-charts-and-filter-container",
                                         children=[
-                                            # Colonne des pie charts
+                                            # Pie charts column
                                             html.Div(
                                                 className="pie-charts-div",
                                                 children=[
@@ -174,7 +182,7 @@ def get_advanced_content(data_df, team_logos=None):
                                                     ),
                                                 ],
                                             ),
-                                            # Colonne du filtre (placé à droite)
+                                            # Filter column (on the right)
                                             html.Div(
                                                 className="pie-filter-div",
                                                 children=get_filter_pie_charts(),

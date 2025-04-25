@@ -30,7 +30,7 @@ def add_rink_background(fig, image_uri):
             )
         ],
         margin=dict(l=40, r=40, t=20, b=40),
-        plot_bgcolor='white',
+        plot_bgcolor="white",
     )
 
 

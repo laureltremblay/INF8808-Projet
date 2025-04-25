@@ -1,13 +1,15 @@
 from dash import html, dcc
+from graphs.advanced_stats_page_graphs.bar_charts.stacked_bar_chart.stacked_bar_chart import (
+    get_stacked_bar_chart_figure,
+)
 
-from graphs.stacked_bar_chart import MODES, get_stacked_bar_chart_figure
 
-def get_stacked_bar_chart_layout(data_df):
+def get_stacked_bar_chart_component(data_df):
     return html.Div(
         className="stacked-section",
         children=[
             html.Div(
-                className="graph stacked-graph flex-row",  # On applique .graph pour le fond translucide + survol
+                className="graph stacked-graph flex-row",
                 children=[
                     html.Div(
                         className="flex-graph-area",
@@ -25,9 +27,9 @@ def get_stacked_bar_chart_layout(data_df):
                                 style={"width": "100%", "height": "100%"},
                             )
                         ],
-                        style={"flex": "4"}
+                        style={"flex": "4"},
                     ),
-                ]
+                ],
             ),
-        ]
+        ],
     )
