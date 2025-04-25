@@ -348,12 +348,12 @@ body {
 }
 
 .heatmap-button {
-  background-color: #f4d2b5;
+  background-color: #b5cfe7;
   color: #333;
 }
 .heatmap-button.active {
-  background-color: #dd8839;
-  color: #fff;
+  background-color: #3989ca;
+  color: #fff;;
 }
 
 .stack-button {

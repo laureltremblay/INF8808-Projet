@@ -30,7 +30,7 @@ def get_pie_chart_figure(data_df):
         specs=[[{"type": "domain"}, {"type": "domain"}, {"type": "domain"}]],
         subplot_titles=(
             "Buts par période",
-            "Buts par type de match",
+            "Buts par type de parties",
             "Buts local/visiteur",
         ),
     )
